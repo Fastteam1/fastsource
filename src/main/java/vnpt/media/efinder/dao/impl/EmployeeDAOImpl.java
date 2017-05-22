@@ -22,7 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<EmployeeInfo> queryEmployees(String comId, String page, String num) {
-        String url = "http://10.1.36.36:8084/ApiBase/api/info/employee?action=getList";
+        String url = "http://10.1.36.17:8080/ApiBase/api/info/employee?action=getList";
         url = url + "&comId=" + comId + "&page=" + page + "&num=" + num;
         String data = Utils.readUrl(url);
         List<EmployeeInfo> listEmployees = Utils.stringToArray(data, EmployeeInfo[].class);

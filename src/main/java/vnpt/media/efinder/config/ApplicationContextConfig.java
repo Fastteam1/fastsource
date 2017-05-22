@@ -23,12 +23,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import vnpt.media.efinder.dao.CustomerDAO;
+import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.dao.GameCategoryDAO;
 import vnpt.media.efinder.dao.GameServiceNumberDAO;
 import vnpt.media.efinder.dao.GameTemplateDAO;
 import vnpt.media.efinder.dao.RoleUserDAO;
 import vnpt.media.efinder.dao.impl.CustomerDAOImpl;
+import vnpt.media.efinder.dao.impl.DeviceDAOImpl;
 import vnpt.media.efinder.dao.impl.EmployeeDAOImpl;
 import vnpt.media.efinder.dao.impl.GameCategoryDAOImpl;
 import vnpt.media.efinder.dao.impl.GameTemplateDAOImpl;
@@ -138,5 +140,9 @@ public class ApplicationContextConfig {
     @Bean(name = "employeeDAO")
     public EmployeeDAO getEmployeeDAO() {
         return new EmployeeDAOImpl();
+    }
+    @Bean(name = "deviceDAO")
+    public DeviceDAO getDeviceDAO() {
+        return new DeviceDAOImpl();
     }
 }
