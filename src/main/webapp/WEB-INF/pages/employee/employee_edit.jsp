@@ -31,23 +31,25 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" >Game Template Form</h4>
                 </div>
-                <form action="${pageContext.request.contextPath}/employee" method="POST" class="form-horizontal" id="gameTemplate-form" >
+                <form action="" method="POST" class="form-horizontal" id="viewForm">
                     <div class="modal-body">
-
-                        <div class="form-group hidden"> 
-                            <label for="id-input" class="col-sm-2 control-label">ID</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="viewForm-id" placeholder="id" name="id" >
+                        <spring:bind path="id">
+                            <div class="form-group hidden"> 
+                                <label for="id-input" class="col-sm-2 control-label">ID</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="viewForm-id" placeholder="id" name="id" >
+                                </div>
                             </div>
-                        </div>
+                        </spring:bind>
 
-
-                        <div class="form-group">
-                            <label for="name-input" class="col-sm-2 control-label">Tên nhân viên</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="viewForm-name" placeholder="name" name="name" required>
-                            </div>
-                        </div>   
+                        <spring:bind path="name">
+                            <div class="form-group">
+                                <label for="name-input" class="col-sm-2 control-label">Tên nhân viên</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="viewForm-name" placeholder="name" name="name" required>
+                                </div>
+                            </div>   
+                        </spring:bind>
 
                         <spring:bind path="phone">
                             <div class="form-group">
@@ -78,6 +80,15 @@
                         </spring:bind>
 
 
+                        <spring:bind path="department">
+                            <div class="form-group">
+                                <label for="department-input" class="col-sm-2 control-label">Bộ phận</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="viewForm-department" placeholder="department" name="department" required>
+                                </div>
+                            </div>   
+                        </spring:bind>
+
                         <spring:bind path="description">
                             <div class="form-group">
                                 <label for="description-input" class="col-sm-2 control-label">Mô tả</label>
@@ -101,7 +112,13 @@
         </div>
     </div>
 
-    <script type="text/javascript" lang="javascript">
+    <script>
+        $(document).on('submit', '#viewForm', function (e) {
+            event.preventDefault();
+            editViaAjax();
+        });
+
+
         function getViaAjax(objId) {
 
             var json = {
@@ -149,8 +166,77 @@
             $("#viewForm-phone").val(data.phone);
             $("#viewForm-email").val(data.email);
             $("#viewForm-address").val(data.address);
+            $("#viewForm-department").val(data.department);
             $("#viewForm-description").val(data.description);
             $('#ojectView').modal('show');
+        }
+
+
+        function editViaAjax() {
+            var edit = {};
+
+            edit["id"] = $("#viewForm-id").val().trim();
+            edit["name"] = $("#viewForm-name").val().trim();
+            edit["phone"] = $("#viewForm-phone").val().trim();
+            edit["description"] = $("#viewForm-description").val().trim();
+            edit["address"] = $("#viewForm-address").val().trim();
+            edit["department"] = $("#viewForm-department").val().trim();
+            edit["email"] = $("#viewForm-email").val().trim();
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "employee/update",
+                data: JSON.stringify(edit),
+                dataType: 'text',
+                timeout: 100000,
+                success: function (data) {
+                    $('#ojectView').modal("hide");
+                    var type = $.trim(data.toString()).split('|')[1];
+                    if (type === undefined) {
+                        type = 'error';
+                    }
+
+                    new PNotify({
+                        title: "Thông báo",
+                        text: $.trim(data.toString()).split('|')[0],
+                        type: type,
+                        delay: 3000,
+                        styling: "jqueryui",
+                        addclass: 'custom-notif',
+                        mouse_reset: false,
+                        buttons: {
+                            sticker: false,
+                            closer_hover: false,
+                        }
+                    });
+
+                    if (type !== 'error') {
+                        $('#ojectView').on('hidden.bs.modal', function () {
+                            history.go(0);
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log("ERROR: ", e);
+                    new PNotify({
+                        title: "Thông báo",
+                        text: "Có lỗi xảy ra",
+                        type: "error",
+                        delay: 3000,
+                        styling: "jqueryui",
+                        addclass: 'custom-notif',
+                        mouse_reset: false,
+                        buttons: {
+                            sticker: false,
+                            closer_hover: false
+                        }
+                    });
+                },
+                done: function (e) {
+                    console.log("DONE");
+                }
+            });
         }
     </script>
 

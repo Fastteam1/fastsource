@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.CustomerDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.util.Utils;
@@ -19,10 +21,13 @@ import vnpt.media.efinder.util.Utils;
  */
 public class CustomerDAOImpl implements CustomerDAO {
 
+    @Autowired
+    private Environment env;
+    
     @Override
     public List<CustomerInfo> queryCustomers(String username, String password) {
         try {
-            String url = "http://10.1.36.36:8084/ApiBase/api/login";
+            String url = env.getProperty("API_ROOT") + "login";
             String urlParameters = "username=" + username + "&password=" + password;
             
             String dataPost = Utils.readUrlPOST(url, urlParameters);

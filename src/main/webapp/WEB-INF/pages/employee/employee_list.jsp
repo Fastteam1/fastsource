@@ -155,8 +155,7 @@
             <jsp:include page="../include/footer.jsp" />
             <jsp:include page="../include/setting.jsp" />
 
-            <!-- ADD VIEW FORM -->
-            <%@include file="employee_edit.jsp"%>
+
             <!-- ./wrapper -->
         </div>
         <!-- jQuery 2.2.3 -->
@@ -187,11 +186,6 @@
         <script src="plugins/daterangepicker/moment.js"></script>
         <!-- bootstrap datetimepicker -->
         <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-
-        <script>
-            document.getElementById("GameProcess").className = "active";
-            document.getElementById("GameTemp").className = "active";
-        </script>
         <script>
             $(function () {
                 $("#example1").DataTable({
@@ -204,60 +198,10 @@
                 });
             });
         </script>
-        <script>
-            $(document).on('submit', '#gameTemplate-form', function (e) {
-                e.preventDefault();
-                var gameTempId = $('#gameTempId-input').val();
-                var gameTempName = $('#gameTempName-input').val();
-                var gameCateId = $('#category').val();
-                var status = $('#status-input').val();
-                var isQuestion = $('#isQuestion-input').val();
-                var description = $('#description-input').val();
-                var json = {
-                    "gameTempId": gameTempId,
-                    "gameCateId": gameCateId,
-                    "gameTempName": gameTempName,
-                    "description": description,
-                    "status": status,
-                    "isQuestion": isQuestion
-                };
-                $.ajax({
-                    type: 'POST',
-                    contentType: 'application/json',
-                    dataType: 'text',
-                    url: 'gameTemplate',
-                    data: JSON.stringify(json),
-                    success: function (data) {
-                        $('#insert-modal').modal("hide");
-                        var type = $.trim(data.toString()).split('|')[1];
-                        if (type === undefined) {
-                            type = 'error';
-                        }
-                        new PNotify({
-                            title: "Thông báo",
-                            text: $.trim(data.toString()).split('|')[0],
-                            type: type,
-                            delay: 3000,
-                            styling: "jqueryui",
-                            addclass: 'custom-notif',
-                            mouse_reset: false,
-                            buttons: {
-                                sticker: false,
-                                closer_hover: false
-                            }
-                        });
-                        if (type !== 'error') {
-                            $('#insert-modal').on('hidden.bs.modal', function () {
-                                history.go(0);
-                            });
-                        }
 
-                    }
-                });
-                return false;
-            });
-        </script>
 
+        <!-- ADD VIEW FORM -->
+        <%@include file="employee_edit.jsp"%>
 
     </body>
 </html>

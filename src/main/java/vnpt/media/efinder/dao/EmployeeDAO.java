@@ -18,4 +18,8 @@ public interface EmployeeDAO {
     public List<EmployeeInfo> findEmployeeInfo(String comId, String employeeId);
     
     public boolean updateEmployeeInfo(EmployeeInfo employeeInfo);
+    
+    public boolean insertEmployeeInfo(EmployeeInfo employeeInfo);
+    
+    public boolean deleteEmployeeInfo(String employeeId);
 }

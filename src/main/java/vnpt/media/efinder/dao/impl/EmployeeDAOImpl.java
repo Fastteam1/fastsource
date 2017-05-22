@@ -22,7 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<EmployeeInfo> queryEmployees(String comId, String page, String num) {
-        String url = "http://10.1.36.36:8084/ApiBase/api/info/employee?action=getList";
+        String url = "http://10.1.36.17:8080/ApiBase/api/info/employee?action=getList";
         url = url + "&comId=" + comId + "&page=" + page + "&num=" + num;
         String data = Utils.readUrl(url);
         List<EmployeeInfo> listEmployees = Utils.stringToArray(data, EmployeeInfo[].class);
@@ -31,7 +31,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<EmployeeInfo> findEmployeeInfo(String comId, String employeeId) {
-        String url = "http://10.1.36.36:8084/ApiBase/api/info/employee?action=getInfo";
+        String url = "http://10.1.36.17:8080/ApiBase/api/info/employee?action=getInfo";
         url = url + "&comId=" + comId + "&employeeId=" + employeeId;
         String data = Utils.readUrl(url);
         List<EmployeeInfo> listEmployees = Utils.stringToArray(data, EmployeeInfo[].class);
@@ -41,7 +41,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public boolean updateEmployeeInfo(EmployeeInfo employeeInfo) {
         try {
-            String url = "http://10.1.36.36:8084/ApiBase/api/info/employee/update?employeeId=" + employeeInfo.getId();
+            String url = "http://10.1.36.17:8080/ApiBase/api/info/employee/update?employeeId=" + employeeInfo.getId();
 
             String urlParameters = "name=" + employeeInfo.getName() + "&phone=" + employeeInfo.getPhone()
                     + "&department=" + employeeInfo.getDepartment() + "&description=" + employeeInfo.getDescription()
@@ -59,11 +59,30 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
     }
 
-    public static void main(String[] args) {
-        EmployeeInfo e = new EmployeeInfo();
-        e.setId("1");
-        e.setName("TranLong");
-        System.out.println(new EmployeeDAOImpl().updateEmployeeInfo(e));
+    @Override
+    public boolean insertEmployeeInfo(EmployeeInfo employeeInfo) {
+        try {
+            String url = "http://10.1.36.17:8080/ApiBase/api/info/employee/insert" + employeeInfo.getId();
+
+            url += "?comId=" + employeeInfo.getCompanyId() + "&name=" + employeeInfo.getName() + "&phone=" + employeeInfo.getPhone()
+                    + "&department=" + employeeInfo.getDepartment() + "&description=" + employeeInfo.getDescription()
+                    + "&address=" + employeeInfo.getAddress() + "&email=" + employeeInfo.getEmail();
+
+            String data = Utils.readUrl(url);
+
+            Gson gson = new Gson();
+            JsonObject root = gson.fromJson(data, JsonObject.class);
+            String errorCode = root.get("errorCode").toString();
+            return errorCode.equalsIgnoreCase("0");
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteEmployeeInfo(String employeeId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

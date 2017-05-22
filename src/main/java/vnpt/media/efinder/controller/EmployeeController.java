@@ -74,13 +74,25 @@ public class EmployeeController {
         return listEmployees;
     }
 
-//    @RequestMapping(value = {"/employee/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-//    @Transactional(propagation = Propagation.NEVER)
-//    public @ResponseBody
-//    String checkLogin(@RequestBody EmployeeInfo obj, Model model, HttpServletRequest request) throws Exception {
-//
-//        String fdf = employeeDAO.updateEmployeeInfo(employeeInfo);
-//        request.getSession().setAttribute("customerInfo", listCustomers);
-//        return "";
-//    }
+    @RequestMapping(value = {"/employee/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public @ResponseBody
+    String updateEmployee(@RequestBody EmployeeInfo employeeInfo, Model model, HttpServletRequest request) throws Exception {
+        
+        System.out.println("OKKKKKKKKKKKK--->" + employeeInfo);
+        model.addAttribute("employeeInfo", employeeInfo);
+        boolean result = false;
+        try {
+            result = employeeDAO.updateEmployeeInfo(employeeInfo);
+            System.out.println("Luu thanh cong du lieu ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình lưu dữ liệu!";
+        }
+        if (result) {
+            return "Cập nhật dữ liệu thành công. |success";
+        } else {
+            return "Cập nhật dữ liệu thất bại. |error";
+        }
+    }
 }

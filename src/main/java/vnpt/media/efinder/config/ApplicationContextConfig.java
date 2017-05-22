@@ -33,6 +33,7 @@ import vnpt.media.efinder.dao.impl.EmployeeDAOImpl;
 import vnpt.media.efinder.dao.impl.GameCategoryDAOImpl;
 import vnpt.media.efinder.dao.impl.GameTemplateDAOImpl;
 import vnpt.media.efinder.dao.impl.RoleUserDAOImpl;
+import vnpt.media.efinder.util.Constants;
 
 /**
  *
@@ -42,7 +43,7 @@ import vnpt.media.efinder.dao.impl.RoleUserDAOImpl;
 @ComponentScan("vnpt.media.efinder.*")
 @EnableTransactionManagement
 // Load to Enviroment
-@PropertySource("classpath:ds-hibernate-cfg.properties")
+@PropertySource(value = {"classpath:ds-hibernate-cfg.properties", "classpath:config.properties"})
 public class ApplicationContextConfig {
 
     // Luu tru cac gia thuoc tinh load boi @PropertySource
@@ -139,4 +140,5 @@ public class ApplicationContextConfig {
     public EmployeeDAO getEmployeeDAO() {
         return new EmployeeDAOImpl();
     }
+    
 }
