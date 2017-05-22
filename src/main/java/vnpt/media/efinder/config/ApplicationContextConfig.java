@@ -23,17 +23,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import vnpt.media.efinder.dao.CustomerDAO;
+import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.dao.GameCategoryDAO;
 import vnpt.media.efinder.dao.GameServiceNumberDAO;
 import vnpt.media.efinder.dao.GameTemplateDAO;
 import vnpt.media.efinder.dao.RoleUserDAO;
 import vnpt.media.efinder.dao.impl.CustomerDAOImpl;
+import vnpt.media.efinder.dao.impl.DeviceDAOImpl;
 import vnpt.media.efinder.dao.impl.EmployeeDAOImpl;
 import vnpt.media.efinder.dao.impl.GameCategoryDAOImpl;
 import vnpt.media.efinder.dao.impl.GameTemplateDAOImpl;
 import vnpt.media.efinder.dao.impl.RoleUserDAOImpl;
-import vnpt.media.efinder.util.Constants;
 
 /**
  *
@@ -43,7 +44,7 @@ import vnpt.media.efinder.util.Constants;
 @ComponentScan("vnpt.media.efinder.*")
 @EnableTransactionManagement
 // Load to Enviroment
-@PropertySource(value = {"classpath:ds-hibernate-cfg.properties", "classpath:config.properties"})
+@PropertySource("classpath:ds-hibernate-cfg.properties")
 public class ApplicationContextConfig {
 
     // Luu tru cac gia thuoc tinh load boi @PropertySource
@@ -140,5 +141,8 @@ public class ApplicationContextConfig {
     public EmployeeDAO getEmployeeDAO() {
         return new EmployeeDAOImpl();
     }
-    
+    @Bean(name = "deviceDAO")
+    public DeviceDAO getDeviceDAO() {
+        return new DeviceDAOImpl();
+    }
 }
