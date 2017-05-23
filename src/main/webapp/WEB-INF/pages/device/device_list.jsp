@@ -62,44 +62,19 @@
                             <div class="box">
                                 <div class="box-body">
                                     <table class="table table-hover" style="width: 35%">
-                                        <thead>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-search"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" placeholder="Tên mẫu Game...">
-
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
+                                        <tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <a data-toggle="modal" href="#insert-modal" id ="add-form">
                                                             <button type="button" class="btn btn-info">
-                                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Tìm kiếm
+                                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm mới
                                                             </button>
-                                                        </div>
+                                                        </a>
                                                     </div>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <a data-toggle="modal" href="#insert-modal" id ="add-form">
-                                                                <button type="button" class="btn btn-info">
-                                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm mới
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            <tr>
-                                        </thead>
+                                                </div>
+                                            </td>
+                                        <tr>
                                     </table>
 
                                     <table id="example1" class="table table-bordered">
@@ -189,18 +164,19 @@
         <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
         <script>
-            document.getElementById("GameProcess").className = "active";
-            document.getElementById("GameTemp").className = "active";
+                                                                                         document.getElementById("GameProcess").className = "active";
+                                                                                         document.getElementById("GameTemp").className = "active";
         </script>
         <script>
             $(function () {
                 $("#example1").DataTable({
                     "paging": true,
-                    "lengthChange": false,
+                    "lengthChange": true,
                     "ordering": true,
                     "info": true,
                     "autoWidth": true,
-                    "searching": false
+                    "searching": true,
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
                 });
             });
         </script>

@@ -34,6 +34,16 @@
         <link href="pages/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" >
         <!-- daterange picker -->
         <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+        <style>
+            /*            .dataTables_wrapper .dataTables_length {
+                            float: right;
+                        }
+                        .dataTables_wrapper .dataTables_filter {
+                            float: left;
+                            text-align: left;
+                        }*/
+
+        </style>
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -62,46 +72,28 @@
                             <div class="box">
                                 <div class="box-body">
                                     <table class="table table-hover" style="width: 35%">
-                                        <thead>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-search"></i>
-                                                            </div>
-                                                            <input type="text" class="form-control" placeholder="Tên mẫu Game...">
-
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
+                                        <tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <a data-toggle="modal" href="#insert-modal" id ="add-form">
                                                             <button type="button" class="btn btn-info">
-                                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Tìm kiếm
+                                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm mới
                                                             </button>
-                                                        </div>
+                                                        </a>
                                                     </div>
-                                                </td>
-
-                                                <td>
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <a data-toggle="modal" href="#insert-modal" id ="add-form">
-                                                                <button type="button" class="btn btn-info">
-                                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm mới
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            <tr>
-                                        </thead>
+                                                </div>
+                                            </td>
+                                        <tr>
                                     </table>
-
+                                    <!--                                    <div class="row">
+                                                                            <div class="col-sm-6"></div>
+                                                                            <div class="col-sm-6"><div id="example1_filter" class="dataTables_filter">
+                                                                                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1">
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>-->
                                     <table id="example1" class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -187,16 +179,18 @@
         <!-- bootstrap datetimepicker -->
         <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script>
-            $(function () {
-                $("#example1").DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": true,
-                    "searching": false
-                });
-            });
+                                                                                         $(function () {
+                                                                                             $("#example1").DataTable({
+                                                                                                 "paging": true,
+                                                                                                 "lengthChange": true,
+                                                                                                 "ordering": true,
+                                                                                                 "info": true,
+                                                                                                 "autoWidth": true,
+                                                                                                 "searching": true,
+                                                                                                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                                                                                                 responsive: true
+                                                                                             });
+                                                                                         });
         </script>
 
 

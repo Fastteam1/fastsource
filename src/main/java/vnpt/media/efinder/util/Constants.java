@@ -11,4 +11,5 @@ package vnpt.media.efinder.util;
  * @author vnpt2
  */
 public class Constants {
+    
 }

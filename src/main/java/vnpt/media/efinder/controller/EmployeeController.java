@@ -78,7 +78,12 @@ public class EmployeeController {
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
     String updateEmployee(@RequestBody EmployeeInfo employeeInfo, Model model, HttpServletRequest request) throws Exception {
-        
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+
         System.out.println("OKKKKKKKKKKKK--->" + employeeInfo);
         model.addAttribute("employeeInfo", employeeInfo);
         boolean result = false;
@@ -89,6 +94,30 @@ public class EmployeeController {
             System.out.println("Loi Try catch");
             return "Có lỗi xảy ra trong quá trình lưu dữ liệu!";
         }
+        if (result) {
+            return "Cập nhật dữ liệu thành công. |success";
+        } else {
+            return "Cập nhật dữ liệu thất bại. |error";
+        }
+    }
+
+    @RequestMapping("/employee/deactive")
+    public @ResponseBody
+    String deActiveEmployee(@RequestParam(value = "employeeId", defaultValue = "0") String employeeId, Model model, HttpServletRequest request) throws Exception {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+        boolean result = false;
+        try {
+            result = employeeDAO.deleteEmployeeInfo(employeeId);
+            System.out.println("DeActive thanh cong ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình xử lý!";
+        }
+
         if (result) {
             return "Cập nhật dữ liệu thành công. |success";
         } else {
