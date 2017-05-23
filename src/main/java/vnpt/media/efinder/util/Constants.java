@@ -5,11 +5,12 @@
  */
 package vnpt.media.efinder.util;
 
-
 /**
  *
  * @author vnpt2
  */
-public class Constants {
-    
+public interface Constants {
+    public final String API_ROOT = "api.root";
+    public final String API_EMPLOYEE = "api.employee";
+    public final String API_GEOFENCE = "api.geofence";
 }

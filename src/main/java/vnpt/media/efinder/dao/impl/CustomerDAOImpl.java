@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.CustomerDAO;
 import vnpt.media.efinder.model.CustomerInfo;
+import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
 /**
@@ -27,7 +28,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public List<CustomerInfo> queryCustomers(String username, String password) {
         try {
-            String url = env.getProperty("API_ROOT") + "login";
+            String url = env.getProperty(Constants.API_ROOT) + "/login";
             String urlParameters = "username=" + username + "&password=" + password;
             
             String dataPost = Utils.readUrlPOST(url, urlParameters);

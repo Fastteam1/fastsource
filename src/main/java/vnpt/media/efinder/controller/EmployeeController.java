@@ -69,7 +69,7 @@ public class EmployeeController {
             comId = customerInfo.getCompanyId();
             //System.out.println(comId);
         }
-        List<EmployeeInfo> listEmployees = employeeDAO.findEmployeeInfo(comId, employeeId);
+        List<EmployeeInfo> listEmployees = employeeDAO.findEmployeeInfoById(comId, employeeId);
 
         return listEmployees;
     }
