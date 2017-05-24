@@ -56,28 +56,7 @@ public class DeviceController {
         return "/device/device_list";
     }
     
-     @Autowired
-    private EmployeeDAO employeeDAO;
-
-    @RequestMapping({"/employeeList2"})
-    public String getListEmployee(Model model,
-            @RequestParam(value = "comId", defaultValue = "1") String comId,
-            @RequestParam(value = "page", defaultValue = "1") String page,
-            @RequestParam(value = "num", defaultValue = "999999999") String num,
-            HttpServletRequest request) {
-
-        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
-        if (listCustomers.isEmpty()) {
-            return "/forms/login";
-        } else {
-            CustomerInfo customerInfo = listCustomers.get(0);
-            comId = customerInfo.getCompanyId();
-        }
-        
-        List<DeviceInfo> listDevices = deviceDAO.getAllDeviceInfo(comId, page, num);
-        model.addAttribute("listDevices", listDevices);
-        return "/device/device_list";
-    }
+    
     
     @RequestMapping({"/device/getdetail"})
     public @ResponseBody
@@ -101,7 +80,7 @@ public class DeviceController {
     
     @RequestMapping(value = {"/device/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
-    public 
+    public @ResponseBody
     String updateDevice(@RequestBody DeviceInfo deviceInfo, Model model, HttpServletRequest request) throws Exception {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);

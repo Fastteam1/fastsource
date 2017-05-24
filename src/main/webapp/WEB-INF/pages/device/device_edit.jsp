@@ -109,6 +109,8 @@
             editViaAjax();
         }
         function getViaAjax(objId) {
+            
+            alert("getViaAjax");
 
             var json = {
                 "deviceId": objId
@@ -120,7 +122,10 @@
                 data: json,
                 dataType: 'json',
                 timeout: 100000,
+                cache: false,
+                async: false,
                 success: function (data) {
+                    alert('1');
                     console.log("SUCCESS: ", data === null);
                     if (data.length !== 0) {
                         showForm(data[0]);
@@ -132,6 +137,7 @@
                             delay: 3000,
                             styling: "jqueryui",
                             addclass: 'custom-notif',
+                            
                             mouse_reset: false,
                             buttons: {
                                 sticker: false,
@@ -222,6 +228,47 @@
             $("#viewForm-os").val(data.os);
             $("#viewForm-phone").val(data.msisdn);
             $('#ojectView').modal('show');
+        }
+        
+        function deleteViaAjax(objId) {
+
+            if (objId === null || objId === "") {
+                objId = parseInt($("#viewForm-id").val());
+            }
+
+            if (objId !== null) {
+                var confirm_check = confirm("${deleteConfirmMessage}");
+                if (confirm_check === true) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json",
+                        url: "${pageInfo.url}/delete/" + objId,
+                        data: JSON.stringify(""),
+                        dataType: 'json',
+                        timeout: 100000,
+                        success: function (data) {
+                            console.log("SUCCESS: ", data);
+                            alert(data.msg);
+                            $('#ojectView').modal('hide');
+                            goToPage("${pageInfo.url}/list/", ${pageInfo.destPage});
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
+                            alert(e.msg);
+                        },
+                        done: function (e) {
+                            console.log("DONE");
+                            enableButton("btn-edit", true);
+                            enableButton("btn-delete", true);
+                        }
+                    });
+
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
         }
     </script>
 

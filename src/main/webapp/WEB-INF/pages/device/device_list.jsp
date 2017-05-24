@@ -105,8 +105,9 @@
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
 
-                                                        <button type="button" class="btn btn-xs btn-info edit-Template" data-toggle="modal" data-target="#insert-modal">
-                                                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                                                        <button type="button" class="btn btn-xs btn-danger edit-Template " data-toggle="modal" 
+                                                                data-placement="top" title="Xóa" onclick="deleteViaAjax(${device.id});" id="delete-employee">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
                                                     </td>
 
