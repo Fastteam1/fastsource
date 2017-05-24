@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
+import vnpt.media.efinder.model.EmployeeInfo;
 import vnpt.media.efinder.util.Utils;
 
 /**
@@ -77,11 +79,11 @@ public class DeviceController {
         return "/device/device_list";
     }
     
-    @RequestMapping({"/device"})
-    public 
+    @RequestMapping({"/device/getdetail"})
+    public @ResponseBody
     List<DeviceInfo> getDeviceById(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
-            @RequestParam(value = "deviceId", defaultValue = "0") String employeeId,
+            @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
             HttpServletRequest request) {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
@@ -92,9 +94,9 @@ public class DeviceController {
             comId = customerInfo.getCompanyId();
             //System.out.println(comId);
         }
-        List<DeviceInfo> listDevice = deviceDAO.findDeviceInfo(comId, employeeId);
+        List<DeviceInfo> listDevices = deviceDAO.findDeviceInfo(comId, deviceId);
 
-        return listDevice;
+        return listDevices;
     }
     
     @RequestMapping(value = {"/device/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")

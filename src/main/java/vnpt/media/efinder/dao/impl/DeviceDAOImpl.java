@@ -34,9 +34,9 @@ public class DeviceDAOImpl implements DeviceDAO {
     }
 
     @Override
-    public List<DeviceInfo> findDeviceInfo(String comId, String employeeId) {
+    public List<DeviceInfo> findDeviceInfo(String comId, String deviceId) {
         String url = "http://10.1.36.17:8080/ApiBase/api/info/device?action=getInfo";
-        url = url + "&comId=" + comId + "&deviceId=" + employeeId;
+        url = url + "&comId=" + comId + "&deviceId=" + deviceId;
         String data = Utils.readUrl(url);
         List<DeviceInfo> listDevice = Utils.stringToArray(data, DeviceInfo[].class);
         return listDevice;
