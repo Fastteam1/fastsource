@@ -6,26 +6,29 @@
 package vnpt.media.efinder.dao.impl;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.model.DeviceInfo;
-import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
 /**
  *
  * @author Boss
  */
-public class DeviceDAOImpl implements DeviceDAO{
+public class DeviceDAOImpl implements DeviceDAO {
+
+    @Autowired
+    private Environment env;
 
     @Override
-    public List<DeviceInfo> getAllDeviceInfo(String comID, String page, String num) {
-        String url = "http://10.1.36.17:8080/ApiBase/api/info/device?action=getList";
-        url = url + "&comId=" + comID + "&page=" + page + "&num=" + num;
+    public List<DeviceInfo> getAllDeviceInfo(String comId, String page, String num) {
+        String url = env.getProperty(Constants.API_ROOT) + "/info/device?action=getList";
+        url = url + "&comId=" + comId + "&page=" + page + "&num=" + num;
         String data = Utils.readUrl(url);
-        List<DeviceInfo> listEmployees = Utils.stringToArray(data, DeviceInfo[].class);
-        return listEmployees;
+        List<DeviceInfo> listDevices = Utils.stringToArray(data, DeviceInfo[].class);
+        return listDevices;
     }
-    
-    
-    
+
 }

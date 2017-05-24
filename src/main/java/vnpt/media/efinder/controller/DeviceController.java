@@ -9,18 +9,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
-import vnpt.media.efinder.dao.impl.DeviceDAOImpl;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
@@ -35,12 +29,32 @@ import vnpt.media.efinder.util.Utils;
 public class DeviceController {
 
     @Autowired
-    private EmployeeDAO employeeDAO;
-    
-    @Autowired
     private DeviceDAO deviceDAO;
 
     @RequestMapping({"/deviceList"})
+    public String getListDevice(Model model,
+            @RequestParam(value = "comId", defaultValue = "1") String comId,
+            @RequestParam(value = "page", defaultValue = "1") String page,
+            @RequestParam(value = "num", defaultValue = "999999999") String num,
+            HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "/forms/login";
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+        }
+
+        List<DeviceInfo> listDevice = deviceDAO.getAllDeviceInfo(comId, page, num);
+        model.addAttribute("listDevice", listDevice);
+        return "/device/device_list";
+    }
+    
+     @Autowired
+    private EmployeeDAO employeeDAO;
+
+    @RequestMapping({"/employeeList2"})
     public String getListEmployee(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
             @RequestParam(value = "page", defaultValue = "1") String page,
@@ -55,10 +69,9 @@ public class DeviceController {
             comId = customerInfo.getCompanyId();
         }
 
-        deviceDAO = new DeviceDAOImpl();
-        List<DeviceInfo> listDevice = deviceDAO.getAllDeviceInfo(comId, page, num);
-        model.addAttribute("listDevice", listDevice);
-        return "/device/device_list";
+        List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
+        model.addAttribute("listEmployees", listEmployees);
+        return "/employee/employee_list";
     }
 
 //    @RequestMapping({"/employee"})
@@ -80,7 +93,6 @@ public class DeviceController {
 //
 //        return listEmployees;
 //    }
-
 //    @RequestMapping(value = {"/employee/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 //    @Transactional(propagation = Propagation.NEVER)
 //    public @ResponseBody
