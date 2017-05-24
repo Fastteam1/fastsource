@@ -29,7 +29,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" >Thêm mới thiết bị</h4>
+                    <h4 class="modal-title" >Thêm mới thiết bịn</h4>
                 </div>
                 <form action="" method="POST" class="form-horizontal" id="addForm">
                     <div class="modal-body">
@@ -52,55 +52,43 @@
                             </div>   
                         </spring:bind>
 
+                        <spring:bind path="type">
+                            <div class="form-group">
+                                <label for="type-input" class="col-sm-2 control-label">Loại thiết bị</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="addForm-type" placeholder="type" name="type" >
+                                </div>
+                            </div>   
+                        </spring:bind>
+
+
+                        <spring:bind path="os">
+                            <div class="form-group">
+                                <label for="os-input" class="col-sm-2 control-label">Hệ điều hành</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="addForm-os" placeholder="os" name="os" >
+                                </div>
+                            </div>   
+                        </spring:bind>
+
+                        <spring:bind path="imei">
+                            <div class="form-group">
+                                <label for="imei-input" class="col-sm-2 control-label">IMEI</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="addForm-imei" placeholder="imei" name="email">
+                                </div>
+                            </div>   
+                        </spring:bind>
+
+
                         <spring:bind path="phone">
                             <div class="form-group">
-                                <label for="phone-input" class="col-sm-2 control-label">Loại thiết bị</label>
+                                <label for="phone-input" class="col-sm-2 control-label">Số điện thoại</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="addForm-type" placeholder="phone" name="phone" required>
+                                    <input type="text" class="form-control" id="addForm-phone" placeholder="phone" name="department" required>
                                 </div>
                             </div>   
                         </spring:bind>
-
-
-                        <spring:bind path="address">
-                            <div class="form-group">
-                                <label for="address-input" class="col-sm-2 control-label">Hệ điều hành</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-os" placeholder="address" name="address" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-                        <spring:bind path="email">
-                            <div class="form-group">
-                                <label for="email-input" class="col-sm-2 control-label">IMEI</label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="addForm-email" placeholder="email" name="email" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-
-                        <spring:bind path="department">
-                            <div class="form-group">
-                                <label for="department-input" class="col-sm-2 control-label">Bộ phận</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-department" placeholder="department" name="department" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-                        <spring:bind path="description">
-                            <div class="form-group">
-                                <label for="description-input" class="col-sm-2 control-label">Mô tả</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-description" placeholder="description" name="description" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-
-
                     </div>
 
                     <div class="modal-footer">
@@ -120,19 +108,20 @@
         });
         
         function addViaAjax() {
+            
             var add = {};
 
             add["name"] = $("#addForm-name").val().trim();
-            add["phone"] = $("#addForm-phone").val().trim();
-            add["description"] = $("#addForm-description").val().trim();
-            add["address"] = $("#addForm-address").val().trim();
-            add["department"] = $("#addForm-department").val().trim();
-            add["email"] = $("#addForm-email").val().trim();
+            add["type"] = $("#addForm-type").val().trim();
+            add["os"] = $("#addForm-os").val().trim();
+            add["imei"] = $("#addForm-imei").val().trim();
+            add["msisdn"] = $("#addForm-phone").val().trim();
+            alert($("#addForm-phone").val().trim());
 
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "${urlInfo}/insert",
+                url: "device/insert",
                 data: JSON.stringify(add),
                 dataType: 'text',
                 timeout: 100000,

@@ -18,4 +18,7 @@ public interface DeviceDAO {
     public List<DeviceInfo> findDeviceInfo(String comId,String deviceId);
     
     public boolean updateDeviceInfo(DeviceInfo deviceInfo);
+    public boolean deleteDeviceInfo(String employeeId);
+    
+    public boolean insertDeviceInfo(DeviceInfo employeeInfo);
 }

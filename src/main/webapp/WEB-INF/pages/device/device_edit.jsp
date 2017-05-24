@@ -231,6 +231,8 @@
         }
         
         function deleteViaAjax(objId) {
+            
+            alert("deleteViaAjax");
 
             if (objId === null || objId === "") {
                 objId = parseInt($("#viewForm-id").val());
@@ -240,20 +242,36 @@
                 var confirm_check = confirm("${deleteConfirmMessage}");
                 if (confirm_check === true) {
                     $.ajax({
-                        type: "GET",
-                        contentType: "application/json",
-                        url: "${pageInfo.url}/delete/" + objId,
-                        data: JSON.stringify(""),
-                        dataType: 'json',
+                        type: "POST",
+                        url: "device/deactive",
+                        dataType: 'text',
+                        data: {
+                            "deviceId": objId
+                        },
                         timeout: 100000,
                         success: function (data) {
-                            console.log("SUCCESS: ", data);
-                            alert(data.msg);
-                            $('#ojectView').modal('hide');
+                            var type = $.trim(data.toString()).split('|')[1];
+                            if (type === undefined) {
+                                type = 'error';
+                            }
+                            alert($.trim(data.toString()).split('|')[0]);
+                            window.location.href = "${urlProject}/employeeList";
                         },
                         error: function (e) {
                             console.log("ERROR: ", e);
-                            alert(e.msg);
+                            new PNotify({
+                                title: "Thông báo",
+                                text: "Có lỗi xảy ra",
+                                type: "error",
+                                delay: 3000,
+                                styling: "jqueryui",
+                                addclass: 'custom-notif',
+                                mouse_reset: false,
+                                buttons: {
+                                    sticker: false,
+                                    closer_hover: false
+                                }
+                            });
                         },
                         done: function (e) {
                             console.log("DONE");
@@ -267,6 +285,7 @@
                 return;
             }
         }
+        
     </script>
 
 </body>

@@ -8,6 +8,8 @@ package vnpt.media.efinder.dao.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.DeviceDAO;
@@ -61,5 +63,48 @@ public class DeviceDAOImpl implements DeviceDAO {
             return false;
         }
     }
+
+    @Override
+    public boolean deleteDeviceInfo(String deviceId) {
+        try {
+
+            System.out.println("deviceId: " + deviceId);
+            String url = env.getProperty(Constants.API_DEVICE) + "?action=deactive";
+            url += "&deviceId=" + deviceId;
+            String data = Utils.readUrl(url);
+
+            System.out.println("URL: " + url);
+            Gson gson = new Gson();
+            JsonObject root = gson.fromJson(data, JsonObject.class);
+            String errorCode = root.get("errorCode").toString();
+            System.out.println("DATA: " + data);
+            System.out.println("Error: " + errorCode);
+            return errorCode.equalsIgnoreCase("0");
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertDeviceInfo(DeviceInfo deviceInfo) {
+        try {
+            String url = env.getProperty(Constants.API_DEVICE) + "/insert";
+            String urlParameters = "comId=" + deviceInfo.getCompanyId() + "&msisdn=" + deviceInfo.getMsisdn() + "&type=" + deviceInfo.getType()
+                    + "&name=" + deviceInfo.getName() + "&os=" + deviceInfo.getOs()
+                    + "&imei=" + deviceInfo.getImei();
+
+            String data = Utils.readUrlPOST(url, urlParameters);
+
+            Gson gson = new Gson();
+            JsonObject root = gson.fromJson(data, JsonObject.class);
+            String errorCode = root.get("errorCode").toString();
+            return errorCode.equalsIgnoreCase("0");
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 
 }

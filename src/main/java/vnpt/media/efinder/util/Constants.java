@@ -12,6 +12,7 @@ package vnpt.media.efinder.util;
 public interface Constants {
     public final String API_ROOT = "api.root";
     public final String API_EMPLOYEE = "api.employee";
+    public final String API_DEVICE = "api.device";
     public final String API_GEOFENCE = "api.geofence";
     public final String URL_PROJECT = "url.project";
 }

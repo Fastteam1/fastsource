@@ -104,6 +104,65 @@ public class DeviceController {
             return "Cập nhật dữ liệu thất bại. |error";
         }
     }
+    
+    @RequestMapping(value = {"/device/deactive"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public @ResponseBody
+    String deActiveDevice(@RequestParam(value = "deviceId", defaultValue = "0") String deviceId, Model model, HttpServletRequest request) throws Exception {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+        boolean result = false;
+        try {
+            result = deviceDAO.deleteDeviceInfo(deviceId);
+            System.out.println("DeActive thanh cong ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình xử lý!";
+        }
+
+        if (result) {
+            return "Xóa dữ liệu thành công. |success";
+        } else {
+            return "Xóa dữ liệu thất bại. |error";
+        }
+    }
+    
+    @RequestMapping(value = {"/device/insert"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public @ResponseBody
+    String insertDevice(@RequestBody DeviceInfo deviceInfo, Model model, HttpServletRequest request) throws Exception {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        String comId = "0";
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+            //System.out.println(comId);
+        }
+        
+        deviceInfo.setCompanyId(comId);
+
+        System.out.println("OKKKKKKKKKKKK--->" + deviceInfo);
+        model.addAttribute("deviceInfo", deviceInfo);
+        boolean result = false;
+        try {
+            result = deviceDAO.insertDeviceInfo(deviceInfo);
+            System.out.println("Insety thanh cong du lieu ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình insert dữ liệu!";
+        }
+        if (result) {
+            return "Thêm mới dữ liệu thành công. |success";
+        } else {
+            return "Thêm mới dữ liệu thất bại. |error";
+        }
+    }
 
 
 }
