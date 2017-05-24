@@ -13,5 +13,9 @@ import vnpt.media.efinder.model.DeviceInfo;
  * @author Boss
  */
 public interface DeviceDAO {
-    public List<DeviceInfo> getAllDeviceInfo(String comID,String page,String num);
+    public List<DeviceInfo> getAllDeviceInfo(String comId,String page,String num);
+    
+    public List<DeviceInfo> findDeviceInfo(String comId,String employeeId);
+    
+    public boolean updateDeviceInfo(DeviceInfo deviceInfo);
 }

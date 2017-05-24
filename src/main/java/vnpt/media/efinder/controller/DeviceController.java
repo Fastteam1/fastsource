@@ -19,11 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.DeviceDAO;
-import vnpt.media.efinder.dao.EmployeeDAO;
-import vnpt.media.efinder.dao.impl.DeviceDAOImpl;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
-import vnpt.media.efinder.model.EmployeeInfo;
 import vnpt.media.efinder.util.Utils;
 
 /**
@@ -34,8 +31,6 @@ import vnpt.media.efinder.util.Utils;
 @EnableWebMvc
 public class DeviceController {
 
-    @Autowired
-    private EmployeeDAO employeeDAO;
     
     @Autowired
     private DeviceDAO deviceDAO;
@@ -54,40 +49,58 @@ public class DeviceController {
             CustomerInfo customerInfo = listCustomers.get(0);
             comId = customerInfo.getCompanyId();
         }
-
-        deviceDAO = new DeviceDAOImpl();
-        List<DeviceInfo> listDevice = deviceDAO.getAllDeviceInfo(comId, page, num);
-        model.addAttribute("listDevice", listDevice);
+        
+        List<DeviceInfo> listDevices = deviceDAO.getAllDeviceInfo(comId, page, num);
+        model.addAttribute("listDevices", listDevices);
         return "/device/device_list";
     }
+    
+    @RequestMapping({"/device"})
+    public @ResponseBody
+    List<DeviceInfo> getDeviceById(Model model,
+            @RequestParam(value = "comId", defaultValue = "1") String comId,
+            @RequestParam(value = "deviceId", defaultValue = "0") String employeeId,
+            HttpServletRequest request) {
 
-//    @RequestMapping({"/employee"})
-//    public @ResponseBody
-//    List<EmployeeInfo> getEmployeeById(Model model,
-//            @RequestParam(value = "comId", defaultValue = "1") String comId,
-//            @RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
-//            HttpServletRequest request) {
-//
-//        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
-//        if (listCustomers.isEmpty()) {
-//            return null;
-//        } else {
-//            CustomerInfo customerInfo = listCustomers.get(0);
-//            comId = customerInfo.getCompanyId();
-//            //System.out.println(comId);
-//        }
-//        List<EmployeeInfo> listEmployees = employeeDAO.findEmployeeInfo(comId, employeeId);
-//
-//        return listEmployees;
-//    }
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return null;
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+            //System.out.println(comId);
+        }
+        List<DeviceInfo> listDevice = deviceDAO.findDeviceInfo(comId, employeeId);
 
-//    @RequestMapping(value = {"/employee/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-//    @Transactional(propagation = Propagation.NEVER)
-//    public @ResponseBody
-//    String checkLogin(@RequestBody EmployeeInfo obj, Model model, HttpServletRequest request) throws Exception {
-//
-//        String fdf = employeeDAO.updateEmployeeInfo(employeeInfo);
-//        request.getSession().setAttribute("customerInfo", listCustomers);
-//        return "";
-//    }
+        return listDevice;
+    }
+    
+    @RequestMapping(value = {"/device/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public @ResponseBody
+    String updateDevice(@RequestBody DeviceInfo deviceInfo, Model model, HttpServletRequest request) throws Exception {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+
+        System.out.println("OKKKKKKKKKKKK--->" + deviceInfo);
+        model.addAttribute("deviceInfo", deviceInfo);
+        boolean result = false;
+        try {
+            result = deviceDAO.updateDeviceInfo(deviceInfo);
+            System.out.println("Luu thanh cong du lieu ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình lưu dữ liệu!";
+        }
+        if (result) {
+            return "Cập nhật dữ liệu thành công. |success";
+        } else {
+            return "Cập nhật dữ liệu thất bại. |error";
+        }
+    }
+
+
 }
