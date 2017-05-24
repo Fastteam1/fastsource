@@ -69,13 +69,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public boolean insertEmployeeInfo(EmployeeInfo employeeInfo) {
         try {
-            String url = env.getProperty(Constants.API_EMPLOYEE) + "/insert" + employeeInfo.getId();
-
-            url += "?comId=" + employeeInfo.getCompanyId() + "&name=" + employeeInfo.getName() + "&phone=" + employeeInfo.getPhone()
+            String url = env.getProperty(Constants.API_EMPLOYEE) + "/insert";
+            String urlParameters = "comId=" + employeeInfo.getCompanyId() + "&name=" + employeeInfo.getName() + "&phone=" + employeeInfo.getPhone()
                     + "&department=" + employeeInfo.getDepartment() + "&description=" + employeeInfo.getDescription()
                     + "&address=" + employeeInfo.getAddress() + "&email=" + employeeInfo.getEmail();
 
-            String data = Utils.readUrl(url);
+            String data = Utils.readUrlPOST(url, urlParameters);
 
             Gson gson = new Gson();
             JsonObject root = gson.fromJson(data, JsonObject.class);
@@ -90,13 +89,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public boolean deleteEmployeeInfo(String employeeId) {
         try {
+
+            System.out.println("EmployeeId: " + employeeId);
             String url = env.getProperty(Constants.API_EMPLOYEE) + "?action=deactive";
             url += "&employeeId=" + employeeId;
             String data = Utils.readUrl(url);
 
+            System.out.println("URL: " + url);
             Gson gson = new Gson();
             JsonObject root = gson.fromJson(data, JsonObject.class);
             String errorCode = root.get("errorCode").toString();
+            System.out.println("DATA: " + data);
+            System.out.println("Error: " + errorCode);
             return errorCode.equalsIgnoreCase("0");
         } catch (Exception ex) {
             Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);

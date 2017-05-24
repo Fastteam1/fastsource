@@ -30,13 +30,13 @@ public class GeoFencingController {
     private GeoFencingDAO geoFencingDAO;
     
     @RequestMapping({"/geoFenceList"})
-    public @ResponseBody String getListEmployee(Model model,
+    public String getListEmployee(Model model,
             @RequestParam(value = "id", defaultValue = "0") String id,
             HttpServletRequest request) {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
-            return "/forms/login";
+            return "redirect:/login";
         }
 
         List<GeoFencingInfo> listGeofences = geoFencingDAO.queryGeoFencingByGeoFencingId(id);

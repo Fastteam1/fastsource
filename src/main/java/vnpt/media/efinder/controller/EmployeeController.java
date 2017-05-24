@@ -8,6 +8,7 @@ package vnpt.media.efinder.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
 /**
@@ -33,6 +35,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeDAO employeeDAO;
+    @Autowired
+    private Environment env;
 
     @RequestMapping({"/employeeList"})
     public String getListEmployee(Model model,
@@ -43,7 +47,7 @@ public class EmployeeController {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
-            return "/forms/login";
+            return "redirect:/login";
         } else {
             CustomerInfo customerInfo = listCustomers.get(0);
             comId = customerInfo.getCompanyId();
@@ -51,6 +55,10 @@ public class EmployeeController {
 
         List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
         model.addAttribute("listEmployees", listEmployees);
+        model.addAttribute("deleteConfirmMessage", "Bạn có chắc chắn muốn xóa?");
+        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/employee");
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
+        
         return "/employee/employee_list";
     }
 
@@ -107,9 +115,16 @@ public class EmployeeController {
     String insertEmployee(@RequestBody EmployeeInfo employeeInfo, Model model, HttpServletRequest request) throws Exception {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        String comId = "0";
         if (listCustomers.isEmpty()) {
             return "Chưa đăng nhập";
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+            //System.out.println(comId);
         }
+        
+        employeeInfo.setCompanyId(comId);
 
         System.out.println("OKKKKKKKKKKKK--->" + employeeInfo);
         model.addAttribute("employeeInfo", employeeInfo);
@@ -128,7 +143,8 @@ public class EmployeeController {
         }
     }
 
-    @RequestMapping("/employee/deactive")
+    @RequestMapping(value = {"/employee/deactive"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
     String deActiveEmployee(@RequestParam(value = "employeeId", defaultValue = "0") String employeeId, Model model, HttpServletRequest request) throws Exception {
 
