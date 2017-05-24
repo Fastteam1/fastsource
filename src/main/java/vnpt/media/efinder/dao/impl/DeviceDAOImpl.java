@@ -8,8 +8,6 @@ package vnpt.media.efinder.dao.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.DeviceDAO;
@@ -21,14 +19,14 @@ import vnpt.media.efinder.util.Utils;
  *
  * @author Boss
  */
-public class DeviceDAOImpl implements DeviceDAO{
-    
+public class DeviceDAOImpl implements DeviceDAO {
+
     @Autowired
-    Environment env;
+    private Environment env;
 
     @Override
     public List<DeviceInfo> getAllDeviceInfo(String comId, String page, String num) {
-        String url = "http://10.1.36.17:8080/ApiBase/api/info/device?action=getList";
+        String url = env.getProperty(Constants.API_ROOT) + "/info/device?action=getList";
         url = url + "&comId=" + comId + "&page=" + page + "&num=" + num;
         String data = Utils.readUrl(url);
         List<DeviceInfo> listDevices = Utils.stringToArray(data, DeviceInfo[].class);
@@ -59,11 +57,9 @@ public class DeviceDAOImpl implements DeviceDAO{
             String errorCode = root.get("errorCode").toString();
             return errorCode.equalsIgnoreCase("0");
         } catch (Exception ex) {
-            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
     }
-    
-    
-    
+
 }

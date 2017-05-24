@@ -127,7 +127,7 @@
             $.ajax({
                 type: "GET",
                 contentType: "application/json",
-                url: "employee",
+                url: "employee/getdetail",
                 data: json,
                 dataType: 'json',
                 timeout: 100000,
@@ -237,6 +237,47 @@
                     console.log("DONE");
                 }
             });
+        }
+
+        function deleteViaAjax(objId) {
+
+            if (objId === null || objId === "") {
+                objId = parseInt($("#viewForm-id").val());
+            }
+
+            if (objId !== null) {
+                var confirm_check = confirm("${deleteConfirmMessage}");
+                if (confirm_check === true) {
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json",
+                        url: "${pageInfo.url}/delete/" + objId,
+                        data: JSON.stringify(""),
+                        dataType: 'json',
+                        timeout: 100000,
+                        success: function (data) {
+                            console.log("SUCCESS: ", data);
+                            alert(data.msg);
+                            $('#ojectView').modal('hide');
+                            goToPage("${pageInfo.url}/list/", ${pageInfo.destPage});
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
+                            alert(e.msg);
+                        },
+                        done: function (e) {
+                            console.log("DONE");
+                            enableButton("btn-edit", true);
+                            enableButton("btn-delete", true);
+                        }
+                    });
+
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
         }
     </script>
 

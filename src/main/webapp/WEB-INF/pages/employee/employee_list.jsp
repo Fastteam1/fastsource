@@ -103,7 +103,7 @@
                                                 <th>Email</th>
                                                 <th>Mô tả</th>
                                                 <th>Bộ phận</th>
-                                                <th class="edit-actions">Sửa</th>
+                                                <th class="edit-actions"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -117,13 +117,15 @@
                                                     <td>${employee.description}</td>
                                                     <td>${employee.department}</td>
 
-                                                    <td class="edit-actions"><button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" 
-                                                                                     data-placement="top" title="View" onclick="getViaAjax(${employee.id});">
+                                                    <td class="center">
+                                                        <button type="button" class="btn btn-xs btn-success edit-Template " data-toggle="modal" 
+                                                                data-placement="top" title="Sửa" onclick="getViaAjax(${employee.id});">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
 
-                                                        <button type="button" class="btn btn-xs btn-info edit-Template" data-toggle="modal" data-target="#insert-modal">
-                                                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                                                        <button type="button" class="btn btn-xs btn-danger edit-Template " data-toggle="modal" 
+                                                                data-placement="top" title="Xóa" onclick="deleteViaAjax(${employee.id});" id="delete-employee">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
                                                     </td>
 
@@ -179,18 +181,18 @@
         <!-- bootstrap datetimepicker -->
         <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script>
-                                                                                         $(function () {
-                                                                                             $("#example1").DataTable({
-                                                                                                 "paging": true,
-                                                                                                 "lengthChange": true,
-                                                                                                 "ordering": true,
-                                                                                                 "info": true,
-                                                                                                 "autoWidth": true,
-                                                                                                 "searching": true,
-                                                                                                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                                                                                                 responsive: true
-                                                                                             });
-                                                                                         });
+                                                                    $(function () {
+                                                                        $("#example1").DataTable({
+                                                                            "paging": true,
+                                                                            "lengthChange": true,
+                                                                            "ordering": true,
+                                                                            "info": true,
+                                                                            "autoWidth": true,
+                                                                            "searching": true,
+                                                                            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                                                                            responsive: true
+                                                                        });
+                                                                    });
         </script>
 
 

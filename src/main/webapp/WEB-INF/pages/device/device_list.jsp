@@ -91,7 +91,7 @@
                                         </thead>
                                         <tbody>
 
-                                            <c:forEach items="${listDevice}" var="device" varStatus="varStatus">
+                                            <c:forEach items="${listDevices}" var="device" varStatus="varStatus">
                                                 <tr>
                                                     <td>${device.name}</td>
                                                     <td>${device.type}</td>
@@ -101,7 +101,7 @@
                                                     <td>${device.currentAdd}</td>
 
                                                     <td class="edit-actions"><button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" 
-                                                                                     data-placement="top" title="View" onclick="getViaAjax(${employee.id});">
+                                                                                     data-placement="top" title="View" onclick="getViaAjax(${device.id});">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
 
@@ -131,7 +131,7 @@
             <jsp:include page="../include/setting.jsp" />
 
             <!-- ADD VIEW FORM -->
-            <%@include file="employee_edit.jsp"%>
+            <%@include file="device_edit.jsp"%>
             <!-- ./wrapper -->
         </div>
         <!-- jQuery 2.2.3 -->

@@ -27,12 +27,14 @@ import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.dao.GameCategoryDAO;
 import vnpt.media.efinder.dao.GameTemplateDAO;
+import vnpt.media.efinder.dao.GeoFencingDAO;
 import vnpt.media.efinder.dao.RoleUserDAO;
 import vnpt.media.efinder.dao.impl.CustomerDAOImpl;
 import vnpt.media.efinder.dao.impl.DeviceDAOImpl;
 import vnpt.media.efinder.dao.impl.EmployeeDAOImpl;
 import vnpt.media.efinder.dao.impl.GameCategoryDAOImpl;
 import vnpt.media.efinder.dao.impl.GameTemplateDAOImpl;
+import vnpt.media.efinder.dao.impl.GeoFencingDAOImpl;
 import vnpt.media.efinder.dao.impl.RoleUserDAOImpl;
 
 /**
@@ -144,5 +146,10 @@ public class ApplicationContextConfig {
     @Bean(name = "deviceDAO")
     public DeviceDAO getDeviceDAO() {
         return new DeviceDAOImpl();
+    }
+    
+    @Bean(name="geoFencingDAO")
+    public GeoFencingDAO getGeoFencingDAO() {
+        return new GeoFencingDAOImpl();
     }
 }

@@ -24,7 +24,7 @@ import vnpt.media.efinder.util.Utils;
 public class GeoFencingDAOImpl implements GeoFencingDAO {
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     @Override
     public List<GeoFencingInfo> queryGeoFencingByCompanyId(String id) {

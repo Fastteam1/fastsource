@@ -54,7 +54,7 @@ public class EmployeeController {
         return "/employee/employee_list";
     }
 
-    @RequestMapping({"/employee"})
+    @RequestMapping({"/employee/getdetail"})
     public @ResponseBody
     List<EmployeeInfo> getEmployeeById(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
@@ -100,6 +100,33 @@ public class EmployeeController {
             return "Cập nhật dữ liệu thất bại. |error";
         }
     }
+    
+    @RequestMapping(value = {"/employee/insert"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public @ResponseBody
+    String insertEmployee(@RequestBody EmployeeInfo employeeInfo, Model model, HttpServletRequest request) throws Exception {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+
+        System.out.println("OKKKKKKKKKKKK--->" + employeeInfo);
+        model.addAttribute("employeeInfo", employeeInfo);
+        boolean result = false;
+        try {
+            result = employeeDAO.insertEmployeeInfo(employeeInfo);
+            System.out.println("Insety thanh cong du lieu ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình insert dữ liệu!";
+        }
+        if (result) {
+            return "Thêm mới dữ liệu thành công. |success";
+        } else {
+            return "Thêm mới dữ liệu thất bại. |error";
+        }
+    }
 
     @RequestMapping("/employee/deactive")
     public @ResponseBody
@@ -119,9 +146,9 @@ public class EmployeeController {
         }
 
         if (result) {
-            return "Cập nhật dữ liệu thành công. |success";
+            return "Xóa dữ liệu thành công. |success";
         } else {
-            return "Cập nhật dữ liệu thất bại. |error";
+            return "Xóa dữ liệu thất bại. |error";
         }
     }
 }

@@ -25,7 +25,7 @@ import vnpt.media.efinder.util.Utils;
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     @Override
     public List<EmployeeInfo> queryEmployees(String comId, String page, String num) {

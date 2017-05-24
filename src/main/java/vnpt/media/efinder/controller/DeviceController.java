@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.DeviceDAO;
+import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.util.Utils;
@@ -31,11 +31,33 @@ import vnpt.media.efinder.util.Utils;
 @EnableWebMvc
 public class DeviceController {
 
-    
     @Autowired
     private DeviceDAO deviceDAO;
 
     @RequestMapping({"/deviceList"})
+    public String getListDevice(Model model,
+            @RequestParam(value = "comId", defaultValue = "1") String comId,
+            @RequestParam(value = "page", defaultValue = "1") String page,
+            @RequestParam(value = "num", defaultValue = "999999999") String num,
+            HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "/forms/login";
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+        }
+
+        List<DeviceInfo> listDevice = deviceDAO.getAllDeviceInfo(comId, page, num);
+        model.addAttribute("listDevices", listDevice);
+        return "/device/device_list";
+    }
+    
+     @Autowired
+    private EmployeeDAO employeeDAO;
+
+    @RequestMapping({"/employeeList2"})
     public String getListEmployee(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
             @RequestParam(value = "page", defaultValue = "1") String page,
@@ -56,7 +78,7 @@ public class DeviceController {
     }
     
     @RequestMapping({"/device"})
-    public @ResponseBody
+    public 
     List<DeviceInfo> getDeviceById(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
             @RequestParam(value = "deviceId", defaultValue = "0") String employeeId,
@@ -77,7 +99,7 @@ public class DeviceController {
     
     @RequestMapping(value = {"/device/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
-    public @ResponseBody
+    public 
     String updateDevice(@RequestBody DeviceInfo deviceInfo, Model model, HttpServletRequest request) throws Exception {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
