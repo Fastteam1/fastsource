@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.GeoFencingDAO;
+import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.GeoFencingInfo;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
@@ -30,24 +31,24 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     public List<GeoFencingInfo> queryGeoFencingByCompanyId(String id) {
         String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/bycompany?id=" + id;
         String data = Utils.readUrl(url);
-        List<GeoFencingInfo> listEmployees = Utils.stringToArray(data, GeoFencingInfo[].class);
-        return listEmployees;
+        List<GeoFencingInfo> listGeofences = Utils.stringToArray(data, GeoFencingInfo[].class);
+        return listGeofences;
     }
 
     @Override
     public List<GeoFencingInfo> queryGeoFencingByDeviceId(String id) {
         String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/bydevice?id=" + id;
         String data = Utils.readUrl(url);
-        List<GeoFencingInfo> listEmployees = Utils.stringToArray(data, GeoFencingInfo[].class);
-        return listEmployees;
+        List<GeoFencingInfo> listGeofences = Utils.stringToArray(data, GeoFencingInfo[].class);
+        return listGeofences;
     }
 
     @Override
-    public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id) {
+    public List<DeviceInfo> queryDeviceByGeoFencingId(String id) {
         String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/listdevice?id=" + id;
         String data = Utils.readUrl(url);
-        List<GeoFencingInfo> listEmployees = Utils.stringToArray(data, GeoFencingInfo[].class);
-        return listEmployees;
+        List<DeviceInfo> listDevices = Utils.stringToArray(data, DeviceInfo[].class);
+        return listDevices;
     }
 
     @Override

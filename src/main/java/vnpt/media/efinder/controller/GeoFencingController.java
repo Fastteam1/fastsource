@@ -26,21 +26,25 @@ import vnpt.media.efinder.util.Utils;
 @Controller
 @EnableWebMvc
 public class GeoFencingController {
+
     @Autowired
     private GeoFencingDAO geoFencingDAO;
-    
+
     @RequestMapping({"/geoFenceList"})
     public String getListEmployee(Model model,
-            @RequestParam(value = "id", defaultValue = "0") String id,
+            @RequestParam(value = "id", defaultValue = "0") String comId,
             HttpServletRequest request) {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
             return "redirect:/login";
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
         }
 
-        List<GeoFencingInfo> listGeofences = geoFencingDAO.queryGeoFencingByGeoFencingId(id);
+        List<GeoFencingInfo> listGeofences = geoFencingDAO.queryGeoFencingByCompanyId(comId);
         model.addAttribute("listGeofences", listGeofences);
-        return "/employee/employee_list";
+        return "/geofence/geofence_list";
     }
 }

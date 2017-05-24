@@ -250,7 +250,6 @@
                             console.log("SUCCESS: ", data);
                             alert(data.msg);
                             $('#ojectView').modal('hide');
-                            goToPage("${pageInfo.url}/list/", ${pageInfo.destPage});
                         },
                         error: function (e) {
                             console.log("ERROR: ", e);
@@ -258,8 +257,6 @@
                         },
                         done: function (e) {
                             console.log("DONE");
-                            enableButton("btn-edit", true);
-                            enableButton("btn-delete", true);
                         }
                     });
 

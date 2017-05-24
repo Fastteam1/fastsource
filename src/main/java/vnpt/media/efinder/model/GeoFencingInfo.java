@@ -20,6 +20,9 @@ public class GeoFencingInfo {
     private Date updateTime;
     private String status;
     private String name;
+    private String description;
+    private int countDeviceInGeofence;
+    private int countDeviceOutGeofence;
 
     public GeoFencingInfo() {
     }
@@ -78,6 +81,30 @@ public class GeoFencingInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getCountDeviceInGeofence() {
+        return countDeviceInGeofence;
+    }
+
+    public void setCountDeviceInGeofence(int countDeviceInGeofence) {
+        this.countDeviceInGeofence = countDeviceInGeofence;
+    }
+
+    public int getCountDeviceOutGeofence() {
+        return countDeviceOutGeofence;
+    }
+
+    public void setCountDeviceOutGeofence(int countDeviceOutGeofence) {
+        this.countDeviceOutGeofence = countDeviceOutGeofence;
     }
 
 }

@@ -6,6 +6,7 @@
 package vnpt.media.efinder.dao;
 
 import java.util.List;
+import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.GeoFencingInfo;
 
 /**
@@ -17,7 +18,7 @@ public interface GeoFencingDAO {
     
     public List<GeoFencingInfo> queryGeoFencingByDeviceId(String id);
     
-    public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id);
+    public List<DeviceInfo> queryDeviceByGeoFencingId(String id);
     
     public boolean insertGeoFencingInCompany(String comId, String location, String name);
     

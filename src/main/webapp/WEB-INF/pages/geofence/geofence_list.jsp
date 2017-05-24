@@ -99,34 +99,39 @@
                                     <table id="example1" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Tên nhân viên</th>
-                                                <th>Số điện thoại</th>
-                                                <th>Địa chỉ</th>
-                                                <th>Email</th>
+                                                <th>Tên vùng</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Ngày cập nhật</th>
                                                 <th>Mô tả</th>
-                                                <th>Bộ phận</th>
+                                                <th>Số lượng thiết bị nằm trong</th>
+                                                <th>Số lượng thiết bị nằm ngoài</th>
                                                 <th class="edit-actions"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
-                                            <c:forEach items="${listEmployees}" var="employee" varStatus="varStatus">
+                                            <c:forEach items="${listGeofences}" var="geofence" varStatus="varStatus">
                                                 <tr>
-                                                    <td>${employee.name}</td>
-                                                    <td>${employee.phone}</td>
-                                                    <td>${employee.address}</td>
-                                                    <td>${employee.email}</td>
-                                                    <td>${employee.description}</td>
-                                                    <td>${employee.department}</td>
+                                                    <td>${geofence.name}</td>
+                                                    <td>
+                                                        <fmt:formatDate value="${geofence.createTime}" pattern="dd-MM-yyyy HH:mm"/>
+                                                    </td>
+                                                    <td>
+                                                        <fmt:formatDate value="${geofence.updateTime}" pattern="dd-MM-yyyy HH:mm"/>
+                                                    </td>
+                                                    <td>${geofence.description}</td>
+                                                    <td>${geofence.email}</td>
+                                                    <td>${geofence.countDeviceInGeofence}</td>
+                                                    <td>${geofence.countDeviceOutGeofence}</td>
 
                                                     <td class="center">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template " data-toggle="modal" 
-                                                                data-placement="top" title="Sửa" onclick="getViaAjax(${employee.id});">
+                                                                data-placement="top" title="Sửa" onclick="getViaAjax(${geofence.id});">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
 
                                                         <button type="button" class="btn btn-xs btn-danger edit-Template " data-toggle="modal" 
-                                                                data-placement="top" title="Xóa" onclick="deleteViaAjax(${employee.id});" id="delete-employee">
+                                                                data-placement="top" title="Xóa" onclick="deleteViaAjax(${geofence.id});" id="delete-geofence">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
                                                     </td>
@@ -184,7 +189,7 @@
         <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script>
 
-                                                                    
+
                                                                     $(function () {
                                                                         $("#example1").DataTable({
                                                                             "paging": true,
@@ -201,10 +206,10 @@
 
 
         <!-- ADD VIEW FORM -->
-        <%@include file="employee_edit.jsp"%>
+        <%@include file="geofence_edit.jsp"%>
 
         <!-- ADD ADD FORM -->
-        <%@include file="employee_add.jsp"%>
+        <%@include file="geofence_add.jsp"%>
 
     </body>
 </html>
