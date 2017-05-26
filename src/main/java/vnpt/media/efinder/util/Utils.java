@@ -134,11 +134,11 @@ public class Utils {
     }
 
     
-    public static void main(String[] args) {
-        
-//        JSONObject obj1 = new JSONObject(geoFencingInfo.getLocation());
-//        JSONArray ar1 = obj1.getJSONArray("features");
-//        JSONObject obj2 = ar1.getJSONObject(0).getJSONObject("geometry");
-//        JSONArray ar2 = obj2.getJSONArray("coordinates").getJSONArray(0);
-    }
+//    public static void main(String[] args) {
+//        
+////        JSONObject obj1 = new JSONObject(geoFencingInfo.getLocation());
+////        JSONArray ar1 = obj1.getJSONArray("features");
+////        JSONObject obj2 = ar1.getJSONObject(0).getJSONObject("geometry");
+////        JSONArray ar2 = obj2.getJSONArray("coordinates").getJSONArray(0);
+//    }
 }
