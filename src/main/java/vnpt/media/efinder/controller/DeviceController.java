@@ -8,6 +8,7 @@ package vnpt.media.efinder.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
 /**
@@ -35,6 +37,12 @@ public class DeviceController {
 
     @Autowired
     private DeviceDAO deviceDAO;
+    
+    @Autowired
+    private Environment env;
+    
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     @RequestMapping({"/deviceList"})
     public String getListDevice(Model model,
@@ -52,7 +60,12 @@ public class DeviceController {
         }
 
         List<DeviceInfo> listDevice = deviceDAO.getAllDeviceInfo(comId, page, num);
+        
+        
+      //  List<EmployeeInfo> listDevice = deviceDAO.getListEmployeeManage(comId, page, num);
         model.addAttribute("listDevices", listDevice);
+        List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
+        model.addAttribute("listEmployees", listEmployees);
         return "/device/device_list";
     }
     
@@ -74,6 +87,7 @@ public class DeviceController {
             //System.out.println(comId);
         }
         List<DeviceInfo> listDevices = deviceDAO.findDeviceInfo(comId, deviceId);
+        
 
         return listDevices;
     }
@@ -164,5 +178,52 @@ public class DeviceController {
         }
     }
 
+   // @RequestMapping({"/device/employeeList"})
+    public List<EmployeeInfo> getListEmployee(Model model,
+            @RequestParam(value = "comId", defaultValue = "1") String comId,
+            @RequestParam(value = "page", defaultValue = "1") String page,
+            @RequestParam(value = "num", defaultValue = "999999999") String num,
+            HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return null;
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+        }
+
+        List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
+        
+        
+        return listEmployees;
+    }
+    @RequestMapping(value = {"/device/insertEmployee"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public String insertEmployee(@RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
+            @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
+            @RequestParam(value = "startTime", defaultValue = "0") String startTime,
+            @RequestParam(value = "endTime", defaultValue = "0") String endTime,
+            Model model, HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+
+        boolean result = false;
+        try {
+            result = deviceDAO.addEmployeeManage(employeeId,deviceId,startTime,endTime);
+            System.out.println("Insety thanh cong du lieu ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình insert dữ liệu!";
+        }
+        if (result) {
+            return "Thêm mới dữ liệu thành công. |success";
+        } else {
+            return "Thêm mới dữ liệu thất bại. |error";
+        }
+    }
 
 }

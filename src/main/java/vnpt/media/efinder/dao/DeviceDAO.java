@@ -7,6 +7,7 @@ package vnpt.media.efinder.dao;
 
 import java.util.List;
 import vnpt.media.efinder.model.DeviceInfo;
+import vnpt.media.efinder.model.EmployeeInfo;
 
 /**
  *
@@ -21,4 +22,8 @@ public interface DeviceDAO {
     public boolean deleteDeviceInfo(String employeeId);
     
     public boolean insertDeviceInfo(DeviceInfo employeeInfo);
+    
+    public List<EmployeeInfo> getListEmployeeManage(String deviceId);
+    
+    public boolean addEmployeeManage(String deviceId,String employeeId, String startTime, String endTime);
 }

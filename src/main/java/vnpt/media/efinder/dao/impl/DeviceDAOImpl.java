@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.model.DeviceInfo;
+import vnpt.media.efinder.model.EmployeeInfo;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
@@ -105,6 +106,34 @@ public class DeviceDAOImpl implements DeviceDAO {
             return false;
         }
     }
+
+    @Override
+    public List<EmployeeInfo> getListEmployeeManage(String deviceId) {
+        String url = env.getProperty(Constants.API_ROOT) + "/handle/listemployee";
+        url = url + "&deviceId=" + deviceId;
+        String data = Utils.readUrl(url);
+        List<EmployeeInfo> listEmployee = Utils.stringToArray(data, EmployeeInfo[].class);
+        return listEmployee;
+    }
     
+    @Override
+    public boolean addEmployeeManage(String deviceId,String employeeId,String startTime,String endTime) {
+        try {
+            String url = env.getProperty(Constants.API_ROOT) + "/handle/control/insert";
+            url += "&employeeId=" + employeeId + "&deviceId=" + deviceId + "&startTime=" + startTime + "&endTime=" + endTime;
+            String data = Utils.readUrl(url);
+
+            System.out.println("URL: " + url);
+            Gson gson = new Gson();
+            JsonObject root = gson.fromJson(data, JsonObject.class);
+            String errorCode = root.get("errorCode").toString();
+            System.out.println("DATA: " + data);
+            System.out.println("Error: " + errorCode);
+            return errorCode.equalsIgnoreCase("0");
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 
 }
