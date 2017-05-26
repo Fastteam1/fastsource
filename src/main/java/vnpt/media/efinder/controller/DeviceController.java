@@ -198,9 +198,9 @@ public class DeviceController {
         
         return listEmployees;
     }
-    @RequestMapping(value = {"/device/insertEmployee"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = {"/device/insertEmployee"}, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
-    public String insertEmployee(@RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
+    public @ResponseBody String insertEmployee(@RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
             @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
             @RequestParam(value = "startTime", defaultValue = "0") String startTime,
             @RequestParam(value = "endTime", defaultValue = "0") String endTime,
@@ -213,7 +213,7 @@ public class DeviceController {
 
         boolean result = false;
         try {
-            result = deviceDAO.addEmployeeManage(employeeId,deviceId,startTime,endTime);
+            result = deviceDAO.addEmployeeManage(deviceId,employeeId,startTime,endTime);
             System.out.println("Insety thanh cong du lieu ------>");
         } catch (Exception e) {
             System.out.println("Loi Try catch");

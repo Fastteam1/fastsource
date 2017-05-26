@@ -120,7 +120,7 @@ public class DeviceDAOImpl implements DeviceDAO {
     public boolean addEmployeeManage(String deviceId,String employeeId,String startTime,String endTime) {
         try {
             String url = env.getProperty(Constants.API_ROOT) + "/handle/control/insert";
-            url += "&employeeId=" + employeeId + "&deviceId=" + deviceId + "&startTime=" + startTime + "&endTime=" + endTime;
+            url += "?employeeId=" + employeeId + "&deviceId=" + deviceId + "&startTime=" + startTime + "&endTime=" + endTime;
             String data = Utils.readUrl(url);
 
             System.out.println("URL: " + url);
