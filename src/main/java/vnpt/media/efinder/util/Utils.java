@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.ResponseInfo;
 
@@ -131,4 +133,12 @@ public class Utils {
         return sb.toString();
     }
 
+    
+//    public static void main(String[] args) {
+//        
+////        JSONObject obj1 = new JSONObject(geoFencingInfo.getLocation());
+////        JSONArray ar1 = obj1.getJSONArray("features");
+////        JSONObject obj2 = ar1.getJSONObject(0).getJSONObject("geometry");
+////        JSONArray ar2 = obj2.getJSONArray("coordinates").getJSONArray(0);
+//    }
 }

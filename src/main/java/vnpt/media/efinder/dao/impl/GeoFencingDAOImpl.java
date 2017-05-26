@@ -7,6 +7,7 @@ package vnpt.media.efinder.dao.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,11 +53,11 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     }
 
     @Override
-    public boolean insertGeoFencingInCompany(String comId, String location, String name) {
+    public boolean insertGeoFencingInCompany(String comId, String location, String name, String description) {
         try {
             String url = env.getProperty(Constants.API_GEOFENCE) + "/create";
             String urlParameters = "comId=" + comId + "&location=" + location
-                    + "&name=" + name;
+                    + "&name=" + name + "&description" + description;
             String data = Utils.readUrlPOST(url, urlParameters);
 
             Gson gson = new Gson();
@@ -70,11 +71,11 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     }
 
     @Override
-    public boolean updateGeoFencing(String geoFenceId, String name, String location) {
+    public boolean updateGeoFencing(String geoFenceId, String name, String location, String description) {
         try {
             String url = env.getProperty(Constants.API_GEOFENCE) + "/update";
             String urlParameters = "geofenceId=" + geoFenceId + "&name=" + name
-                    + "&location=" + location;
+                    + "&location=" + location + "&description" + description;
             String data = Utils.readUrlPOST(url, urlParameters);
 
             Gson gson = new Gson();
@@ -121,6 +122,37 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
         JsonObject root = gson.fromJson(data, JsonObject.class);
         String errorCode = root.get("errorCode").toString();
         return errorCode.equalsIgnoreCase("0");
+    }
+
+    @Override
+    public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id) {
+        String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/geofending?id=" + id;
+        String data = Utils.readUrl(url);
+        System.out.println("DATa: " + data);
+        List<GeoFencingInfo> listGeofences = Utils.stringToArray(data, GeoFencingInfo[].class);
+
+        for (GeoFencingInfo geoFencingInfo : listGeofences) {
+            String startJson = "{\n"
+                    + "  \"type\": \"FeatureCollection\",\n"
+                    + "  \"features\": [\n"
+                    + "    {\n"
+                    + "      \"type\": \"Feature\",\n"
+                    + "      \"geometry\": {\n"
+                    + "        \"type\": \"Polygon\",\n"
+                    + "        \"coordinates\": [";
+            String endJson = "        ]\n"
+                    + "      },\n"
+                    + "      \"properties\": {}\n"
+                    + "    }\n"
+                    + "  ]\n"
+                    + "}";
+
+            String json = startJson + geoFencingInfo.getLocation() + endJson;
+            System.out.println("JSON:" + json);
+            geoFencingInfo.setLocation(json);
+        }
+
+        return listGeofences;
     }
 
 }

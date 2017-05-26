@@ -16,13 +16,13 @@ public class GeoFencingInfo {
     private String id;
     private String location;
     private String companyId;
-    private Date createTime;
-    private Date updateTime;
+    private String createTime;
+    private String updateTime;
     private String status;
     private String name;
     private String description;
-    private int countDeviceInGeofence;
-    private int countDeviceOutGeofence;
+    private int deviceIn;
+    private int deviceOut;
 
     public GeoFencingInfo() {
     }
@@ -51,19 +51,19 @@ public class GeoFencingInfo {
         this.companyId = companyId;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -91,20 +91,20 @@ public class GeoFencingInfo {
         this.description = description;
     }
 
-    public int getCountDeviceInGeofence() {
-        return countDeviceInGeofence;
+    public int getDeviceIn() {
+        return deviceIn;
     }
 
-    public void setCountDeviceInGeofence(int countDeviceInGeofence) {
-        this.countDeviceInGeofence = countDeviceInGeofence;
+    public void setDeviceIn(int deviceIn) {
+        this.deviceIn = deviceIn;
     }
 
-    public int getCountDeviceOutGeofence() {
-        return countDeviceOutGeofence;
+    public int getDeviceOut() {
+        return deviceOut;
     }
 
-    public void setCountDeviceOutGeofence(int countDeviceOutGeofence) {
-        this.countDeviceOutGeofence = countDeviceOutGeofence;
+    public void setDeviceOut(int deviceOut) {
+        this.deviceOut = deviceOut;
     }
 
 }

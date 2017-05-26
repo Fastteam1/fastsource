@@ -14,19 +14,22 @@ import vnpt.media.efinder.model.GeoFencingInfo;
  * @author vnpt2
  */
 public interface GeoFencingDAO {
+
     public List<GeoFencingInfo> queryGeoFencingByCompanyId(String id);
-    
+
     public List<GeoFencingInfo> queryGeoFencingByDeviceId(String id);
-    
+
     public List<DeviceInfo> queryDeviceByGeoFencingId(String id);
-    
-    public boolean insertGeoFencingInCompany(String comId, String location, String name);
-    
-    public boolean updateGeoFencing(String geoFenceId, String name, String location);
-    
+
+    public boolean insertGeoFencingInCompany(String comId, String location, String name, String description);
+
+    public boolean updateGeoFencing(String geoFenceId, String name, String location, String description);
+
     public boolean insertDeviceInGeoFencing(String deviceId, String geoFencingId);
-    
+
     public boolean deleteDeviceInGeoFencing(String deviceId, String geoFencingId);
-    
+
     public boolean deleteGeoFencingInList(String geoFencingId);
+
+    public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id);
 }

@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>EFinder | Danh sách nhân viên</title>
+        <title>EFinder | Danh sách vùng địa lý</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -113,20 +113,15 @@
                                             <c:forEach items="${listGeofences}" var="geofence" varStatus="varStatus">
                                                 <tr>
                                                     <td>${geofence.name}</td>
-                                                    <td>
-                                                        <fmt:formatDate value="${geofence.createTime}" pattern="dd-MM-yyyy HH:mm"/>
-                                                    </td>
-                                                    <td>
-                                                        <fmt:formatDate value="${geofence.updateTime}" pattern="dd-MM-yyyy HH:mm"/>
-                                                    </td>
+                                                    <td>${geofence.createTime}</td>
+                                                    <td>${geofence.updateTime}</td>
                                                     <td>${geofence.description}</td>
-                                                    <td>${geofence.email}</td>
-                                                    <td>${geofence.countDeviceInGeofence}</td>
-                                                    <td>${geofence.countDeviceOutGeofence}</td>
+                                                    <td>${geofence.deviceIn}</td>
+                                                    <td>${geofence.deviceOut}</td>
 
                                                     <td class="center">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template " data-toggle="modal" 
-                                                                data-placement="top" title="Sửa" onclick="getViaAjax(${geofence.id});">
+                                                                data-placement="top" title="Sửa" onclick="location.href='${urlProject}/editGeoFence?id=${geofence.id}'">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
 
@@ -204,12 +199,6 @@
                                                                     });
         </script>
 
-
-        <!-- ADD VIEW FORM -->
-        <%@include file="geofence_edit.jsp"%>
-
-        <!-- ADD ADD FORM -->
-        <%@include file="geofence_add.jsp"%>
 
     </body>
 </html>
