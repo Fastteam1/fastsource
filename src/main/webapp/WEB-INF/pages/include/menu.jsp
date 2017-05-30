@@ -13,7 +13,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="${urlProject}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>${pageContext.request.userPrincipal.name}</p>
@@ -58,8 +58,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id="Game"><a href="${pageContext.request.contextPath}/gameList"><i class="fa fa-circle-o"></i> Game</a></li>
-                    <li id="CommandCode"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Command Code</a></li>
-                    <li id="ContentFeedback"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Nội dung trả về</a></li>
+                    <li id="CommandCode"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Command Code</a></li>
+                    <li id="ContentFeedback"><a href="${urlProject}/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Nội dung trả về</a></li>
 
                 </ul>
             </li>
@@ -73,11 +73,11 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="GameCycle"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Vòng game</a></li>
-                    <li id="PointType"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Loại điểm</a></li>
-                    <li id="Package"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Gói dịch vụ</a></li>
-                    <li id="PricePackage"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Gói cước</a></li>
-                    <li id="PointFrame"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Khung điểm</a></li>
+                    <li id="GameCycle"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Vòng game</a></li>
+                    <li id="PointType"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Loại điểm</a></li>
+                    <li id="Package"><a href="${urlProject}/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Gói dịch vụ</a></li>
+                    <li id="PricePackage"><a href="${urlProject}/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Gói cước</a></li>
+                    <li id="PointFrame"><a href="${urlProject}/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Khung điểm</a></li>
                 </ul>
             </li>
 
@@ -90,8 +90,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="ContentType"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Loại nội dung</a></li>
-                    <li id="ContentQuestion"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Nội dung câu hỏi</a></li>
+                    <li id="ContentType"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Loại nội dung</a></li>
+                    <li id="ContentQuestion"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Nội dung câu hỏi</a></li>
                 </ul>
             </li>
 
@@ -105,10 +105,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id="History"><a href="${pageContext.request.contextPath}/customerList"><i class="fa fa-circle-o"></i> Lịch sử đăng ký hủy</a></li>
-                    <li id="Charging"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Lịch sử trừ cước</a></li>
-                    <li id="MOMT"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Lịch sử MO/MT</a></li>
-                    <li id="PointSearch"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Tra cứu điểm</a></li>
-                    <li id="DKHuy"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Đăng ký hủy dịch vụ</a></li>
+                    <li id="Charging"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Lịch sử trừ cước</a></li>
+                    <li id="MOMT"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Lịch sử MO/MT</a></li>
+                    <li id="PointSearch"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Tra cứu điểm</a></li>
+                    <li id="DKHuy"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Đăng ký hủy dịch vụ</a></li>
                 </ul>
             </li>
 
@@ -121,8 +121,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="KPI1"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> KPI mẫu 1</a></li>
-                    <li id="KPI2"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> KPI mẫu 2</a></li>
+                    <li id="KPI1"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> KPI mẫu 1</a></li>
+                    <li id="KPI2"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> KPI mẫu 2</a></li>
                 </ul>
             </li>
 
@@ -135,10 +135,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="Users"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Người sử dụng</a></li>
-                    <li id="Providers"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Nhà cung cấp</a></li>
-                    <li id="Roles"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Quản lý quyền</a></li>
-                    <li id="WhiteList"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Danh sách test</a></li>
+                    <li id="Users"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Người sử dụng</a></li>
+                    <li id="Providers"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Nhà cung cấp</a></li>
+                    <li id="Roles"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Quản lý quyền</a></li>
+                    <li id="WhiteList"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Danh sách test</a></li>
                 </ul>
             </li>
 
@@ -151,7 +151,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="ChangePass"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Thay đổi mật khẩu</a></li>
+                    <li id="ChangePass"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Thay đổi mật khẩu</a></li>
                 </ul>
             </li>
         </ul>

@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <style>
     .modal-dialog {
         position: absolute;
@@ -24,7 +24,7 @@
 
 <!-- Modal -->
 <body>
-    <div class="modal fade" id="ojectView" tabindex="-1" role="dialog" aria-labelledby="Insert Category"  >
+    <div class="modal fade" id="ojectView" tabindex="-1" role="dialog" aria-labelledby="Insert Category" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -82,11 +82,18 @@
                         </spring:bind>
 
 
-                        <spring:bind path="department">
+                        <spring:bind path="departmentId">
                             <div class="form-group">
-                                <label for="department-input" class="col-sm-2 control-label">Bộ phận</label>
+                                <label for="department-input" class="col-sm-2 control-label">${departmentId}</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="viewForm-department" placeholder="department" name="department" required>
+                                    <form:select id="viewForm-department" path="departmentId" class="form-control">
+                                        <form:option value="0" label="Chọn Bộ phận"/>
+                                        <c:if test="${not empty listDepartments}"> 
+                                            <c:forEach var="department" items="${listDepartments}">
+                                                <form:option value="${department.getId()}" label="${department.getName()}" />
+                                            </c:forEach>
+                                        </c:if>
+                                    </form:select>
                                 </div>
                             </div>   
                         </spring:bind>
@@ -99,9 +106,6 @@
                                 </div>
                             </div>   
                         </spring:bind>
-
-
-
                     </div>
 
                     <div class="modal-footer">
@@ -129,7 +133,7 @@
             };
             $.ajax({
                 type: "GET",
-                contentType: "application/json",
+                contentType: "application/json; charset=utf-8",
                 url: "${urlInfo}/getdetail",
                 data: json,
                 dataType: 'json',
@@ -169,7 +173,7 @@
             $("#viewForm-phone").val(data.phone);
             $("#viewForm-email").val(data.email);
             $("#viewForm-address").val(data.address);
-            $("#viewForm-department").val(data.department);
+            $("#viewForm-department").val(data.departmentId);
             $("#viewForm-description").val(data.description);
             $('#ojectView').modal('show');
         }
@@ -183,7 +187,7 @@
             edit["phone"] = $("#viewForm-phone").val().trim();
             edit["description"] = $("#viewForm-description").val().trim();
             edit["address"] = $("#viewForm-address").val().trim();
-            edit["department"] = $("#viewForm-department").val().trim();
+            edit["departmentId"] = $("#viewForm-department").val().trim();
             edit["email"] = $("#viewForm-email").val().trim();
 
             $.ajax({
@@ -199,24 +203,10 @@
                     if (type === undefined) {
                         type = 'error';
                     }
-
-                    new PNotify({
-                        title: "Thông báo",
-                        text: $.trim(data.toString()).split('|')[0],
-                        type: type,
-                        delay: 3000,
-                        styling: "jqueryui",
-                        addclass: 'custom-notif',
-                        mouse_reset: false,
-                        buttons: {
-                            sticker: false,
-                            closer_hover: false
-                        }
-                    });
-
+                    alert($.trim(data.toString()).split('|')[0]);
                     if (type !== 'error') {
                         $('#ojectView').on('hidden.bs.modal', function () {
-                            history.go(0);
+                            window.location.href = "${urlProject}/employeeList";
                         });
                     }
                 },

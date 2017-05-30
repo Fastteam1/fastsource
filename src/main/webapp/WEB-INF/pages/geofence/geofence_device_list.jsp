@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>EFinder | Danh sách vùng địa lý</title>
+        <title>EFinder | Theo dõi thiết bị vào ra</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -32,18 +32,6 @@
         <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.min.css">
         <!-- PNotify. -->
         <link href="${urlProject}/pages/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" >
-        <!-- daterange picker -->
-        <link rel="stylesheet" href="${urlProject}/plugins/daterangepicker/daterangepicker.css">
-        <style>
-            /*            .dataTables_wrapper .dataTables_length {
-                            float: right;
-                        }
-                        .dataTables_wrapper .dataTables_filter {
-                            float: left;
-                            text-align: left;
-                        }*/
-
-        </style>
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -77,7 +65,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <a data-toggle="modal" href="#insert-modal" id ="add-form">
-                                                            <button type="button" class="btn btn-info" onclick="location.href='${urlInfo}/update'" >
+                                                            <button type="button" class="btn btn-info" onclick="location.href = '${urlInfo}/update'" >
                                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm mới
                                                             </button>
 
@@ -94,9 +82,9 @@
                                                 <th>Ngày tạo</th>
                                                 <th>Ngày cập nhật</th>
                                                 <th>Mô tả</th>
-                                                <th>Số lượng thiết bị nằm trong</th>
-                                                <th>Số lượng thiết bị nằm ngoài</th>
-                                                <th class="edit-actions"></th>
+                                                <th>Danh sách thiết bị theo dõi</th>
+                                                <th>Lịch sử vào ra</th>
+                                                <th class="edit-actions">Cài đặt</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -107,12 +95,12 @@
                                                     <td>${geofence.createTime}</td>
                                                     <td>${geofence.updateTime}</td>
                                                     <td>${geofence.description}</td>
-                                                    <td>${geofence.deviceIn}</td>
-                                                    <td>${geofence.deviceOut}</td>
+                                                    <td><a data-toggle="modal" href="javascript:void(0)" onclick="getViaAjax(${geofence.id},'${geofence.name}');">Xem chi tiết</a></td>
+                                                    <td><a href="${urlInfo}/tracking_detail?id=${geofence.id}">Xem chi tiết</a></td>
 
                                                     <td class="center">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template " data-toggle="modal" 
-                                                                data-placement="top" title="Sửa" onclick="location.href='${urlInfo}/update?id=${geofence.id}'">
+                                                                data-placement="top" title="Sửa" onclick="location.href = '${urlInfo}/update?id=${geofence.id}'">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
 
@@ -161,83 +149,10 @@
         <!-- AdminLTE for demo purposes -->
         <script src="${urlProject}/dist/js/demo.js"></script>
         <!-- PNotify -->
-        <script src="${urlProject}/pages/js/pnotify.custom.min.js"></script>
-        <!-- page script -->
-
-        <!-- InputMask -->
-        <script src="${urlProject}/plugins/input-mask/jquery.inputmask.js"></script>
-        <script src="${urlProject}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-        <script src="${urlProject}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
-        <!-- moment -->
-        <script src="${urlProject}/plugins/daterangepicker/moment.js"></script>
-        <!-- bootstrap datetimepicker -->
-        <script src="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-        <script>
-
-
-        $(function () {
-            $("#example1").DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "searching": true,
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                responsive: true
-            });
-        });
-                                                                    
-        function deleteViaAjax(objId) {
-            if (objId !== null) {
-                var confirm_check = confirm("Bạn có chắc chắn muốn xóa?");
-                if (confirm_check === true) {
-                    $.ajax({
-                        type: "POST",
-                        url: "${urlInfo}/deactive",
-                        dataType: 'text',
-                        data: {
-                            "geofenceId": objId
-                        },
-                        timeout: 100000,
-                        success: function (data) {
-                            var type = $.trim(data.toString()).split('|')[1];
-                            if (type === undefined) {
-                                type = 'error';
-                            }
-                            alert($.trim(data.toString()).split('|')[0]);
-                            window.location.href = "${urlProject}/geoFenceList";
-                        },
-                        error: function (e) {
-                            console.log("ERROR: ", e);
-                            new PNotify({
-                                title: "Thông báo",
-                                text: "Có lỗi xảy ra",
-                                type: "error",
-                                delay: 3000,
-                                styling: "jqueryui",
-                                addclass: 'custom-notif',
-                                mouse_reset: false,
-                                buttons: {
-                                    sticker: false,
-                                    closer_hover: false
-                                }
-                            });
-                        },
-                        done: function (e) {
-                            console.log("DONE");
-                        }
-                    });
-
-                } else {
-                    return;
-                }
-            } else {
-                return;
-            }
-        }
-        </script>
+        <script src="${urlProject}/pages/js/pnotify.custom.min.js"></script>                                                });
+       
+        <!-- ADD VIEW FORM -->
+        <%@include file="geofence_device_view.jsp"%>
 
 
     </body>

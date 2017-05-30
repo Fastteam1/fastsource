@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -117,7 +118,7 @@
                                                     <td>${employee.address}</td>
                                                     <td>${employee.email}</td>
                                                     <td>${employee.description}</td>
-                                                    <td>${employee.department}</td>
+                                                    <td>${employee.departmentName}</td>
 
                                                     <td class="center">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template " data-toggle="modal" 

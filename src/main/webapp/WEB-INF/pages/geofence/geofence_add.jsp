@@ -1,193 +1,80 @@
 <%-- 
-    Document   : gameTemplate
-    Created on : Oct 17, 2016, 8:34:38 AM
+    Document   : viewEmployee
+    Created on : Oct 11, 2016, 9:31:47 AM
     Author     : vnpt2
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<style>
-    .modal-dialog {
-        position: absolute;
-        top: 120px;
-        right: 50px;
-        bottom: 0;
-        left: 50px;
-        z-index: 10040;
-        overflow: auto;
-        overflow-y: auto;
-    }
-</style>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EFinder | Thêm mới vùng địa lý</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="${urlProject}/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.min.css">
 
 
 
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <jsp:include page="../include/header.jsp" />
+            <jsp:include page="../include/menu.jsp" />   
 
-<!-- Modal -->
-<body>
-    <div class="modal fade" id="objectAdd" tabindex="-1" role="dialog" aria-labelledby="Thêm mới nhân viên"  >
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" >Thêm mới nhân viên</h4>
-                </div>
-                <form action="" method="POST" class="form-horizontal" id="addForm">
-                    <div class="modal-body">
-                        <spring:bind path="id">
-                            <div class="form-group hidden"> 
-                                <label for="id-input" class="col-sm-2 control-label">ID</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-id" placeholder="id" name="id" >
-                                </div>
-                            </div>
-                        </spring:bind>
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Mẫu game
+                        <small>Danh sách mẫu Game</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="#">Tiến trình game</a></li>
+                        <li class="active">Mẫu game</li>
+                    </ol>
+                </section>
 
-                        <spring:bind path="name">
-                            <div class="form-group">
-                                <label for="name-input" class="col-sm-2 control-label">Tên nhân viên</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-name" placeholder="name" name="name" required
-                                           pattern=".*\S+.*" title="Nhập đầy đủ thông tin">
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-                        <spring:bind path="phone">
-                            <div class="form-group">
-                                <label for="phone-input" class="col-sm-2 control-label">Điện thoại</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="addForm-phone" placeholder="phone" name="phone" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-
-                        <spring:bind path="address">
-                            <div class="form-group">
-                                <label for="address-input" class="col-sm-2 control-label">Địa chỉ</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-address" placeholder="address" name="address" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-                        <spring:bind path="email">
-                            <div class="form-group">
-                                <label for="email-input" class="col-sm-2 control-label">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="addForm-email" placeholder="email" name="email" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-
-                        <spring:bind path="department">
-                            <div class="form-group">
-                                <label for="department-input" class="col-sm-2 control-label">Bộ phận</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-department" placeholder="department" name="department" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-                        <spring:bind path="description">
-                            <div class="form-group">
-                                <label for="description-input" class="col-sm-2 control-label">Mô tả</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-description" placeholder="description" name="description" required>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary">Thêm mới</button>
-                    </div>
-                </form>
-
+                <!-- Main content -->
+                <section class="content">
+                    <iframe src="${urlInfo}/map?id=${geoFenceId}" width="100%" height="700"></iframe>
+                    <!-- /.row -->
+                </section>
             </div>
+
+            <jsp:include page="../include/footer.jsp" />
+            <jsp:include page="../include/setting.jsp" />
+
+
+            <!-- ./wrapper -->
         </div>
-    </div>
 
-    <script>
-        $(document).on('submit', '#addForm', function (e) {
-            event.preventDefault();
-            addViaAjax();
-        });
-        
-        function addViaAjax() {
-            var add = {};
+        <!-- jQuery 2.2.3 -->
+        <script src="${urlProject}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="${urlProject}/bootstrap/js/bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="${urlProject}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="${urlProject}/plugins/fastclick/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="${urlProject}/dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="${urlProject}/dist/js/demo.js"></script>
 
-            add["name"] = $("#addForm-name").val().trim();
-            add["phone"] = $("#addForm-phone").val().trim();
-            add["description"] = $("#addForm-description").val().trim();
-            add["address"] = $("#addForm-address").val().trim();
-            add["department"] = $("#addForm-department").val().trim();
-            add["email"] = $("#addForm-email").val().trim();
-
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "${urlInfo}/insert",
-                data: JSON.stringify(add),
-                dataType: 'text',
-                timeout: 100000,
-                success: function (data) {
-                    $('#objectAdd').modal("hide");
-                    var type = $.trim(data.toString()).split('|')[1];
-                    if (type === undefined) {
-                        type = 'error';
-                    }
-
-                    new PNotify({
-                        title: "Thông báo",
-                        text: $.trim(data.toString()).split('|')[0],
-                        type: type,
-                        delay: 3000,
-                        styling: "jqueryui",
-                        addclass: 'custom-notif',
-                        mouse_reset: false,
-                        buttons: {
-                            sticker: false,
-                            closer_hover: false
-                        }
-                    });
-
-                    if (type !== 'error') {
-                        $('#objectAdd').on('hidden.bs.modal', function () {
-                            history.go(0);
-                        });
-                    }
-                },
-                error: function (e) {
-                    console.log("ERROR: ", e);
-                    new PNotify({
-                        title: "Thông báo",
-                        text: "Có lỗi xảy ra",
-                        type: "error",
-                        delay: 3000,
-                        styling: "jqueryui",
-                        addclass: 'custom-notif',
-                        mouse_reset: false,
-                        buttons: {
-                            sticker: false,
-                            closer_hover: false
-                        }
-                    });
-                },
-                done: function (e) {
-                    console.log("DONE");
-                }
-            });
-            
-            return false;
-        }
-
-        
-    </script>
-
-</body>
+    </body>
+</html>

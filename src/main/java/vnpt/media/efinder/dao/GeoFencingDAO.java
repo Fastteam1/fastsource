@@ -6,8 +6,8 @@
 package vnpt.media.efinder.dao;
 
 import java.util.List;
-import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.GeoFencingInfo;
+import vnpt.media.efinder.model.LogTrackingDeviceInfo;
 
 /**
  *
@@ -19,11 +19,12 @@ public interface GeoFencingDAO {
 
     public List<GeoFencingInfo> queryGeoFencingByDeviceId(String id);
 
-    public List<DeviceInfo> queryDeviceByGeoFencingId(String id);
+    // Lay Json tra ve phuc vu cho DataTable
+    public String queryDeviceByGeoFencingId(String id);
 
-    public boolean insertGeoFencingInCompany(String comId, String location, String name, String description);
+    public boolean insertGeoFencingInCompany(GeoFencingInfo geoFencingInfo);
 
-    public boolean updateGeoFencing(String geoFenceId, String name, String location, String description);
+    public boolean updateGeoFencing(GeoFencingInfo geoFencingInfo);
 
     public boolean insertDeviceInGeoFencing(String deviceId, String geoFencingId);
 
@@ -32,4 +33,6 @@ public interface GeoFencingDAO {
     public boolean deleteGeoFencingInList(String geoFencingId);
 
     public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id);
+    
+    public List<LogTrackingDeviceInfo> queryLogTrackingByGeoFencingId(String id, String page, String num);
 }

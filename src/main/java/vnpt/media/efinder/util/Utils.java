@@ -13,15 +13,11 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.ResponseInfo;
 
@@ -100,7 +96,7 @@ public class Utils {
         responseInfo.setMessage(message);
         return responseInfo;
     }
-    
+
     public static String readUrlPOST(String url, String urlParameters) throws Exception {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -129,16 +125,10 @@ public class Utils {
         for (int c; (c = in.read()) >= 0;) {
             sb.append((char) c);
         }
-        
+
         return sb.toString();
     }
-
-    
-//    public static void main(String[] args) {
-//        
-////        JSONObject obj1 = new JSONObject(geoFencingInfo.getLocation());
-////        JSONArray ar1 = obj1.getJSONArray("features");
-////        JSONObject obj2 = ar1.getJSONObject(0).getJSONObject("geometry");
-////        JSONArray ar2 = obj2.getJSONArray("coordinates").getJSONArray(0);
-//    }
+    public static void main(String[] args) throws Exception {
+        System.out.println(readUrlPOST("http://10.1.36.17:8080/ApiBase/api/info/employee/update?employeeId=29", "name=Trần Hoàng Long&phone=03213&department=fdsf&description=fsd&address=sdfsd&email=tranlongbkhn@gmail.com"));
+    }
 }

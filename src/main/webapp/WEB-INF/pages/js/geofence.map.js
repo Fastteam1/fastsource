@@ -14,8 +14,8 @@ var drawingManager;
 function init() {
     // Initialise the map.
     map = new google.maps.Map(document.getElementById('map-holder'), {
-        center: {lat: 21.01272715296389, lng: 105.81808090209961},
-        zoom: 10
+        center: {lat: 16.003575733881327, lng: 107.60868072509766},
+        zoom: 6
     });
     map.data.setControls(['Polygon']);
 
