@@ -29,16 +29,18 @@ public class DeviceDAOImpl implements DeviceDAO {
 
     @Override
     public List<DeviceInfo> getAllDeviceInfo(String comId, String page, String num) {
-        String url = env.getProperty(Constants.API_ROOT) + "/info/manage?";
-        url = url + "comId=" + comId + "&page=" + page + "&num=" + num;
+
+        String url = env.getProperty(Constants.API_DEVICE) + "?action=getList";
+        url = url + "&comId=" + comId + "&page=" + page + "&num=" + num;
         String data = Utils.readUrl(url);
         List<DeviceInfo> listDevices = Utils.stringToArray(data, DeviceInfo[].class);
         return listDevices;
+        
     }
 
     @Override
     public List<DeviceInfo> findDeviceInfo(String comId, String deviceId) {
-        String url = "http://10.1.36.17:8080/ApiBase/api/info/device?action=getInfo";
+        String url = env.getProperty(Constants.API_DEVICE) + "?action=getInfo";
         url = url + "&comId=" + comId + "&deviceId=" + deviceId;
         String data = Utils.readUrl(url);
         List<DeviceInfo> listDevice = Utils.stringToArray(data, DeviceInfo[].class);
@@ -131,6 +133,13 @@ public class DeviceDAOImpl implements DeviceDAO {
             Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+
+    @Override
+    public String queryEmployeeByDeviceId(String id) {
+        String url = env.getProperty(Constants.API_ROOT) + "/handle/listemployee?deviceId=" + id;
+        String data = Utils.readUrl(url);
+        return data;
     }
 
 }

@@ -28,4 +28,7 @@ public interface DeviceDAO {
     public List<EmployeeInfo> getListEmployeeManage(String deviceId);
 
     public boolean addEmployeeManage(String deviceId, String employeeId, String startTime, String endTime);
+    
+        // Lay Json tra ve phuc vu cho DataTable
+    public String queryEmployeeByDeviceId(String id);
 }

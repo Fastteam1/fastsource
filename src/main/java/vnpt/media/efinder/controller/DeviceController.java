@@ -52,7 +52,6 @@ public class DeviceController {
     @Autowired
     private GeoFencingDAO geoFencingDAO;
 
-
     @RequestMapping({"/deviceList"})
     public String getListDevice(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
@@ -62,7 +61,7 @@ public class DeviceController {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
-            return "/forms/login";
+            return "redirect:/login";
         } else {
             CustomerInfo customerInfo = listCustomers.get(0);
             comId = customerInfo.getCompanyId();
@@ -101,7 +100,7 @@ public class DeviceController {
             //System.out.println(comId);
         }
         List<DeviceInfo> listDevices = deviceDAO.findDeviceInfo(comId, deviceId);
-        
+
         // GEOFencingInfo
         List<GeoFencingInfo> listGeoFences = geoFencingDAO.queryGeoFencingByDeviceId(deviceId);
         String[] arrGeoFences = new String[listGeoFences.size()];
@@ -111,7 +110,7 @@ public class DeviceController {
         for (DeviceInfo device : listDevices) {
             device.setArrGeoFences(arrGeoFences);
         }
-        
+
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/device");
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
 
@@ -128,8 +127,7 @@ public class DeviceController {
             return "Chưa đăng nhập";
         }
 
-       // System.out.println("ARRR: " + Arrays.toString(deviceInfo.getArrGeoFences()));
-        
+        // System.out.println("ARRR: " + Arrays.toString(deviceInfo.getArrGeoFences()));
         System.out.println("OKKKKKKKKKKKK--->" + deviceInfo);
         model.addAttribute("deviceInfo", deviceInfo);
         boolean result = false;
@@ -227,12 +225,14 @@ public class DeviceController {
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
         return listEmployees;
     }
+
     @RequestMapping({"/device/insertEmployee"})
-    public  @ResponseBody String insertEmployee(Model model, @RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
+    public @ResponseBody
+    String insertEmployee(Model model, @RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
             @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
             @RequestParam(value = "startTime", defaultValue = "0") String startTime,
             @RequestParam(value = "endTime", defaultValue = "0") String endTime,
-             HttpServletRequest request) {
+            HttpServletRequest request) {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
@@ -252,6 +252,25 @@ public class DeviceController {
         } else {
             return "Thêm mới dữ liệu thất bại. |error";
         }
+    }
+
+    @RequestMapping({"/device/employeeList"})
+    public @ResponseBody
+    String getListDeviceByGeofenId(Model model,
+            @RequestParam(value = "id", defaultValue = "0") String deviceId,
+            HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return null;
+        }
+
+        String strListEmployees = deviceDAO.queryEmployeeByDeviceId(deviceId);
+        //System.out.println(listDevices);
+
+        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/device");
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
+        return strListEmployees;
     }
 
 }

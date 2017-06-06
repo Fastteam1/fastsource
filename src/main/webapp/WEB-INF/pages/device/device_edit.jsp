@@ -273,7 +273,7 @@
                             }
                         });
                     } else {
-                        window.location.href = "/SpringMVC_EFinder/login";
+                        alert(data === null);
                     }
                 },
                 error: function (e) {
@@ -318,7 +318,7 @@
                         mouse_reset: false,
                         buttons: {
                             sticker: false,
-                            closer_hover: false,
+                            closer_hover: false
                         }
                     });
 

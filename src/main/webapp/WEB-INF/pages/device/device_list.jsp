@@ -89,10 +89,9 @@
                                                 <th>IMEI</th>
                                                 <th>OS</th>
                                                 <th>Số Điện Thoại</th>
-                                                <th>Địa Chỉ Hiện Taik</th>
+                                                <th>Địa Chỉ Hiện Tại</th>
                                                 <th>Nhân viên quản lý</th>
-                                                <th>Phòng ban</th>
-                                                <th class="edit-actions">Sửa</th>
+                                                <th class="edit-actions">Cài đặt</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -105,8 +104,7 @@
                                                     <td>${device.os}</td>
                                                     <td>${device.msisdn}</td>
                                                     <td>${device.currentAdd}</td>
-                                                    <td>${device.nameEmployee}</td>
-                                                    <td>${device.departmentName}</td>
+                                                    <td><a data-toggle="modal" href="javascript:void(0)" onclick="getViaAjaxEmployee(${device.id},'${device.name}');">Xem chi tiết</a></td>
 
                                                     <td class="edit-actions">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" 
@@ -196,6 +194,7 @@
         <!-- ADD VIEW FORM -->
         <%@include file="device_edit.jsp"%>
         <%@include file="device_add.jsp"%>
+        <%@include file="device_employee_view.jsp"%>
 
     </body>
 </html>

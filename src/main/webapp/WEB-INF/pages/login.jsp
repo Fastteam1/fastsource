@@ -66,25 +66,25 @@
                     <img src="${urlProject}/pages/image/efinder/login.png" alt="LOGIN">
                 </div>
 
-                <div class="text-login pull-left">
+                <form class="text-login pull-left" id="loginForm" method="post">
                     <h3 class="header-login">ĐĂNG NHẬP</h3>
                     <div class="form-login">
-                        <input class="form-control pull-left" placeholder="UserName" name="username" id="txtUserName">
+                        <input type="text" class="form-control pull-left" placeholder="UserName" name="username" id="txtUserName">
                     </div>
                     <div class="form-login">
                         <input type="password" class="form-control pull-left" placeholder="Password" name="password" id="txtPassword">
                     </div>
                     <div class="form-login">
-                        <input class="form-control pull-left" placeholder="Số thuê bao (đối với tài khoản chi nhánh )" name="username" id="txtUserName" >
+                        <input type="number" class="form-control pull-left" placeholder="Số thuê bao (đối với tài khoản chi nhánh )" name="msisdn" id="txtMsisdn" >
                     </div>
 
                     <div><input type="checkbox"> Tôi đồng ý với các điều khoản sử dụng</div>
                     <div><input type="checkbox"> Nhớ mật khẩu  <a href="#" class="pull-right"> Quên mật khẩu</a></div>
                     <div class="btn-login">
-                        <b>Đăng nhập</b>
+                        <button type="submit">Đăng nhập</button>
                     </div>
-                    
-                </div>
+                </form>
+
 
 
 
@@ -136,7 +136,7 @@
                 autoplay: true,
                 autoplayTimeout: 5000
             });
-            
+
             $(document).ready(function () {
                 /* Setting toast popup */
                 //toastr.options.timeOut = 1000;
@@ -164,53 +164,14 @@
                             console.log(response.length !== 0);
                             if (response.length !== 0) {
                                 //console.log(username + "-----" + password);
-                                new PNotify({
-                                    title: "Thông báo",
-                                    text: "Đăng nhập thành công",
-                                    type: "success",
-                                    delay: 3000,
-                                    styling: "jqueryui",
-                                    addclass: 'custom-notif',
-                                    mouse_reset: false,
-                                    buttons: {
-                                        sticker: false,
-                                        closer_hover: false
-                                    }
-                                });
-
+                                alert("Đăng nhập thành công");
                                 window.location.href = "/SpringMVC_EFinder/companyInfo";
-
                             } else {
-                                
-                                new PNotify({
-                                    title: "Thông báo",
-                                    text: "Đăng nhập thất bại",
-                                    type: "error",
-                                    delay: 3000,
-                                    styling: "jqueryui",
-                                    addclass: 'custom-notif',
-                                    mouse_reset: false,
-                                    buttons: {
-                                        sticker: false,
-                                        closer_hover: false
-                                    }
-                                });
+                                alert("Đăng nhập thất bại");
                             }
                         },
                         error: function () {
-                            new PNotify({
-                                title: "Thông báo",
-                                text: "Đăng nhập xảy ra lỗi!",
-                                type: "error",
-                                delay: 3000,
-                                styling: "jqueryui",
-                                addclass: 'custom-notif',
-                                mouse_reset: false,
-                                buttons: {
-                                    sticker: false,
-                                    closer_hover: false
-                                }
-                            });
+                            alert("Đăng nhập xảy ra lỗi");
                         }
                     });
 

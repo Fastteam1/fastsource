@@ -8,6 +8,7 @@ package vnpt.media.efinder.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.CustomerDAO;
 import vnpt.media.efinder.model.CustomerInfo;
+import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
 /**
@@ -35,6 +37,9 @@ import vnpt.media.efinder.util.Utils;
 public class CustomerController {
 
     @Autowired
+    private Environment env;
+    
+    @Autowired
     private CustomerDAO customerDAO;
     
     @InitBinder
@@ -48,24 +53,15 @@ public class CustomerController {
     }
 
     @RequestMapping(value = {"/login", "/"}, method = RequestMethod.GET)
-    public String home() {
-        return "/forms/login";
-    }
-
-    @RequestMapping({"/test"})
-    public String test() {
-        return "/bin/TestModalSpring";
+    public String home(Model model) {
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
+        return "/login";
     }
 
     @RequestMapping({"/logout"})
     public String logout(HttpServletRequest request) {
         Utils.removeCustomerListInSession(request);
-        return "/forms/login";
-    }
-
-    @RequestMapping({"/openmodal"})
-    public String openmodal() {
-        return "/forms/openmodal";
+        return "redirect:/login";
     }
 
     @RequestMapping("/403")
@@ -78,28 +74,12 @@ public class CustomerController {
         return "/forms/register";
     }
 
-    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
-    public String accountInfo(Model model, HttpServletRequest request) {
-        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
-        if (listCustomers.isEmpty()) {
-            return "/forms/login";
-        }
-        return "index";
-    }
-
-    @RequestMapping("/index2")
-    public String index2() {
-        return "/test";
-    }
-
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
     List<CustomerInfo> checkLogin(@RequestParam("username") String username,
             @RequestParam("password") String password, Model model, HttpServletRequest request) throws Exception {
-       
-        
-        
+
         List<CustomerInfo> listCustomers = customerDAO.queryCustomers(username, password);
         request.getSession().setAttribute("customerInfo", listCustomers);
         return listCustomers;

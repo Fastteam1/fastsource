@@ -129,6 +129,8 @@ public class Utils {
         return sb.toString();
     }
     public static void main(String[] args) throws Exception {
-        System.out.println(readUrlPOST("http://10.1.36.17:8080/ApiBase/api/info/employee/update?employeeId=29", "name=Trần Hoàng Long&phone=03213&department=fdsf&description=fsd&address=sdfsd&email=tranlongbkhn@gmail.com"));
+        //System.out.println(readUrlPOST("http://10.1.36.17:8080/ApiBase/api/info/employee/update?employeeId=29", "name=Trần Hoàng Long&phone=03213&department=fdsf&description=fsd&address=sdfsd&email=tranlongbkhn@gmail.com"));
+            
+        System.out.println(readUrl("http://10.1.36.36:8080/ApiBase/api/info/device?action=getlist&comId=1"));
     }
 }
