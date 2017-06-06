@@ -98,6 +98,8 @@ public class CustomerController {
     List<CustomerInfo> checkLogin(@RequestParam("username") String username,
             @RequestParam("password") String password, Model model, HttpServletRequest request) throws Exception {
        
+        
+        
         List<CustomerInfo> listCustomers = customerDAO.queryCustomers(username, password);
         request.getSession().setAttribute("customerInfo", listCustomers);
         return listCustomers;

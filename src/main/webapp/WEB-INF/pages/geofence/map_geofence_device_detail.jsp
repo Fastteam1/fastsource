@@ -35,7 +35,7 @@
     <body>
         <div id="panel" class="hidden">
             <div id="panel-content">
-                <textarea class="hidden" id="geojson-input"
+                <textarea class="h" id="geojson-input"
                           placeholder="Drag and drop GeoJSON onto the map or paste it here to begin editing.">
                     ${geoFenceInfo.location}
                 </textarea>
@@ -50,92 +50,7 @@
             </div>
         </div>
 
-        <script>
-            $(document).on('submit', '#viewForm', function (e) {
-                event.preventDefault();
-
-                var confirm_check = confirm("${editGeofenceTitle}");
-                if (confirm_check === true) {
-                    editViaAjax();
-                }
-            });
-
-            function editViaAjax() {
-                var edit = {};
-
-                edit["id"] = $("#viewForm-id").val().trim();
-                edit["name"] = $("#viewForm-name").val().trim();
-                edit["description"] = $("#viewForm-description").val().trim();
-                edit["location"] = $("#geojson-input").val().trim();
-
-                $.ajax({
-                    type: "POST",
-                    contentType: "application/json",
-                    url: "${urlInfo}/update",
-                    data: JSON.stringify(edit),
-                    dataType: 'text',
-                    timeout: 100000,
-                    success: function (data) {
-                        console.log(data);
-                        var type = $.trim(data.toString()).split('|')[1];
-                        if (type === undefined) {
-                            type = 'error';
-                        }
-
-                        new PNotify({
-                            title: "Thông báo",
-                            text: $.trim(data.toString()).split('|')[0],
-                            type: type,
-                            delay: 3000,
-                            styling: "jqueryui",
-                            addclass: 'custom-notif',
-                            mouse_reset: false,
-                            buttons: {
-                                sticker: false,
-                                closer_hover: false
-                            }
-                        });
-
-                        if (type !== 'error') {
-                            window.top.location.href = "${urlProject}/geoFenceList";
-
-                            new PNotify({
-                                title: "Thông báo",
-                                text: $.trim(data.toString()).split('|')[0],
-                                type: type,
-                                delay: 3000,
-                                styling: "jqueryui",
-                                addclass: 'custom-notif',
-                                mouse_reset: false,
-                                buttons: {
-                                    sticker: false,
-                                    closer_hover: false
-                                }
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                        new PNotify({
-                            title: "Thông báo",
-                            text: "Có lỗi xảy ra",
-                            type: "error",
-                            delay: 3000,
-                            styling: "jqueryui",
-                            addclass: 'custom-notif',
-                            mouse_reset: false,
-                            buttons: {
-                                sticker: false,
-                                closer_hover: false
-                            }
-                        });
-                    },
-                    done: function (e) {
-                        console.log("DONE");
-                    }
-                });
-            }
-        </script>
+        
     </body>
 </html>
 

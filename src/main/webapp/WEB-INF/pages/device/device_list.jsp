@@ -12,29 +12,32 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>EFinder | Danh sách nhân viên</title>
+        <title>EFinder | Danh sách thiết bị</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${urlProject}/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- DataTables -->
-        <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+        <link rel="stylesheet" href="${urlProject}/plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.css">
         <!-- bootstrap datetimepicker -->
-        <link rel="stylesheet" href="plugins/datetimepicker/bootstrap-datetimepicker.css">
+        <link rel="stylesheet" href="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.css">
         <!-- PNotify. -->
-        <link href="pages/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" >
+        <link href="${urlProject}/pages/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" >
         <!-- daterange picker -->
-        <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-
+        <link rel="stylesheet" href="${urlProject}/plugins/daterangepicker/daterangepicker.css">
+        <link href="${urlProject}/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css"/>
+        <link href="${urlProject}/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"/>
+        <link href="${urlProject}/plugins/bootstrap-duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -85,8 +88,8 @@
                                                 <th>Loại thiết bị</th>
                                                 <th>IMEI</th>
                                                 <th>OS</th>
-                                                <th>Số Điện Thoại</th>
-                                                <th>Địa Chỉ Hiện Taik</th>
+                                                <th>Số điện thoại</th>
+                                                <th>Địa chỉ hiện tại</th>
                                                 <th class="edit-actions">Sửa</th>
                                             </tr>
                                         </thead>
@@ -103,14 +106,14 @@
 
                                                     <td class="edit-actions">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" 
-                                                                                     data-placement="top" title="View" onclick="getViaAjax(${device.id});">
+                                                                data-placement="top" title="View" onclick="getViaAjax(${device.id});">
                                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                         </button>
                                                         <button type="button" class="btn btn-xs btn-danger edit-Template " data-toggle="modal" 
                                                                 data-placement="top" title="Xóa" onclick="deleteViaAjax(${device.id});" id="delete-device">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
-                                                        
+
                                                     </td>
 
                                                 </tr>
@@ -137,34 +140,38 @@
             <!-- ./wrapper -->
         </div>
         <!-- jQuery 2.2.3 -->
-        <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${urlProject}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
-        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="${urlProject}/bootstrap/js/bootstrap.min.js"></script>
         <!-- DataTables -->
-        <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="${urlProject}/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="${urlProject}/plugins/datatables/dataTables.bootstrap.min.js"></script>
         <!-- SlimScroll -->
-        <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${urlProject}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->
-        <script src="plugins/fastclick/fastclick.js"></script>
+        <script src="${urlProject}/plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
-        <script src="dist/js/app.min.js"></script>
+        <script src="${urlProject}/dist/js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
-        <script src="dist/js/demo.js"></script>
+        <script src="${urlProject}/dist/js/demo.js"></script>
         <!-- PNotify -->
-        <script src="pages/js/pnotify.custom.min.js"></script>
+        <script src="${urlProject}/pages/js/pnotify.custom.min.js"></script>
         <!-- page script -->
 
         <!-- InputMask -->
-        <script src="plugins/input-mask/jquery.inputmask.js"></script>
-        <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-        <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="${urlProject}/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${urlProject}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${urlProject}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
         <!-- moment -->
-        <script src="plugins/daterangepicker/moment.js"></script>
+        <script src="${urlProject}/plugins/daterangepicker/moment.js"></script>
         <!-- bootstrap datetimepicker -->
-        <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-
+        <script src="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="${urlProject}/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+        
+        <!-- boostrap dualistbox -->
+        <script src="${urlProject}/plugins/bootstrap-duallistbox/jquery.bootstrap-duallistbox.min.js" type="text/javascript"></script>
+        
         <script>
                                                                     document.getElementById("GameProcess").className = "active";
                                                                     document.getElementById("GameTemp").className = "active";

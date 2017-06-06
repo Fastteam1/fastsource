@@ -6,9 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<script src="../../bootstrap/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-<link href="../../bootstrap/css/datepicker3.css" rel="stylesheet" type="text/css"/>
-<link href="../../bootstrap/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"/>
 <style>
     .modal-dialog {
         position: absolute;
@@ -19,6 +16,7 @@
         z-index: 10040;
         overflow: auto;
         overflow-y: auto;
+        width: 50%;
     }
 </style>
 
@@ -32,7 +30,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" >Game Template Form</h4>
+                    <h4 class="modal-title" >Cập nhật thiết bị</h4>
                 </div>
                 <form action="" method="POST" class="form-horizontal" id="viewForm" >
                     <div class="modal-body">
@@ -46,7 +44,7 @@
 
 
                         <div class="form-group">
-                            <label for="name-input" class="col-sm-2 control-label">Tên Thiet Bi</label>
+                            <label for="name-input" class="col-sm-2 control-label">Tên thiết bị</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="viewForm-name" placeholder="name" name="name" required>
                             </div>
@@ -76,6 +74,22 @@
                                 <label for="email-input" class="col-sm-2 control-label">Hệ điều hành</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="viewForm-os" placeholder="email" name="email" required>
+                                </div>
+                            </div>   
+                        </spring:bind>
+
+
+                        <spring:bind path="arrGeoFences">
+                            <div class="form-group">
+                                <label for="arrGeoFences-input" class="col-sm-2 control-label">${arrGeoFences}</label>
+                                <div class="col-sm-9">
+                                    <form:select id="viewForm-arrGeoFences" path="arrGeoFences" class="form-control" multiple="true" name="duallistbox-geofence-view[]">
+                                        <c:if test="${not empty listGeoFences}"> 
+                                            <c:forEach var="geofence" items="${listGeoFences}">
+                                                <form:option value="${geofence.getId()}" label="${geofence.getName()}" />
+                                            </c:forEach>
+                                        </c:if>
+                                    </form:select>
                                 </div>
                             </div>   
                         </spring:bind>
@@ -124,9 +138,11 @@
                                 </script>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" onclick="addEmployee('2','4');"class="btn btn-primary">Add</button>
+                                <button type="button" onclick="addEmployee('2', '4');"class="btn btn-primary">Add</button>
                             </div>
                         </div>
+
+
                     </div>
 
                     <div class="modal-footer">
@@ -141,71 +157,75 @@
     </div>
 
     <script type="text/javascript" lang="javascript">
-        
+
         var deviceId;
 
-        function addEmployee(startTime,endTime) {
-                var employeeId = $('#selectEmployee').val();
-                alert(deviceId);
-                alert(employeeId);
-                alert("addEmployee");
-                var json = {
-                    "employeeId": employeeId,
-                    "deviceId": deviceId,
-                    "startTime": startTime,
-                    "endTime": endTime
-                };
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "device/insertEmployee",
-                    data: json,
-                    dataType: 'json',
-                    timeout: 100000,
-          
-                    success: function (data) {
-                        alert('1');
-                        console.log("SUCCESS: ", data === null);
-                        if (data.length !== 0) {
-                          //  showForm(data[0]);
+        function addEmployee(startTime, endTime) {
+            var employeeId = $('#selectEmployee').val();
+            var json = {
+                "employeeId": employeeId,
+                "deviceId": deviceId,
+                "startTime": startTime,
+                "endTime": endTime
+            };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "device/insertEmployee",
+                data: json,
+                dataType: 'json',
+                timeout: 100000,
+                success: function (data) {
+                    console.log("SUCCESS: ", data === null);
+                    if (data.length !== 0) {
+                        //  showForm(data[0]);
 
-                        } else if (data.length !== 0) {
-                            new PNotify({
-                                title: "Thông báo",
-                                text: "Có lỗi xảy ra",
-                                type: "error",
-                                delay: 3000,
-                                styling: "jqueryui",
-                                addclass: 'custom-notif',
-                                mouse_reset: false,
-                                buttons: {
-                                    sticker: false,
-                                    closer_hover: false
-                                }
-                            });
-                        } else {
-                            window.location.href = "/SpringMVC_EFinder/login";
-                        }
-                    },
-                    error: function (e) {
-                        alert("Có lỗi xảy ra. Vui lòng đăng nhập lại!");
+                    } else if (data.length !== 0) {
+                        new PNotify({
+                            title: "Thông báo",
+                            text: "Có lỗi xảy ra",
+                            type: "error",
+                            delay: 3000,
+                            styling: "jqueryui",
+                            addclass: 'custom-notif',
+                            mouse_reset: false,
+                            buttons: {
+                                sticker: false,
+                                closer_hover: false
+                            }
+                        });
+                    } else {
                         window.location.href = "/SpringMVC_EFinder/login";
                     }
-                });
+                },
+                error: function (e) {
+                    alert("Có lỗi xảy ra. Vui lòng đăng nhập lại!");
+                    window.location.href = "/SpringMVC_EFinder/login";
+                }
+            });
         }
 
         function saveChangeClick() {
-            alert("cai lozl");
             event.preventDefault();
+
+            var demo = $('select[name="duallistbox-geofence-view[]"]').bootstrapDualListbox();
+            var size = demo.find(":selected").size();
+
+            if (size > 3) {
+                alert("Mỗi thiết bị chọn tối đa 3 vùng địa lý");
+            }
+
+            console.log($("#viewForm-arrGeoFences").val());
             editViaAjax();
         }
         function getViaAjax(objId) {
-
-            alert("getViaAjax");
             deviceId = objId;
             var json = {
                 "deviceId": objId
             };
+
+
+
             $.ajax({
                 type: "GET",
                 contentType: "application/json",
@@ -216,7 +236,6 @@
                 cache: false,
                 async: false,
                 success: function (data) {
-                    alert('1');
                     console.log("SUCCESS: ", data === null);
                     if (data.length !== 0) {
                         showForm(data[0]);
@@ -255,8 +274,8 @@
             edit["type"] = $("#viewForm-type").val().trim();
             edit["imei"] = $("#viewForm-imei").val().trim();
             edit["os"] = $("#viewForm-os").val().trim();
-            edit["phone"] = $("#viewForm-phone").val().trim();
-
+            edit["phone"] = $("#viewForm-phone").val();
+            edit["arrGeoFences"] = $("#viewForm-arrGeoFences").val();
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -313,12 +332,40 @@
             });
         }
         function showForm(data) {
+
+            var strArrGeoFences = data.arrGeoFences.toString();
+            var arrGeoFences = strArrGeoFences.split(","),
+                    i = 0, size = arrGeoFences.length,
+                    $options = $('#viewForm-arrGeoFences option');
+
+            $("#viewForm-arrGeoFences option:selected").prop("selected", false);
+            for (i; i < size; i++) {
+                $options.filter('[value="' + arrGeoFences[i] + '"]').prop('selected', true);
+            }
+            var demo = $('select[name="duallistbox-geofence-view[]"]').bootstrapDualListbox();
+            demo.bootstrapDualListbox('refresh', true);
+
+//            demo.on('change', function () {
+//                var size = demo.find(":selected").size();
+//                if (size > 3) {
+//                    demo.find(":selected").each(function (ind) {
+//                        if (ind > 2) {
+//                            $(this).filter('option:selected:last').prop("selected", false);
+//                           // alert("Mỗi thiết bị chọn tối đa 3 vùng địa lý");
+//                        }
+//                    });
+//                    demo.bootstrapDualListbox('refresh', true);
+//                }
+//            });
+
             $("#viewForm-id").val(data.id);
             $("#viewForm-name").val(data.name);
             $("#viewForm-type").val(data.type);
             $("#viewForm-imei").val(data.imei);
             $("#viewForm-os").val(data.os);
             $("#viewForm-phone").val(data.msisdn);
+
+            //console.log("arrGeoFences: " + data.arrGeoFences);
             $('#ojectView').modal('show');
         }
 

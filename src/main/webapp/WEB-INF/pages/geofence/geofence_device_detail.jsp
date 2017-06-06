@@ -24,12 +24,12 @@
         <!-- DataTables -->
         <link rel="stylesheet" href="${urlProject}/plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.css">
         <!-- bootstrap datetimepicker -->
         <link rel="stylesheet" href="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.css">
         <!-- PNotify. -->
         <link href="${urlProject}/pages/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" >
         <!-- daterange picker -->
@@ -71,27 +71,11 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-body">
-                                    <table class="table table-hover" style="width: 35%">
-                                        <tr>
-                                            <td>
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <a data-toggle="modal" href="#insert-modal" id ="add-form">
-                                                            <button type="button" class="btn btn-info" onclick="location.href = '${urlInfo}/update'" >
-                                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Thêm mới
-                                                            </button>
-
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        <tr>
-                                    </table>
 
 
                                     <iframe src="${urlInfo}/map_tracking_detail?id=${geoFenceId}" style="width: 100%; height: 400px"></iframe>                  
 
-                                    <table id="example1" class="table table-bordered">
+                                    <table id="example2" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Thời gian</th>
@@ -103,11 +87,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <c:forEach items="${listTrackingDevices}" var="geofence" varStatus="varStatus">
                                                 <tr>
                                                     <td>${geofence.createTime}</td>
-
                                                     <c:choose>
                                                         <c:when test="${geofence.status == 0}">
                                                             <td>Ra</td>
@@ -116,17 +98,13 @@
                                                             <td>Vào</td>
                                                         </c:when>
                                                     </c:choose>
-
-                                                    <td>${geofence.status}</td>
                                                     <td>${geofence.deviceName}</td>
                                                     <td>${geofence.description}</td>
                                                     <td>${geofence.employeeName}</td>
                                                     <td>${geofence.departmentName}</td>
                                                 </tr>
                                             </c:forEach>
-
                                         </tbody>
-
                                     </table>
                                 </div>
                                 <!-- /.box-body -->
@@ -176,67 +154,20 @@
         <script>
 
 
-                                                                $(function () {
-                                                                    $("#example1").DataTable({
-                                                                        "paging": true,
-                                                                        "lengthChange": true,
-                                                                        "ordering": true,
-                                                                        "info": true,
-                                                                        "autoWidth": true,
-                                                                        "searching": true,
-                                                                        "lengthMenu": [[10, 25, 50, -1], [5, 10, 15, "All"]],
-                                                                        responsive: true
-                                                                    });
-                                                                });
+            $(function () {
+                $("#example2").DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "searching": true,
+                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                    responsive: true
+                });
+            });
 
-                                                                function deleteViaAjax(objId) {
-                                                                    if (objId !== null) {
-                                                                        var confirm_check = confirm("Bạn có chắc chắn muốn xóa?");
-                                                                        if (confirm_check === true) {
-                                                                            $.ajax({
-                                                                                type: "POST",
-                                                                                url: "${urlInfo}/deactive",
-                                                                                dataType: 'text',
-                                                                                data: {
-                                                                                    "geofenceId": objId
-                                                                                },
-                                                                                timeout: 100000,
-                                                                                success: function (data) {
-                                                                                    var type = $.trim(data.toString()).split('|')[1];
-                                                                                    if (type === undefined) {
-                                                                                        type = 'error';
-                                                                                    }
-                                                                                    alert($.trim(data.toString()).split('|')[0]);
-                                                                                    window.location.href = "${urlProject}/geoFenceList";
-                                                                                },
-                                                                                error: function (e) {
-                                                                                    console.log("ERROR: ", e);
-                                                                                    new PNotify({
-                                                                                        title: "Thông báo",
-                                                                                        text: "Có lỗi xảy ra",
-                                                                                        type: "error",
-                                                                                        delay: 3000,
-                                                                                        styling: "jqueryui",
-                                                                                        addclass: 'custom-notif',
-                                                                                        mouse_reset: false,
-                                                                                        buttons: {
-                                                                                            sticker: false,
-                                                                                            closer_hover: false
-                                                                                        }
-                                                                                    });
-                                                                                },
-                                                                                done: function (e) {
-                                                                                    console.log("DONE");
-                                                                                }
-                                                                            });
 
-                                                                        } else {
-                                                                            return;
-                                                                        }
-                                                                    } else {
-                                                                        return;
-                                                                    }
-                                                                }
         </script>
 
 

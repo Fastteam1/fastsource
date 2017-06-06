@@ -131,6 +131,7 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     @Override
     public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id) {
         String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/geofending?id=" + id;
+        System.out.println("URL: " + url);
         String data = Utils.readUrl(url);
         System.out.println("DATa: " + data);
         List<GeoFencingInfo> listGeofences = Utils.stringToArray(data, GeoFencingInfo[].class);

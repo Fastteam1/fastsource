@@ -41,6 +41,14 @@ public class GeoFencingController {
     @Autowired
     private Environment env;
 
+    /**
+     * Controller lay danh sach tat ca GeoFencing
+     *
+     * @param model
+     * @param comId
+     * @param request
+     * @return
+     */
     @RequestMapping({"/geoFenceList"})
     public String getListGeoFence(Model model,
             @RequestParam(value = "id", defaultValue = "0") String comId,
@@ -63,6 +71,14 @@ public class GeoFencingController {
         return "/geofence/geofence_list";
     }
 
+    /**
+     * Lay chi tiet 1 GeoFencing
+     *
+     * @param model
+     * @param geoFenceId
+     * @param request
+     * @return
+     */
     @RequestMapping(value = {"/geoFence/update"}, method = RequestMethod.GET)
     public String getGeoFenceById(Model model,
             @RequestParam(value = "id", defaultValue = "0") String geoFenceId,
@@ -75,6 +91,7 @@ public class GeoFencingController {
 
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/geoFence");
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
+        // Truyen vao Frame
         model.addAttribute("geoFenceId", geoFenceId);
 
         if (geoFenceId.equalsIgnoreCase("0")) {
@@ -84,6 +101,14 @@ public class GeoFencingController {
         return "/geofence/geofence_edit";
     }
 
+    /**
+     * Update GeoFencing
+     *
+     * @param geoFencingInfo
+     * @param model
+     * @param request
+     * @return
+     */
     @RequestMapping(value = {"/geoFence/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -116,6 +141,14 @@ public class GeoFencingController {
         }
     }
 
+    /**
+     * Them moi GeoFencing
+     *
+     * @param geoFencingInfo
+     * @param model
+     * @param request
+     * @return
+     */
     @RequestMapping(value = {"/geoFence/insert"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -151,6 +184,14 @@ public class GeoFencingController {
         }
     }
 
+    /**
+     * Chen google map vao luc insert or update
+     *
+     * @param model
+     * @param geoFenceId
+     * @param request
+     * @return
+     */
     @RequestMapping({"/geoFence/map"})
     public String googleMap(Model model, @RequestParam(value = "id", defaultValue = "0") String geoFenceId, HttpServletRequest request) {
 
@@ -180,28 +221,14 @@ public class GeoFencingController {
         return "/geofence/map_geofence_edit";
     }
 
-    @RequestMapping({"/geoFence/trackingDevice"})
-    public String getLisTrackingDevice(Model model,
-            @RequestParam(value = "id", defaultValue = "0") String comId,
-            HttpServletRequest request) {
-
-        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
-        if (listCustomers.isEmpty()) {
-            return "redirect:/login";
-        } else {
-            CustomerInfo customerInfo = listCustomers.get(0);
-            comId = customerInfo.getCompanyId();
-        }
-
-        List<GeoFencingInfo> listGeofences = geoFencingDAO.queryGeoFencingByCompanyId(comId);
-        System.out.println(listGeofences);
-        model.addAttribute("listGeofences", listGeofences);
-
-        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/geoFence");
-        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
-        return "/geofence/geofence_device_list";
-    }
-
+    /**
+     * Danh sach thiet bi theo GeoFencingId
+     *
+     * @param model
+     * @param geofenceId
+     * @param request
+     * @return
+     */
     @RequestMapping({"/geoFence/deviceList"})
     public @ResponseBody
     String getListDeviceByGeofenId(Model model,
@@ -215,13 +242,21 @@ public class GeoFencingController {
 
         String strListDevices = geoFencingDAO.queryDeviceByGeoFencingId(geofenceId);
         //System.out.println(listDevices);
-       
+
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/geoFence");
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
         return strListDevices;
     }
-    
-    
+
+    /**
+     * DeActive 1 GeoFencing
+     *
+     * @param geoFenceId
+     * @param model
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = {"/geoFence/deactive"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -246,8 +281,48 @@ public class GeoFencingController {
             return "Xóa dữ liệu thất bại. |error";
         }
     }
-    
-    
+
+    /**
+     * Get Danh sach GeoFencing (theo doi thiet bi)
+     *
+     * @param model
+     * @param comId
+     * @param request
+     * @return
+     */
+    @RequestMapping({"/geoFence/trackingDevice"})
+    public String getLisTrackingDevice(Model model,
+            @RequestParam(value = "id", defaultValue = "0") String comId,
+            HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "redirect:/login";
+        } else {
+            CustomerInfo customerInfo = listCustomers.get(0);
+            comId = customerInfo.getCompanyId();
+        }
+
+        List<GeoFencingInfo> listGeofences = geoFencingDAO.queryGeoFencingByCompanyId(comId);
+        System.out.println(listGeofences);
+        model.addAttribute("listGeofences", listGeofences);
+        model.addAttribute("deleteConfirmMessage", "Bạn có chắc chắn muốn xóa?");
+        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/geoFence");
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
+
+        return "/geofence/geofence_device_list";
+    }
+
+    /**
+     * theo doi và hien thi chi tiet cac thiet bi trong 1 vung
+     *
+     * @param model
+     * @param geoFenceId
+     * @param page
+     * @param num
+     * @param request
+     * @return
+     */
     @RequestMapping(value = {"/geoFence/tracking_detail"}, method = RequestMethod.GET)
     public String viewDetailDeviceTracking(Model model,
             @RequestParam(value = "id", defaultValue = "0") String geoFenceId,
@@ -259,9 +334,11 @@ public class GeoFencingController {
         if (listCustomers.isEmpty()) {
             return "redirect:/login";
         }
-        
+
         List<LogTrackingDeviceInfo> listTrackingDevices = geoFencingDAO.queryLogTrackingByGeoFencingId(geoFenceId, page, num);
-     
+
+        // Truyen vao Frame
+        model.addAttribute("geoFenceId", geoFenceId);
         model.addAttribute("listTrackingDevices", listTrackingDevices);
         model.addAttribute("deleteConfirmMessage", "Bạn có chắc chắn muốn xóa?");
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/geoFence");
@@ -273,7 +350,15 @@ public class GeoFencingController {
         }
         return "/geofence/geofence_device_detail";
     }
-    
+
+    /**
+     * Chen map vao theo doi thiet bi
+     *
+     * @param model
+     * @param geoFenceId
+     * @param request
+     * @return
+     */
     @RequestMapping({"/geoFence/map_tracking_detail"})
     public String getMapDetailTrackingDevice(Model model, @RequestParam(value = "id", defaultValue = "0") String geoFenceId, HttpServletRequest request) {
 
@@ -292,8 +377,8 @@ public class GeoFencingController {
 
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/geoFence");
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
-        
+
         return "/geofence/map_geofence_device_detail";
     }
-   
+
 }

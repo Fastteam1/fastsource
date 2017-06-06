@@ -24,26 +24,17 @@
         <!-- DataTables -->
         <link rel="stylesheet" href="${urlProject}/plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.css">
         <!-- bootstrap datetimepicker -->
         <link rel="stylesheet" href="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.css">
         <!-- PNotify. -->
         <link href="${urlProject}/pages/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" >
         <!-- daterange picker -->
         <link rel="stylesheet" href="${urlProject}/plugins/daterangepicker/daterangepicker.css">
-        <style>
-            /*            .dataTables_wrapper .dataTables_length {
-                            float: right;
-                        }
-                        .dataTables_wrapper .dataTables_filter {
-                            float: left;
-                            text-align: left;
-                        }*/
 
-        </style>
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">

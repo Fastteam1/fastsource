@@ -10,7 +10,7 @@ package vnpt.media.efinder.model;
  * @author Boss
  */
 public class DeviceInfo {
-    
+
     private String id;
     private String type;
     private String name;
@@ -21,6 +21,7 @@ public class DeviceInfo {
     private String currentLong;
     private String currentAdd;
     private String companyId;
+    private String[] arrGeoFences;
 
     public String getCompanyId() {
         return companyId;
@@ -29,8 +30,6 @@ public class DeviceInfo {
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
-    
-    
 
     public String getId() {
         return id;
@@ -103,8 +102,13 @@ public class DeviceInfo {
     public void setCurrentAdd(String currentAdd) {
         this.currentAdd = currentAdd;
     }
-    
-    
-    
-    
+
+    public String[] getArrGeoFences() {
+        return arrGeoFences;
+    }
+
+    public void setArrGeoFences(String[] arrGeoFences) {
+        this.arrGeoFences = arrGeoFences;
+    }
+
 }

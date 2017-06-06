@@ -49,18 +49,15 @@ public class DeviceDAOImpl implements DeviceDAO {
     public boolean updateDeviceInfo(DeviceInfo deviceInfo) {
         try {
             String url = env.getProperty(Constants.API_ROOT) + "/info/device/update?deviceId=" + deviceInfo.getId();
-
             String urlParameters = "type=" + deviceInfo.getType()+ "&name=" + deviceInfo.getName()
                     + "&os=" + deviceInfo.getOs() + "&imei=" + deviceInfo.getImei();
 
             String data = Utils.readUrlPOST(url, urlParameters);
-
             Gson gson = new Gson();
             JsonObject root = gson.fromJson(data, JsonObject.class);
             String errorCode = root.get("errorCode").toString();
             return errorCode.equalsIgnoreCase("0");
         } catch (Exception ex) {
-            
             return false;
         }
     }
