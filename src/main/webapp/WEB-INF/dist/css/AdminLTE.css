@@ -5041,7 +5041,15 @@ table.text-center th {
     margin: 20px auto;
 }
 
-.btn-login b {
+.btn-login button {
+    border: 1px solid #92d1f0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-size: auto 100%;
+    background-image: url("../../pages/image/efinder/bg-login.png");
+}
+
+.btn-login b{
     border: 1px solid #92d1f0;
     border-radius: 10px;
     padding: 10px 20px;

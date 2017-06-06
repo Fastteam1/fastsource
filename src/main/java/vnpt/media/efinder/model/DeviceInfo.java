@@ -21,7 +21,7 @@ public class DeviceInfo {
     private String currentLong;
     private String currentAdd;
     private String companyId;
-    
+
     private String nameEmployee;
     private String phoneEmployee;
     private String departmentId;
@@ -30,9 +30,7 @@ public class DeviceInfo {
     private String addressEmployee;
     private String startTime;
     private String endTime;
-    
-    
-    
+    private String[] arrGeoFences;
 
     public String getCompanyId() {
         return companyId;
@@ -177,8 +175,13 @@ public class DeviceInfo {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-    
-    
-    
-    
+
+    public String[] getArrGeoFences() {
+        return arrGeoFences;
+    }
+
+    public void setArrGeoFences(String[] arrGeoFences) {
+        this.arrGeoFences = arrGeoFences;
+    }
+
 }

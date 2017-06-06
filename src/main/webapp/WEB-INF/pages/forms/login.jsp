@@ -139,7 +139,7 @@
                                     }
                                 });
 
-                                window.location.href = "/SpringMVC_EFinder/index";
+                                window.location.href = "/SpringMVC_EFinder/companyInfo";
 
                             } else {
                                 

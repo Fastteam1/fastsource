@@ -1,8 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Jun 5, 2017, 1:31:52 PM
-    Author     : vnpt2
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -140,6 +135,89 @@
                 items: 1,
                 autoplay: true,
                 autoplayTimeout: 5000
+            });
+            
+            $(document).ready(function () {
+                /* Setting toast popup */
+                //toastr.options.timeOut = 1000;
+                // toastr.options.positionClass = 'toast-top-center';
+
+                $("#txtUserName").focus();
+
+                /*
+                 * - Log In
+                 */
+                $("#loginForm").submit(function (e) {
+
+                    var username = $("#txtUserName").val().trim();
+                    var password = $("#txtPassword").val().trim();
+                    var json = {
+                        "username": username,
+                        "password": password
+                    };
+
+                    $.ajax({
+                        url: "login",
+                        type: "POST",
+                        data: json,
+                        success: function (response) {
+                            console.log(response.length !== 0);
+                            if (response.length !== 0) {
+                                //console.log(username + "-----" + password);
+                                new PNotify({
+                                    title: "Thông báo",
+                                    text: "Đăng nhập thành công",
+                                    type: "success",
+                                    delay: 3000,
+                                    styling: "jqueryui",
+                                    addclass: 'custom-notif',
+                                    mouse_reset: false,
+                                    buttons: {
+                                        sticker: false,
+                                        closer_hover: false
+                                    }
+                                });
+
+                                window.location.href = "/SpringMVC_EFinder/companyInfo";
+
+                            } else {
+                                
+                                new PNotify({
+                                    title: "Thông báo",
+                                    text: "Đăng nhập thất bại",
+                                    type: "error",
+                                    delay: 3000,
+                                    styling: "jqueryui",
+                                    addclass: 'custom-notif',
+                                    mouse_reset: false,
+                                    buttons: {
+                                        sticker: false,
+                                        closer_hover: false
+                                    }
+                                });
+                            }
+                        },
+                        error: function () {
+                            new PNotify({
+                                title: "Thông báo",
+                                text: "Đăng nhập xảy ra lỗi!",
+                                type: "error",
+                                delay: 3000,
+                                styling: "jqueryui",
+                                addclass: 'custom-notif',
+                                mouse_reset: false,
+                                buttons: {
+                                    sticker: false,
+                                    closer_hover: false
+                                }
+                            });
+                        }
+                    });
+
+                    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                });
+
             });
         </script>
 

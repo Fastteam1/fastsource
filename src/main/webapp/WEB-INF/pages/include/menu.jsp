@@ -26,7 +26,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview" id="home">
-                <a href="${pageContext.request.contextPath}/index">
+                <a href="${pageContext.request.contextPath}/companyInfo">
                     <i class="fa fa-home"></i> <span>Trang chủ</span>
                     <span class="pull-right-container">
 
