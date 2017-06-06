@@ -16,13 +16,14 @@ public class EmployeeInfo {
     private String address;
     private String email;
     private String description;
-    private String department;
+    private String departmentName;
     private String name;
     private String nameAscII;
     private String image;
     private String companyId;
     private String createDate;
     private String updateDate;
+    private String departmentId;
 
     public EmployeeInfo() {
     }
@@ -67,12 +68,12 @@ public class EmployeeInfo {
         this.description = description;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getName() {
@@ -123,9 +124,12 @@ public class EmployeeInfo {
         this.updateDate = updateDate;
     }
 
-    @Override
-    public String toString() {
-        return "Employee [id = " + id + ", phone = " + phone + ", address = " + address + ", email = " + email + ", description = " + description + ", department = " + department + ", name = " + name + ", nameAscII = " + nameAscII + ", image = " + image + ", companyId = " + companyId + ", createDate = " + createDate + ", updateDate = " + updateDate + "]";
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
     }
 
 }

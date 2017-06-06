@@ -10,7 +10,7 @@ package vnpt.media.efinder.model;
  * @author Boss
  */
 public class DeviceInfo {
-    
+
     private String id;
     private String type;
     private String name;
@@ -41,8 +41,6 @@ public class DeviceInfo {
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
-    
-    
 
     public String getId() {
         return id;

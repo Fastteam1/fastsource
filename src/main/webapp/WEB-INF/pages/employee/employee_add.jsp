@@ -44,7 +44,7 @@
 
                         <spring:bind path="name">
                             <div class="form-group">
-                                <label for="name-input" class="col-sm-2 control-label">Tên thiết bị</label>
+                                <label for="name-input" class="col-sm-2 control-label">Tên nhân viên</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="addForm-name" placeholder="name" name="name" required
                                            pattern=".*\S+.*" title="Nhập đầy đủ thông tin">
@@ -54,9 +54,10 @@
 
                         <spring:bind path="phone">
                             <div class="form-group">
-                                <label for="phone-input" class="col-sm-2 control-label">Loại thiết bị</label>
+                                <label for="phone-input" class="col-sm-2 control-label">Điện thoại</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="addForm-type" placeholder="phone" name="phone" required>
+                                    <input type="text" class="form-control" id="addForm-phone" placeholder="phone" name="phone" required
+                                           data-inputmask='"mask": ["01999999999", "0999999999"]' data-mask>
                                 </div>
                             </div>   
                         </spring:bind>
@@ -64,16 +65,16 @@
 
                         <spring:bind path="address">
                             <div class="form-group">
-                                <label for="address-input" class="col-sm-2 control-label">Hệ điều hành</label>
+                                <label for="address-input" class="col-sm-2 control-label">Địa chỉ</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-os" placeholder="address" name="address" required>
+                                    <input type="text" class="form-control" id="addForm-address" placeholder="address" name="address" required>
                                 </div>
                             </div>   
                         </spring:bind>
 
                         <spring:bind path="email">
                             <div class="form-group">
-                                <label for="email-input" class="col-sm-2 control-label">IMEI</label>
+                                <label for="email-input" class="col-sm-2 control-label">Email</label>
                                 <div class="col-sm-9">
                                     <input type="email" class="form-control" id="addForm-email" placeholder="email" name="email" required>
                                 </div>
@@ -81,11 +82,18 @@
                         </spring:bind>
 
 
-                        <spring:bind path="department">
+                        <spring:bind path="departmentId">
                             <div class="form-group">
-                                <label for="department-input" class="col-sm-2 control-label">Bộ phận</label>
+                                <label for="department-input" class="col-sm-2 control-label">${departmentId}</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addForm-department" placeholder="department" name="department" required>
+                                    <form:select id="addForm-department" path="departmentId" class="form-control">
+                                        <form:option value="0" label="Chọn Bộ phận"/>
+                                        <c:if test="${not empty listDepartments}"> 
+                                            <c:forEach var="department" items="${listDepartments}">
+                                                <form:option value="${department.getId()}" label="${department.getName()}" />
+                                            </c:forEach>
+                                        </c:if>
+                                    </form:select>
                                 </div>
                             </div>   
                         </spring:bind>
@@ -98,9 +106,6 @@
                                 </div>
                             </div>   
                         </spring:bind>
-
-
-
                     </div>
 
                     <div class="modal-footer">
@@ -118,7 +123,9 @@
             event.preventDefault();
             addViaAjax();
         });
-        
+
+
+        $("[data-mask]").inputmask();
         function addViaAjax() {
             var add = {};
 
@@ -126,12 +133,12 @@
             add["phone"] = $("#addForm-phone").val().trim();
             add["description"] = $("#addForm-description").val().trim();
             add["address"] = $("#addForm-address").val().trim();
-            add["department"] = $("#addForm-department").val().trim();
+            add["departmentId"] = $("#addForm-department").val().trim();
             add["email"] = $("#addForm-email").val().trim();
 
             $.ajax({
                 type: "POST",
-                contentType: "application/json",
+                contentType: "application/json; charset=utf-8",
                 url: "${urlInfo}/insert",
                 data: JSON.stringify(add),
                 dataType: 'text',
@@ -159,9 +166,9 @@
 
                     if (type !== 'error') {
                         $('#objectAdd').on('hidden.bs.modal', function () {
-                            history.go(0);
+                            window.location.href = "${urlProject}/employeeList";
                         });
-                    }
+                    } 
                 },
                 error: function (e) {
                     console.log("ERROR: ", e);
@@ -183,11 +190,11 @@
                     console.log("DONE");
                 }
             });
-            
+
             return false;
         }
 
-        
+
     </script>
 
 </body>

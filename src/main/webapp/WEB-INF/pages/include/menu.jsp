@@ -13,7 +13,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="${urlProject}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>${pageContext.request.userPrincipal.name}</p>
@@ -33,112 +33,64 @@
                     </span>
                 </a>
             </li>
-            <li class="treeview" id="GameProcess">
+            <li class="treeview" id="manager-company">
                 <a href="">
                     <i class="fa fa-gears"></i>
-                    <span>Tiến trình game</span>
+                    <span>Quản lý</span>
                     <span class="pull-right-container">
-                        <span class="label label-primary pull-right">3</span>
+                        <span class="label label-primary pull-right">4</span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="GameCate"><a href="${pageContext.request.contextPath}/gameCategoryList"><i class="fa fa-circle-o"></i> Thể loại game</a></li>
-                    <li id="GameTemp"><a href="${pageContext.request.contextPath}/gameTemplateList"><i class="fa fa-circle-o"></i> Mẫu game</a></li>
-                    <li id="ServiceNumber"><a href="${pageContext.request.contextPath}/serviceNumbersList"><i class="fa fa-circle-o"></i> Đầu số</a></li>
+                    <li id="info-company"><a href="${pageContext.request.contextPath}/companyInfo"><i class="fa fa-circle-o"></i> Thông tin doanh nghiệp</a></li>
+                    <li id="info-device"><a href="${pageContext.request.contextPath}/deviceList"><i class="fa fa-circle-o"></i> Quản lý thiết bị</a></li>
+                    <li id="info-employee"><a href="${pageContext.request.contextPath}/employeeList"><i class="fa fa-circle-o"></i> Quản lý nhân viên</a></li>
+                    <li id="ServiceNumber"><a href="${pageContext.request.contextPath}/serviceNumbersList"><i class="fa fa-circle-o"></i> Quản lý phòng ban</a></li>
                 </ul>
             </li>
 
-            <li class="treeview" id="GameInfomation">
-                <a href="">
-                    <i class="fa fa-info-circle"></i>
-                    <span>Thông tin game</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">3</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="Game"><a href="${pageContext.request.contextPath}/gameList"><i class="fa fa-circle-o"></i> Game</a></li>
-                    <li id="CommandCode"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Command Code</a></li>
-                    <li id="ContentFeedback"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Nội dung trả về</a></li>
 
-                </ul>
-            </li>
-
-            <li class="treeview" id="Service">
-                <a href="">
-                    <i class="fa fa-wrench"></i>
-                    <span>Dịch vụ</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">5</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="GameCycle"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Vòng game</a></li>
-                    <li id="PointType"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Loại điểm</a></li>
-                    <li id="Package"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Gói dịch vụ</a></li>
-                    <li id="PricePackage"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Gói cước</a></li>
-                    <li id="PointFrame"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Khung điểm</a></li>
-                </ul>
-            </li>
-
-            <li class="treeview" id="Content">
+            <li class="treeview" id="export-data">
                 <a href="">
                     <i class="fa fa-bars"></i>
-                    <span>Nội dung</span>
+                    <span>Truy suất dữ liệu</span>
+                    <span class="pull-right-container">
+                        <span class="label label-primary pull-right">3</span>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li id="ContentType"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Tra cứu vị trí</a></li>
+                    <li id="ContentQuestion"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Theo dõi lộ trình</a></li>
+                    <li id="ContentQuestion"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Tra cứu thông tin thiết bị</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview" id="geofencing">
+                <a href="">
+                    <i class="fa fa-users"></i>
+                    <span>Khoanh vùng địa lý</span>
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">2</span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="ContentType"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Loại nội dung</a></li>
-                    <li id="ContentQuestion"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Nội dung câu hỏi</a></li>
-                </ul>
-            </li>
-
-            <li class="treeview" id="CareKH">
-                <a href="">
-                    <i class="fa fa-users"></i>
-                    <span>Chăm sóc khách hàng</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">5</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="History"><a href="${pageContext.request.contextPath}/customerList"><i class="fa fa-circle-o"></i> Lịch sử đăng ký hủy</a></li>
-                    <li id="Charging"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Lịch sử trừ cước</a></li>
-                    <li id="MOMT"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Lịch sử MO/MT</a></li>
-                    <li id="PointSearch"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Tra cứu điểm</a></li>
-                    <li id="DKHuy"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Đăng ký hủy dịch vụ</a></li>
+                    <li id="geofencing-info"><a href="${pageContext.request.contextPath}/geoFenceList"><i class="fa fa-circle-o"></i> Thống kê số lượng thiết bị</a></li>
+                    <li id="geofencing-tracking-device"><a href="${pageContext.request.contextPath}/geoFence/trackingDevice"><i class="fa fa-circle-o"></i> Theo dõi thiết bị ra vào</a></li>
                 </ul>
             </li>
 
             <li class="treeview" id="Stats">
                 <a href="">
                     <i class="fa fa-pie-chart"></i>
-                    <span>Báo cáo thống kê</span>
+                    <span>Thống kê và báo cáo</span>
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">2</span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="KPI1"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> KPI mẫu 1</a></li>
-                    <li id="KPI2"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> KPI mẫu 2</a></li>
-                </ul>
-            </li>
-
-            <li class="treeview" id="System">
-                <a href="">
-                    <i class="fa fa-server"></i>
-                    <span>Quản lý hệ thống</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">4</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="Users"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Người sử dụng</a></li>
-                    <li id="Providers"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Nhà cung cấp</a></li>
-                    <li id="Roles"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Quản lý quyền</a></li>
-                    <li id="WhiteList"><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Danh sách test</a></li>
+                    <li id="KPI1"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Chi phí sử dụng dịch vụ</a></li>
+                    <li id="KPI2"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i>Lịch sử sử dụng dịch vụ</a></li>
+                    <li id="KPI2"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i>Báo cáo tin nhắn</a></li>
                 </ul>
             </li>
 
@@ -151,8 +103,18 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id="ChangePass"><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Thay đổi mật khẩu</a></li>
+                    <li id="ChangePass"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Thay đổi mật khẩu</a></li>
                 </ul>
+            </li>
+
+            
+            <li class="treeview" id="logout">
+                <a href="${pageContext.request.contextPath}/logout">
+                    <i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span>
+                    <span class="pull-right-container">
+
+                    </span>
+                </a>
             </li>
         </ul>
     </section>

@@ -7,6 +7,7 @@ package vnpt.media.efinder.dao.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,9 +51,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         try {
             String url = env.getProperty(Constants.API_EMPLOYEE) + "/update?employeeId=" + employeeInfo.getId();
 
-            String urlParameters = "name=" + employeeInfo.getName() + "&phone=" + employeeInfo.getPhone()
-                    + "&department=" + employeeInfo.getDepartment() + "&description=" + employeeInfo.getDescription()
-                    + "&address=" + employeeInfo.getAddress() + "&email=" + employeeInfo.getEmail();
+            String urlParameters = "name=" + URLEncoder.encode(employeeInfo.getName(), "UTF-8")
+                    + "&phone=" + URLEncoder.encode(employeeInfo.getPhone(), "UTF-8")
+                    + "&departmentId=" + URLEncoder.encode(employeeInfo.getDepartmentId(), "UTF-8")
+                    + "&description=" + URLEncoder.encode(employeeInfo.getDescription(), "UTF-8")
+                    + "&address=" + URLEncoder.encode(employeeInfo.getAddress(), "UTF-8")
+                    + "&email=" + URLEncoder.encode(employeeInfo.getEmail(), "UTF-8");
 
             String data = Utils.readUrlPOST(url, urlParameters);
 
@@ -70,9 +74,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public boolean insertEmployeeInfo(EmployeeInfo employeeInfo) {
         try {
             String url = env.getProperty(Constants.API_EMPLOYEE) + "/insert";
-            String urlParameters = "comId=" + employeeInfo.getCompanyId() + "&name=" + employeeInfo.getName() + "&phone=" + employeeInfo.getPhone()
-                    + "&department=" + employeeInfo.getDepartment() + "&description=" + employeeInfo.getDescription()
-                    + "&address=" + employeeInfo.getAddress() + "&email=" + employeeInfo.getEmail();
+            String urlParameters = "comId=" + URLEncoder.encode(employeeInfo.getCompanyId(), "UTF-8")
+                    + "&name=" + URLEncoder.encode(employeeInfo.getName(), "UTF-8")
+                    + "&phone=" + URLEncoder.encode(employeeInfo.getPhone(), "UTF-8")
+                    + "&departmentId=" + URLEncoder.encode(employeeInfo.getDepartmentId(), "UTF-8")
+                    + "&description=" + URLEncoder.encode(employeeInfo.getDescription(), "UTF-8")
+                    + "&address=" + URLEncoder.encode(employeeInfo.getAddress(), "UTF-8")
+                    + "&email=" + URLEncoder.encode(employeeInfo.getEmail(), "UTF-8");
 
             String data = Utils.readUrlPOST(url, urlParameters);
 

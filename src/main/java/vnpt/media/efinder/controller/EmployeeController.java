@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import vnpt.media.efinder.dao.DepartmentDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
 import vnpt.media.efinder.model.CustomerInfo;
+import vnpt.media.efinder.model.DepartmentInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
@@ -35,6 +37,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private DepartmentDAO departmentDAO;
     @Autowired
     private Environment env;
 
@@ -54,11 +59,15 @@ public class EmployeeController {
         }
 
         List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
+        List<DepartmentInfo> listDepartments = departmentDAO.queryDepartments(comId);
+        
+        model.addAttribute("departmentId","Bộ phận");
         model.addAttribute("listEmployees", listEmployees);
+        model.addAttribute("listDepartments", listDepartments);
         model.addAttribute("deleteConfirmMessage", "Bạn có chắc chắn muốn xóa?");
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/employee");
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
-        
+
         return "/employee/employee_list";
     }
 
@@ -108,7 +117,7 @@ public class EmployeeController {
             return "Cập nhật dữ liệu thất bại. |error";
         }
     }
-    
+
     @RequestMapping(value = {"/employee/insert"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -123,7 +132,7 @@ public class EmployeeController {
             comId = customerInfo.getCompanyId();
             //System.out.println(comId);
         }
-        
+
         employeeInfo.setCompanyId(comId);
 
         System.out.println("OKKKKKKKKKKKK--->" + employeeInfo);

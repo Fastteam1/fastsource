@@ -7,15 +7,15 @@ package vnpt.media.efinder.dao.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import java.util.Date;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.GeoFencingDAO;
-import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.GeoFencingInfo;
+import vnpt.media.efinder.model.LogTrackingDeviceInfo;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
@@ -45,19 +45,20 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     }
 
     @Override
-    public List<DeviceInfo> queryDeviceByGeoFencingId(String id) {
+    public String queryDeviceByGeoFencingId(String id) {
         String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/listdevice?id=" + id;
         String data = Utils.readUrl(url);
-        List<DeviceInfo> listDevices = Utils.stringToArray(data, DeviceInfo[].class);
-        return listDevices;
+        return data;
     }
 
     @Override
-    public boolean insertGeoFencingInCompany(String comId, String location, String name, String description) {
+    public boolean insertGeoFencingInCompany(GeoFencingInfo geoFencingInfo) {
         try {
             String url = env.getProperty(Constants.API_GEOFENCE) + "/create";
-            String urlParameters = "comId=" + comId + "&location=" + location
-                    + "&name=" + name + "&description" + description;
+            String urlParameters = "comId=" + URLEncoder.encode(geoFencingInfo.getCompanyId(), "UTF-8")
+                    + "&location=" + URLEncoder.encode(geoFencingInfo.getLocation(), "UTF-8")
+                    + "&name=" + URLEncoder.encode(geoFencingInfo.getName(), "UTF-8")
+                    + "&description=" + URLEncoder.encode(geoFencingInfo.getDescription(), "UTF-8");
             String data = Utils.readUrlPOST(url, urlParameters);
 
             Gson gson = new Gson();
@@ -71,13 +72,16 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     }
 
     @Override
-    public boolean updateGeoFencing(String geoFenceId, String name, String location, String description) {
+    public boolean updateGeoFencing(GeoFencingInfo geoFencingInfo) {
         try {
-            String url = env.getProperty(Constants.API_GEOFENCE) + "/update";
-            String urlParameters = "geofenceId=" + geoFenceId + "&name=" + name
-                    + "&location=" + location + "&description" + description;
+            String url = env.getProperty(Constants.API_GEOFENCE) + "/control/update";
+            String urlParameters = "geofenceId=" + URLEncoder.encode(geoFencingInfo.getId(), "UTF-8")
+                    + "&name=" + URLEncoder.encode(geoFencingInfo.getName(), "UTF-8")
+                    + "&location=" + URLEncoder.encode(geoFencingInfo.getLocation(), "UTF-8")
+                    + "&description=" + URLEncoder.encode(geoFencingInfo.getDescription(), "UTF-8");
             String data = Utils.readUrlPOST(url, urlParameters);
 
+            System.out.println("descriptionsadasdsa" + geoFencingInfo.getDescription());
             Gson gson = new Gson();
             JsonObject root = gson.fromJson(data, JsonObject.class);
             String errorCode = root.get("errorCode").toString();
@@ -127,6 +131,7 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
     @Override
     public List<GeoFencingInfo> queryGeoFencingByGeoFencingId(String id) {
         String url = env.getProperty(Constants.API_GEOFENCE) + "/detail/geofending?id=" + id;
+        System.out.println("URL: " + url);
         String data = Utils.readUrl(url);
         System.out.println("DATa: " + data);
         List<GeoFencingInfo> listGeofences = Utils.stringToArray(data, GeoFencingInfo[].class);
@@ -153,6 +158,14 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
         }
 
         return listGeofences;
+    }
+
+    @Override
+    public List<LogTrackingDeviceInfo> queryLogTrackingByGeoFencingId(String id, String page, String num) {
+        String url = env.getProperty(Constants.API_GEOFENCE) + "/history?geofenId=" + id + "&num=" + num + "&page=" + page;
+        String data = Utils.readUrl(url);
+        List<LogTrackingDeviceInfo> listTrackingDevices = Utils.stringToArray(data, LogTrackingDeviceInfo[].class);
+        return listTrackingDevices;
     }
 
 }

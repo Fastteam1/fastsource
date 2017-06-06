@@ -5,9 +5,12 @@
  */
 package vnpt.media.efinder.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.dao.EmployeeDAO;
+import vnpt.media.efinder.dao.GeoFencingDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.model.GeoFencingInfo;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
@@ -37,12 +42,16 @@ public class DeviceController {
 
     @Autowired
     private DeviceDAO deviceDAO;
-    
+
     @Autowired
     private Environment env;
-    
+
     @Autowired
     private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private GeoFencingDAO geoFencingDAO;
+
 
     @RequestMapping({"/deviceList"})
     public String getListDevice(Model model,
@@ -59,18 +68,23 @@ public class DeviceController {
             comId = customerInfo.getCompanyId();
         }
 
-        List<DeviceInfo> listDevice = deviceDAO.getAllDeviceInfo(comId, page, num);
-        
-        
-      //  List<EmployeeInfo> listDevice = deviceDAO.getListEmployeeManage(comId, page, num);
-        model.addAttribute("listDevices", listDevice);
+        List<DeviceInfo> listDevices = deviceDAO.getAllDeviceInfo(comId, page, num);
+        // EmployeeInfo
         List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
+        // Xử lý GEoFencingINFo
+        List<GeoFencingInfo> listGeoFences = geoFencingDAO.queryGeoFencingByCompanyId(comId);
+
+        //  List<EmployeeInfo> listDevice = deviceDAO.getListEmployeeManage(comId, page, num);
+        model.addAttribute("arrGeoFences", "Vùng địa lý");
+        model.addAttribute("listDevices", listDevices);
+        model.addAttribute("listGeoFences", listGeoFences);
         model.addAttribute("listEmployees", listEmployees);
+        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/device");
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
+
         return "/device/device_list";
     }
-    
-    
-    
+
     @RequestMapping({"/device/getdetail"})
     public @ResponseBody
     List<DeviceInfo> getDeviceById(Model model,
@@ -88,10 +102,22 @@ public class DeviceController {
         }
         List<DeviceInfo> listDevices = deviceDAO.findDeviceInfo(comId, deviceId);
         
+        // GEOFencingInfo
+        List<GeoFencingInfo> listGeoFences = geoFencingDAO.queryGeoFencingByDeviceId(deviceId);
+        String[] arrGeoFences = new String[listGeoFences.size()];
+        for (int i = 0; i < listGeoFences.size(); i++) {
+            arrGeoFences[i] = listGeoFences.get(i).getId();
+        }
+        for (DeviceInfo device : listDevices) {
+            device.setArrGeoFences(arrGeoFences);
+        }
+        
+        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/device");
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
 
         return listDevices;
     }
-    
+
     @RequestMapping(value = {"/device/update"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -102,6 +128,8 @@ public class DeviceController {
             return "Chưa đăng nhập";
         }
 
+       // System.out.println("ARRR: " + Arrays.toString(deviceInfo.getArrGeoFences()));
+        
         System.out.println("OKKKKKKKKKKKK--->" + deviceInfo);
         model.addAttribute("deviceInfo", deviceInfo);
         boolean result = false;
@@ -118,7 +146,7 @@ public class DeviceController {
             return "Cập nhật dữ liệu thất bại. |error";
         }
     }
-    
+
     @RequestMapping(value = {"/device/deactive"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -143,7 +171,7 @@ public class DeviceController {
             return "Xóa dữ liệu thất bại. |error";
         }
     }
-    
+
     @RequestMapping(value = {"/device/insert"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @Transactional(propagation = Propagation.NEVER)
     public @ResponseBody
@@ -158,7 +186,7 @@ public class DeviceController {
             comId = customerInfo.getCompanyId();
             //System.out.println(comId);
         }
-        
+
         deviceInfo.setCompanyId(comId);
 
         System.out.println("OKKKKKKKKKKKK--->" + deviceInfo);
@@ -178,7 +206,7 @@ public class DeviceController {
         }
     }
 
-   // @RequestMapping({"/device/employeeList"})
+    // @RequestMapping({"/device/employeeList"})
     public List<EmployeeInfo> getListEmployee(Model model,
             @RequestParam(value = "comId", defaultValue = "1") String comId,
             @RequestParam(value = "page", defaultValue = "1") String page,
@@ -194,8 +222,9 @@ public class DeviceController {
         }
 
         List<EmployeeInfo> listEmployees = employeeDAO.queryEmployees(comId, page, num);
-        
-        
+
+        model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/device");
+        model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
         return listEmployees;
     }
     @RequestMapping({"/device/insertEmployee"})
@@ -212,7 +241,7 @@ public class DeviceController {
 
         boolean result = false;
         try {
-            result = deviceDAO.addEmployeeManage(deviceId,employeeId,startTime,endTime);
+            result = deviceDAO.addEmployeeManage(deviceId, employeeId, startTime, endTime);
             System.out.println("Insety thanh cong du lieu ------>");
         } catch (Exception e) {
             System.out.println("Loi Try catch");

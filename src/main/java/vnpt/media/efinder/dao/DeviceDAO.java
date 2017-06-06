@@ -14,16 +14,18 @@ import vnpt.media.efinder.model.EmployeeInfo;
  * @author Boss
  */
 public interface DeviceDAO {
-    public List<DeviceInfo> getAllDeviceInfo(String comId,String page,String num);
-    
-    public List<DeviceInfo> findDeviceInfo(String comId,String deviceId);
-    
+
+    public List<DeviceInfo> getAllDeviceInfo(String comId, String page, String num);
+
+    public List<DeviceInfo> findDeviceInfo(String comId, String deviceId);
+
     public boolean updateDeviceInfo(DeviceInfo deviceInfo);
+
     public boolean deleteDeviceInfo(String employeeId);
-    
+
     public boolean insertDeviceInfo(DeviceInfo employeeInfo);
-    
+
     public List<EmployeeInfo> getListEmployeeManage(String deviceId);
-    
-    public boolean addEmployeeManage(String deviceId,String employeeId, String startTime, String endTime);
+
+    public boolean addEmployeeManage(String deviceId, String employeeId, String startTime, String endTime);
 }
