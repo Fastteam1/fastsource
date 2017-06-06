@@ -29,8 +29,8 @@ public class DeviceDAOImpl implements DeviceDAO {
 
     @Override
     public List<DeviceInfo> getAllDeviceInfo(String comId, String page, String num) {
-        String url = env.getProperty(Constants.API_ROOT) + "/info/device?action=getList";
-        url = url + "&comId=" + comId + "&page=" + page + "&num=" + num;
+        String url = env.getProperty(Constants.API_ROOT) + "/info/manage?";
+        url = url + "comId=" + comId + "&page=" + page + "&num=" + num;
         String data = Utils.readUrl(url);
         List<DeviceInfo> listDevices = Utils.stringToArray(data, DeviceInfo[].class);
         return listDevices;

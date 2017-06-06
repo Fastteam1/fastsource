@@ -89,44 +89,42 @@
                                 </div>
                             </div>   
                         </spring:bind>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label>Select</label>
-                                <select class="form-control" id="selectEmployee">
-                                    <c:forEach items="${listEmployees}" var="employee" varStatus="varStatus">
-                                        <option value="${employee.id}">${employee.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-
+                        <div class="panel panel-default">
+                            <div class="panel-body"> 
                                 <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker5'>
-                                        <input type='text' class="form-control" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
+                                    <div class="col-sm-4">
+                                        <label>Nhân viên</label>
+                                        <select class="form-control" id="selectEmployee">
+                                            <c:forEach items="${listEmployees}" var="employee" varStatus="varStatus">
+                                                <option value="${employee.id}">${employee.name}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
-                                </div>
+                                    <div class="col-sm-4">
+                                        <label>Start Time</label>
+                                        <div class="">
+                                            <input type="number" id="viewForm-startTime" placeholder="Start Time" name="description" required="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>End Time</label>
+                                        <div class="">
+                                            <input type="number" id="viewForm-endTime" placeholder="End Time" name="description" required="" class="form-control">
+                                        </div>
+                                    </div>
 
-                                <script type="text/javascript">
-                                    $(function () {
-                                        $('#datetimepicker5').datetimepicker({
-                                            defaultDate: "11/1/2013",
-                                            disabledDates: [
-                                                moment("12/25/2013"),
-                                                new Date(2013, 11 - 1, 21),
-                                                "11/22/2013 00:53"
-                                            ]
-                                        });
-                                    });
-                                </script>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="button" onclick="addEmployee('2','4');"class="btn btn-primary">Add</button>
+                                </div>
+                                <div class="form-group"> 
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="button" onclick="addEmployee();" class="btn btn-primary">Add</button>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="modal-footer">
@@ -141,57 +139,58 @@
     </div>
 
     <script type="text/javascript" lang="javascript">
-        
+
         var deviceId;
 
-        function addEmployee(startTime,endTime) {
-                var employeeId = $('#selectEmployee').val();
-                alert(deviceId);
-                alert(employeeId);
-                alert("addEmployee");
-                var json = {
-                    "employeeId": employeeId,
-                    "deviceId": deviceId,
-                    "startTime": startTime,
-                    "endTime": endTime
-                };
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "device/insertEmployee",
-                    data: json,
-                    dataType: 'json',
-                    timeout: 100000,
-          
-                    success: function (data) {
-                        alert('1');
-                        console.log("SUCCESS: ", data === null);
-                        if (data.length !== 0) {
-                          //  showForm(data[0]);
+        function addEmployee() {
+            var employeeId = $('#selectEmployee').val();
+            var startTime = $('#viewForm-startTime').val();
+            var endTime = $('#viewForm-endTime').val();
+            alert(deviceId);
+            alert(employeeId);
+            alert("addEmployee");
+            var json = {
+                "employeeId": employeeId,
+                "deviceId": deviceId,
+                "startTime": startTime,
+                "endTime": endTime
+            };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "device/insertEmployee",
+                data: json,
+                dataType: 'json',
+                timeout: 100000,
+                success: function (data) {
+                    alert('SUCCESS:');
+                    console.log("SUCCESS: ", data === null);
+                    if (data.length !== 0) {
+                        //  showForm(data[0]);
 
-                        } else if (data.length !== 0) {
-                            new PNotify({
-                                title: "Thông báo",
-                                text: "Có lỗi xảy ra",
-                                type: "error",
-                                delay: 3000,
-                                styling: "jqueryui",
-                                addclass: 'custom-notif',
-                                mouse_reset: false,
-                                buttons: {
-                                    sticker: false,
-                                    closer_hover: false
-                                }
-                            });
-                        } else {
-                            window.location.href = "/SpringMVC_EFinder/login";
-                        }
-                    },
-                    error: function (e) {
-                        alert("Có lỗi xảy ra. Vui lòng đăng nhập lại!");
+                    } else if (data.length !== 0) {
+                        new PNotify({
+                            title: "Thông báo",
+                            text: "Có lỗi xảy ra",
+                            type: "error",
+                            delay: 3000,
+                            styling: "jqueryui",
+                            addclass: 'custom-notif',
+                            mouse_reset: false,
+                            buttons: {
+                                sticker: false,
+                                closer_hover: false
+                            }
+                        });
+                    } else {
                         window.location.href = "/SpringMVC_EFinder/login";
                     }
-                });
+                },
+                error: function (e) {
+                    alert("Có lỗi xảy ra. Vui lòng đăng nhập lại! error: function (e)");
+                   // window.location.href = "/SpringMVC_EFinder/login";
+                }
+            });
         }
 
         function saveChangeClick() {

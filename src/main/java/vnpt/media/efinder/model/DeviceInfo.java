@@ -21,6 +21,18 @@ public class DeviceInfo {
     private String currentLong;
     private String currentAdd;
     private String companyId;
+    
+    private String nameEmployee;
+    private String phoneEmployee;
+    private String departmentId;
+    private String departmentName;
+    private String emailEmployee;
+    private String addressEmployee;
+    private String startTime;
+    private String endTime;
+    
+    
+    
 
     public String getCompanyId() {
         return companyId;
@@ -102,6 +114,70 @@ public class DeviceInfo {
 
     public void setCurrentAdd(String currentAdd) {
         this.currentAdd = currentAdd;
+    }
+
+    public String getNameEmployee() {
+        return nameEmployee;
+    }
+
+    public void setNameEmployee(String nameEmployee) {
+        this.nameEmployee = nameEmployee;
+    }
+
+    public String getPhoneEmployee() {
+        return phoneEmployee;
+    }
+
+    public void setPhoneEmployee(String phoneEmployee) {
+        this.phoneEmployee = phoneEmployee;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getEmailEmployee() {
+        return emailEmployee;
+    }
+
+    public void setEmailEmployee(String emailEmployee) {
+        this.emailEmployee = emailEmployee;
+    }
+
+    public String getAddressEmployee() {
+        return addressEmployee;
+    }
+
+    public void setAddressEmployee(String addressEmployee) {
+        this.addressEmployee = addressEmployee;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
     
     

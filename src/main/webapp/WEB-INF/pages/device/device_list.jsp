@@ -45,8 +45,8 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Thiết bị
+                        <small>Danh sách thiết bị</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -87,6 +87,8 @@
                                                 <th>OS</th>
                                                 <th>Số Điện Thoại</th>
                                                 <th>Địa Chỉ Hiện Taik</th>
+                                                <th>Nhân viên quản lý</th>
+                                                <th>Phòng ban</th>
                                                 <th class="edit-actions">Sửa</th>
                                             </tr>
                                         </thead>
@@ -100,6 +102,8 @@
                                                     <td>${device.os}</td>
                                                     <td>${device.msisdn}</td>
                                                     <td>${device.currentAdd}</td>
+                                                    <td>${device.nameEmployee}</td>
+                                                    <td>${device.departmentName}</td>
 
                                                     <td class="edit-actions">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" 

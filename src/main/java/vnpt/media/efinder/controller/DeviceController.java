@@ -198,13 +198,12 @@ public class DeviceController {
         
         return listEmployees;
     }
-    @RequestMapping(value = {"/device/insertEmployee"}, method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-    @Transactional(propagation = Propagation.NEVER)
-    public @ResponseBody String insertEmployee(@RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
+    @RequestMapping({"/device/insertEmployee"})
+    public  @ResponseBody String insertEmployee(Model model, @RequestParam(value = "employeeId", defaultValue = "0") String employeeId,
             @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
             @RequestParam(value = "startTime", defaultValue = "0") String startTime,
             @RequestParam(value = "endTime", defaultValue = "0") String endTime,
-            Model model, HttpServletRequest request) {
+             HttpServletRequest request) {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
