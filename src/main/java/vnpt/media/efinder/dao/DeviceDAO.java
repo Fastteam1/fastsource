@@ -8,6 +8,7 @@ package vnpt.media.efinder.dao;
 import java.util.List;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.model.EmployeeTime;
 
 /**
  *
@@ -31,4 +32,6 @@ public interface DeviceDAO {
     
         // Lay Json tra ve phuc vu cho DataTable
     public String queryEmployeeByDeviceId(String id);
+    
+    public List<EmployeeTime> getEmployeeTimeByDeviceId(String deviceId);
 }

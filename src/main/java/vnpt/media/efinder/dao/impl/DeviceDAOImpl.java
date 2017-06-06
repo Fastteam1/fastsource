@@ -15,6 +15,7 @@ import org.springframework.core.env.Environment;
 import vnpt.media.efinder.dao.DeviceDAO;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.model.EmployeeTime;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
 
@@ -141,5 +142,18 @@ public class DeviceDAOImpl implements DeviceDAO {
         String data = Utils.readUrl(url);
         return data;
     }
+
+    @Override
+    public List<EmployeeTime> getEmployeeTimeByDeviceId(String deviceId) {
+        
+        String url = env.getProperty(Constants.API_ROOT) + "/handle/listemployee";
+        url = url + "&deviceId=" + deviceId;
+        String data = Utils.readUrl(url);
+        List<EmployeeTime> listEmployee = Utils.stringToArray(data, EmployeeTime[].class);
+        return listEmployee;
+        
+    }
+    
+    
 
 }

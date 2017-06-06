@@ -28,6 +28,7 @@ import vnpt.media.efinder.dao.GeoFencingDAO;
 import vnpt.media.efinder.model.CustomerInfo;
 import vnpt.media.efinder.model.DeviceInfo;
 import vnpt.media.efinder.model.EmployeeInfo;
+import vnpt.media.efinder.model.EmployeeTime;
 import vnpt.media.efinder.model.GeoFencingInfo;
 import vnpt.media.efinder.util.Constants;
 import vnpt.media.efinder.util.Utils;
@@ -273,4 +274,23 @@ public class DeviceController {
         return strListEmployees;
     }
 
+    @RequestMapping({"/handle/listemployee"})
+    public @ResponseBody
+    List<EmployeeTime> getListEmployeeByDeviceId(Model model,
+            @RequestParam(value = "id", defaultValue = "0") String deviceId,
+            HttpServletRequest request) {
+
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return null;
+        } else {
+           
+        }
+
+        List<EmployeeTime> listEmployees = deviceDAO.getEmployeeTimeByDeviceId(deviceId);
+        
+        //System.out.println(listDevices);
+
+        return listEmployees;
+    }
 }
