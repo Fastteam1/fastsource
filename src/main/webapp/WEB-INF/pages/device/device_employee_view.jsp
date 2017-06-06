@@ -32,7 +32,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" >Danh sách nhân viên của: <span id="name-geofence"></span></h4>
+                    <h4 class="modal-title" >Danh sách nhân viên của thiết bị: <span id="name-device"></span></h4>
                 </div>
 
                 <div class="modal-body">
@@ -47,6 +47,8 @@
                                     <th>Email</th>
                                     <th>Mô tả</th>
                                     <th>Bộ phận</th>
+                                    <th>Start Time (h)</th>
+                                    <th>End Time (h)</th>
                                 </tr>
                             </thead>
 
@@ -79,7 +81,9 @@
                     {"data": "address"},
                     {"data": "email"},
                     {"data": "description"},
-                    {"data": "departmentName"}
+                    {"data": "departmentName"},
+                    {"data": "startTime"},
+                    {"data": "endTime"}
                 ]
             });
             console.log(name);

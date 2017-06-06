@@ -95,22 +95,6 @@
                         </spring:bind>
 
 
-                        <spring:bind path="arrGeoFences">
-                            <div class="form-group">
-                                <label for="arrGeoFences-input" class="col-sm-2 control-label">${arrGeoFences}</label>
-                                <div class="col-sm-9">
-                                    <form:select id="viewForm-arrGeoFences" path="arrGeoFences" class="form-control" multiple="true" name="duallistbox-geofence-view[]">
-                                        <c:if test="${not empty listGeoFences}"> 
-                                            <c:forEach var="geofence" items="${listGeoFences}">
-                                                <form:option value="${geofence.getId()}" label="${geofence.getName()}" />
-                                            </c:forEach>
-                                        </c:if>
-                                    </form:select>
-                                </div>
-                            </div>   
-                        </spring:bind>
-
-
                         <spring:bind path="description">
                             <div class="form-group">
                                 <label for="description-input" class="col-sm-2 control-label">Số điện thoại</label>

@@ -93,21 +93,7 @@
                     <li id="KPI2"><a href="${urlProject}/pages/layout/boxed.html"><i class="fa fa-circle-o"></i>Báo cáo tin nhắn</a></li>
                 </ul>
             </li>
-
-            <li class="treeview" id="QuanLyCaNhan">
-                <a href="">
-                    <i class="fa fa-user"></i>
-                    <span>Quản lý cá nhân</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">1</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="ChangePass"><a href="${urlProject}/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Thay đổi mật khẩu</a></li>
-                </ul>
-            </li>
-
-            
+         
             <li class="treeview" id="logout">
                 <a href="${pageContext.request.contextPath}/logout">
                     <i class="glyphicon glyphicon-log-out"></i> <span>Đăng xuất</span>
