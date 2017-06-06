@@ -22,10 +22,10 @@
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/AdminLTE.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${urlProject}/dist/css/skins/_all-skins.css">
 
 
 
@@ -39,13 +39,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Khoanh vùng địa lý
+                        <small>Thêm mới vùng địa lý</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tiến trình game</a></li>
-                        <li class="active">Mẫu game</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="#">Khoanh vùng địa lý</a></li>
+                        <li class="active">Thêm mới vùng địa lý</li>
                     </ol>
                 </section>
 
@@ -75,6 +75,11 @@
         <script src="${urlProject}/dist/js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="${urlProject}/dist/js/demo.js"></script>
+
+        <script>
+            document.getElementById("geofencing").className = "active";
+            document.getElementById("geofencing-info").className = "active";
+        </script>
 
     </body>
 </html>

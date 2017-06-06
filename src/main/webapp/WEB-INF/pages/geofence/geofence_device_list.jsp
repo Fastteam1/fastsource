@@ -43,13 +43,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Khoanh vùng địa lý
+                        <small>Theo dõi thiết bị</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tiến trình game</a></li>
-                        <li class="active">Mẫu game</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="#">Khoanh vùng địa lý</a></li>
+                        <li class="active">Theo dõi thiết bị</li>
                     </ol>
                 </section>
 
@@ -84,7 +84,6 @@
                                                 <th>Mô tả</th>
                                                 <th>Danh sách thiết bị theo dõi</th>
                                                 <th>Lịch sử vào ra</th>
-                                                <th class="edit-actions">Cài đặt</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -97,18 +96,6 @@
                                                     <td>${geofence.description}</td>
                                                     <td><a data-toggle="modal" href="javascript:void(0)" onclick="getViaAjax(${geofence.id},'${geofence.name}');">Xem chi tiết</a></td>
                                                     <td><a href="${urlInfo}/tracking_detail?id=${geofence.id}">Xem chi tiết</a></td>
-
-                                                    <td class="center">
-                                                        <button type="button" class="btn btn-xs btn-success edit-Template " data-toggle="modal" 
-                                                                data-placement="top" title="Sửa" onclick="location.href = '${urlInfo}/update?id=${geofence.id}'">
-                                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                        </button>
-
-                                                        <button type="button" class="btn btn-xs btn-danger edit-Template " data-toggle="modal" 
-                                                                data-placement="top" title="Xóa" onclick="deleteViaAjax(${geofence.id});" id="delete-geofence">
-                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        </button>
-                                                    </td>
 
                                                 </tr>
                                             </c:forEach>
@@ -151,6 +138,11 @@
         <!-- PNotify -->
         <script src="${urlProject}/pages/js/pnotify.custom.min.js"></script>                                                });
        
+        <script>
+            document.getElementById("geofencing").className = "active";
+            document.getElementById("geofencing-tracking-device").className = "active";
+        </script>
+        
         <!-- ADD VIEW FORM -->
         <%@include file="geofence_device_view.jsp"%>
 

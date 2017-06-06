@@ -46,13 +46,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Quản lý
+                        <small>Quản lý nhân viên</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tiến trình game</a></li>
-                        <li class="active">Mẫu game</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="#">Quản lý</a></li>
+                        <li class="active">Nhân viên</li>
                     </ol>
                 </section>
 
@@ -174,7 +174,9 @@
         <script src="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script>
 
-
+                                                                    document.getElementById("manager-company").className = "active";
+                                                                    document.getElementById("info-employee").className = "active";
+                                                                    
                                                                     $(function () {
                                                                         $("#example1").DataTable({
                                                                             "paging": true,

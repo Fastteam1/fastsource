@@ -40,13 +40,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Khoanh vùng địa lý
+                        <small>Cập nhật vùng địa lý</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tiến trình game</a></li>
-                        <li class="active">Mẫu game</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Tràng chủ</a></li>
+                        <li><a href="#">Khoanh vùng địa lý</a></li>
+                        <li class="active">Cập nhật vùng địa lý</li>
                     </ol>
                 </section>
 
@@ -76,6 +76,11 @@
         <script src="${urlProject}/dist/js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="${urlProject}/dist/js/demo.js"></script>
+        
+        <script>
+            document.getElementById("geofencing").className = "active";
+            document.getElementById("geofencing-info").className = "active";            
+        </script>
 
 
     </body>

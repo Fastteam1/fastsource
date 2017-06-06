@@ -55,13 +55,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Khoanh vùng địa lý
+                        <small>Chi tiết thiết bị theo dõi</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tiến trình game</a></li>
-                        <li class="active">Mẫu game</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="#">Khoanh vùng địa lý</a></li>
+                        <li class="active">Chi tiết thiết bị theo dõi</li>
                     </ol>
                 </section>
 
@@ -153,7 +153,9 @@
         <script src="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script>
 
-
+            document.getElementById("geofencing").className = "active";
+            document.getElementById("geofencing-tracking-device").className = "active";
+                
             $(function () {
                 $("#example2").DataTable({
                     "paging": true,

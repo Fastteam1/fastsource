@@ -37,7 +37,7 @@
         <link href="${urlProject}/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css"/>
         <link href="${urlProject}/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"/>
         <link href="${urlProject}/plugins/bootstrap-duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet" type="text/css"/>
-        
+
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -48,13 +48,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Mẫu game
-                        <small>Danh sách mẫu Game</small>
+                        Quản lý
+                        <small>Quản lý thiết bị</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tiến trình game</a></li>
-                        <li class="active">Mẫu game</li>
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                        <li><a href="#">Quản lý</a></li>
+                        <li class="active">Thiết bị</li>
                     </ol>
                 </section>
 
@@ -168,26 +168,25 @@
         <!-- bootstrap datetimepicker -->
         <script src="${urlProject}/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script src="${urlProject}/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
-        
+
         <!-- boostrap dualistbox -->
         <script src="${urlProject}/plugins/bootstrap-duallistbox/jquery.bootstrap-duallistbox.min.js" type="text/javascript"></script>
-        
+
+
         <script>
-                                                                    document.getElementById("GameProcess").className = "active";
-                                                                    document.getElementById("GameTemp").className = "active";
-        </script>
-        <script>
-            $(function () {
-                $("#example1").DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": true,
-                    "searching": true,
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-                });
-            });
+                                                                    document.getElementById("manager-company").className = "active";
+                                                                    document.getElementById("info-device").className = "active";
+                                                                    $(function () {
+                                                                        $("#example1").DataTable({
+                                                                            "paging": true,
+                                                                            "lengthChange": true,
+                                                                            "ordering": true,
+                                                                            "info": true,
+                                                                            "autoWidth": true,
+                                                                            "searching": true,
+                                                                            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                                                                        });
+                                                                    });
         </script>
 
         <!-- ADD VIEW FORM -->
