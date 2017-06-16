@@ -181,6 +181,10 @@ public class Utils {
         con.setRequestProperty("username", "" + userName);
         con.setRequestProperty("current", "" + currentMils);
         con.setRequestProperty("authen", "" + authenToken);
+        
+        System.out.println("userName = "+userName);
+        System.out.println("currentMils = "+currentMils);
+        System.out.println("authenToken = "+authenToken);
 
         //add reuqest header
         con.setRequestMethod("POST");

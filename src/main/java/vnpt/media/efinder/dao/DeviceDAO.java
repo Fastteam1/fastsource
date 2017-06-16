@@ -22,9 +22,9 @@ public interface DeviceDAO {
 
     public boolean updateDeviceInfo(DeviceInfo deviceInfo);
 
-    public boolean deleteDeviceInfo(String employeeId);
+    public boolean deleteDeviceInfo(String deviceId);
 
-    public boolean insertDeviceInfo(DeviceInfo employeeInfo);
+    public boolean insertDeviceInfo(DeviceInfo deviceInfo);
 
     public List<EmployeeInfo> getListEmployeeManage(String deviceId);
 
@@ -34,4 +34,6 @@ public interface DeviceDAO {
     public String queryEmployeeByDeviceId(String id);
     
     public List<EmployeeTime> getEmployeeTimeByDeviceId(String deviceId);
+    
+    public boolean deleteDeviceEmployee(String deviceEmployeeId);
 }

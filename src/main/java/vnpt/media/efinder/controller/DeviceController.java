@@ -111,6 +111,10 @@ public class DeviceController {
         for (DeviceInfo device : listDevices) {
             device.setArrGeoFences(arrGeoFences);
         }
+        
+        List<EmployeeTime> listEmployeeTime = deviceDAO.getEmployeeTimeByDeviceId(deviceId);
+        
+        model.addAttribute("listEmployeeTime", listEmployeeTime);
 
         model.addAttribute("urlInfo", env.getProperty(Constants.URL_PROJECT) + "/device");
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
@@ -273,24 +277,59 @@ public class DeviceController {
         model.addAttribute("urlProject", env.getProperty(Constants.URL_PROJECT));
         return strListEmployees;
     }
-
-    @RequestMapping({"/handle/listemployee"})
+    
+//    @RequestMapping({"/device/employeeTimeList"})
+//    public @ResponseBody
+//    List<EmployeeTime> getListEmployeeTime(Model model,
+//            @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
+//            HttpServletRequest request) {
+//
+//        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+//        if (listCustomers.isEmpty()) {
+//            return null;
+//        }
+//
+//        List<EmployeeTime> listEmployeeTime = deviceDAO.getEmployeeTimeByDeviceId(deviceId);
+//        return listEmployeeTime;
+//    }
+    
+    @RequestMapping({"/device/employeeTimeList"})
     public @ResponseBody
-    List<EmployeeTime> getListEmployeeByDeviceId(Model model,
-            @RequestParam(value = "id", defaultValue = "0") String deviceId,
+    List<EmployeeTime> getListEmployeeTime(Model model,
+            @RequestParam(value = "deviceId", defaultValue = "0") String deviceId,
             HttpServletRequest request) {
 
         List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
         if (listCustomers.isEmpty()) {
             return null;
-        } else {
-           
         }
 
-        List<EmployeeTime> listEmployees = deviceDAO.getEmployeeTimeByDeviceId(deviceId);
-        
-        //System.out.println(listDevices);
+        List<EmployeeTime> listEmployeeTime = deviceDAO.getEmployeeTimeByDeviceId(deviceId);
+        return listEmployeeTime;
+    }
+    
+    @RequestMapping(value = {"/device/deactive/device_employee"}, method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @Transactional(propagation = Propagation.NEVER)
+    public @ResponseBody
+    String deActiveDeviceEmployee(@RequestParam(value = "id", defaultValue = "0") String id, Model model, HttpServletRequest request) throws Exception {
 
-        return listEmployees;
+        List<CustomerInfo> listCustomers = Utils.getCustomerListInSession(request);
+        if (listCustomers.isEmpty()) {
+            return "Chưa đăng nhập";
+        }
+        boolean result = false;
+        try {
+            result = deviceDAO.deleteDeviceEmployee(id);
+            System.out.println("DeActive thanh cong ------>");
+        } catch (Exception e) {
+            System.out.println("Loi Try catch");
+            return "Có lỗi xảy ra trong quá trình xử lý!";
+        }
+
+        if (result) {
+            return "Xóa dữ liệu thành công. |success";
+        } else {
+            return "Xóa dữ liệu thất bại. |error";
+        }
     }
 }

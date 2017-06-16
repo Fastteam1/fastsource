@@ -147,12 +147,36 @@ public class DeviceDAOImpl implements DeviceDAO {
     public List<EmployeeTime> getEmployeeTimeByDeviceId(String deviceId) {
         
         String url = env.getProperty(Constants.API_ROOT) + "/handle/listemployee";
-        url = url + "&deviceId=" + deviceId;
+        url = url + "?deviceId=" + deviceId;
         String data = Utils.readUrl(url);
         List<EmployeeTime> listEmployee = Utils.stringToArray(data, EmployeeTime[].class);
         return listEmployee;
         
     }
+
+    @Override
+    public boolean deleteDeviceEmployee(String deviceEmployeeId) {
+        try {
+
+            System.out.println("deviceEmployeeId: " + deviceEmployeeId);
+            String url = env.getProperty(Constants.API_ROOT) +"/handle/control/deactive";
+            url += "?id=" + deviceEmployeeId;
+            String data = Utils.readUrl(url);
+
+            System.out.println("URL: " + url);
+            Gson gson = new Gson();
+            JsonObject root = gson.fromJson(data, JsonObject.class);
+            String errorCode = root.get("errorCode").toString();
+            System.out.println("DATA: " + data);
+            System.out.println("Error: " + errorCode);
+            return errorCode.equalsIgnoreCase("0");
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    
     
     
 

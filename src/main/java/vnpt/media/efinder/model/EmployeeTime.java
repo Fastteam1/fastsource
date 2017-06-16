@@ -14,6 +14,19 @@ public class EmployeeTime {
     private String name;
     private String startTime;
     private String endTime;
+    
+    private String deviceEmployeeId;
+
+    public String getDeviceEmployeeId() {
+        return deviceEmployeeId;
+    }
+
+    public void setDeviceEmployeeId(String deviceEmployeeId) {
+        this.deviceEmployeeId = deviceEmployeeId;
+    }
+    
+    
+    
 
     public String getName() {
         return name;

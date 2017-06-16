@@ -22,7 +22,6 @@
 
 
 
-
 <!-- Modal -->
 <body>
     <div class="modal fade" id="ojectView" tabindex="-1" role="dialog" aria-labelledby="Insert Category"  >
@@ -105,41 +104,80 @@
                         </spring:bind>
                         <div class="panel panel-default">
                             <div class="panel-body"> 
-                                <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <label>Nhân viên</label>
-                                        <select class="form-control" id="selectEmployee">
-                                            <c:forEach items="${listEmployees}" var="employee" varStatus="varStatus">
-                                                <option value="${employee.id}">${employee.name}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>Start Time</label>
-                                        <div class="">
-                                            <input type="number" id="viewForm-startTime" placeholder="Start Time" name="description" required="" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>End Time</label>
-                                        <div class="">
-                                            <input type="number" id="viewForm-endTime" placeholder="End Time" name="description" required="" class="form-control">
-                                        </div>
-                                    </div>
+                                <div class="modal-body">
+                                    <!-- Main content -->
+                                    <section class="content">
+                                        <!--                                        <table id="example3" class="table table-bordered">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Tên nhân viên</th>
+                                                                                            <th>Start Time</th>
+                                                                                            <th>End Time</th>
+                                                                                            <th>Cài đặt</th>
+                                        
+                                                                                        </tr>
+                                                                                    </thead>
+                                        
+                                                                                </table>-->
+                                        <table id="example1" class="table table-bordered">
+                                            <thead>
+                                                <tr >
+                                                    <th class="text-center">Tên nhân viên2</th>
+                                                    <th class="text-center">Start time</th>
+                                                    <th class="text-center">End time</th>
+                                                    <th class="edit-actions text-center">Cài đặt</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyId">
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                    </section>
 
                                 </div>
+
+                                <!--                                <div class="form-group">
+                                                                    <div class="col-sm-4">
+                                                                        <label>Nhân viên</label>
+                                                                        <select class="form-control" id="selectEmployee">
+                                                                            <c:forEach items="${listEmployees}" var="employee" varStatus="varStatus">
+                                                                                <option value="${employee.id}">${employee.name}</option>
+                                                                            </c:forEach>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                        <label>Start Time</label>
+                                                                        <div class="">
+                                                                            <input type="number" id="viewForm-startTime" placeholder="Start Time" name="description" required="" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                        <label>End Time</label>
+                                                                        <div class="">
+                                                                            <input type="number" id="viewForm-endTime" placeholder="End Time" name="description" required="" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                
+                                                                </div>-->
                                 <div class="form-group"> 
                                     <div class="col-md-12">
                                         <div class="pull-right">
-                                            <button type="button" onclick="addEmployee();" class="btn btn-primary">Add</button>
+                                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Add</button>
                                         </div>
                                     </div>
 
+
                                 </div>
+                                <!-- Modal -->
+
                             </div>
                         </div>
 
                     </div>
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" onclick="saveChangeClick();" class="btn btn-adn">Thêm nhân viên quản lý</button>
@@ -149,6 +187,48 @@
                 </form>
 
             </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label>Nhân viên</label>
+                        <select class="form-control" id="selectEmployee">
+                            <c:forEach items="${listEmployees}" var="employee" varStatus="varStatus">
+                                <option value="${employee.id}">${employee.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Start Time</label>
+                        <div class="">
+                            <input type="number" id="viewForm-startTime" placeholder="Start Time" name="description" required="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>End Time</label>
+                        <div class="">
+                            <input type="number" id="viewForm-endTime" placeholder="End Time" name="description" required="" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="addEmployee()">Thêm</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -174,13 +254,15 @@
                 contentType: "application/json",
                 url: "device/insertEmployee",
                 data: json,
-                dataType: 'json',
+                dataType: 'text',
                 timeout: 100000,
                 success: function (data) {
                     alert('SUCCESS:');
+                    $('#myModal').modal("hide");;
                     console.log("SUCCESS: ", data === null);
                     if (data.length !== 0) {
                         //  showForm(data[0]);
+                        getEmployeeTimeList(deviceId);
 
                     } else if (data.length !== 0) {
                         new PNotify({
@@ -202,7 +284,7 @@
                 },
                 error: function (e) {
                     alert("Có lỗi xảy ra. Vui lòng đăng nhập lại! error: function (e)");
-                   // window.location.href = "/SpringMVC_EFinder/login";
+                    // window.location.href = "/SpringMVC_EFinder/login";
                 }
             });
         }
@@ -226,7 +308,7 @@
                 "deviceId": objId
             };
 
-
+            //  getEmployeeByDeviceId(objId);
 
             $.ajax({
                 type: "GET",
@@ -240,6 +322,7 @@
                 success: function (data) {
                     console.log("SUCCESS: ", data === null);
                     if (data.length !== 0) {
+                        console.log("SUCCESS1: ", data === null);
                         showForm(data[0]);
 
                     } else if (data.length !== 0) {
@@ -259,6 +342,53 @@
                     } else {
                         alert(data === null);
                     }
+                },
+                error: function (e) {
+                    alert("Có lỗi xảy ra. Vui lòng đăng nhập lại!");
+                    window.location.href = "/SpringMVC_EFinder/login";
+                }
+            });
+
+        }
+
+        function getEmployeeTimeList(objId) {
+            deviceId = objId;
+            var json = {
+                "deviceId": objId
+            };
+
+            //  getEmployeeByDeviceId(objId);
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "device/employeeTimeList",
+                data: json,
+                dataType: 'json',
+                timeout: 100000,
+                cache: false,
+                async: false,
+                success: function (data) {
+                    console.log("data = " + data);
+                    $html = "";
+                    for (i = 0; i < data.length; i++) {
+                        alert(data[i].deviceEmployeeId)
+                        $html += "<tr>";
+                        $html += '<td class="text-center">' + data[i].name + '</td>';
+                        $html += '<td class="text-center">' + data[i].startTime + '</td>';
+                        $html += '<td class="text-center">' + data[i].endTime + '</td>';
+                        $html += '<td class="edit-actions text-center">';
+                        $html += '<button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" data-placement="top" title="View" onclick="getViaAjax(' + data[i].deviceEmployeeId + ');">';
+                        $html += '      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>';
+                        $html += '  </button>';
+                        $html += ' <button type="button" class="btn btn-xs btn-danger edit-Template " data-toggle="modal" data-placement="top" title="Xóa" onclick="deleteDeviceEmployee(' + data[i].deviceEmployeeId + ');" id="delete-device">';
+                        $html += '      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>';
+                        $html += '  </button>';
+                        $html += '</td>';
+                        $html += '</tr>';
+                    }
+                    console.log("$html = " + $html);
+                    $('#tbodyId').html($html);
                 },
                 error: function (e) {
                     alert("Có lỗi xảy ra. Vui lòng đăng nhập lại!");
@@ -360,15 +490,23 @@
 //                }
 //            });
 
+
+            //alert("appendChild");
+
+            getEmployeeTimeList(data.id);
+
+
+
             $("#viewForm-id").val(data.id);
             $("#viewForm-name").val(data.name);
             $("#viewForm-type").val(data.type);
             $("#viewForm-imei").val(data.imei);
             $("#viewForm-os").val(data.os);
             $("#viewForm-phone").val(data.msisdn);
-
+            //  $('#tbodyId').load(location.href + ' #tbodyId');
             //console.log("arrGeoFences: " + data.arrGeoFences);
             $('#ojectView').modal('show');
+
         }
 
         function deleteViaAjax(objId) {
@@ -396,7 +534,7 @@
                                 type = 'error';
                             }
                             alert($.trim(data.toString()).split('|')[0]);
-                            window.location.href = "${urlProject}/employeeList";
+                            window.location.href = "${urlProject}/deviceList";
                         },
                         error: function (e) {
                             console.log("ERROR: ", e);
@@ -426,6 +564,67 @@
                 return;
             }
         }
+        
+
+        function deleteDeviceEmployee(objId) {
+
+
+            alert(objId);
+
+
+            if (objId === null || objId === "") {
+                objId = parseInt($("#viewForm-id").val());
+            }
+
+            if (objId !== null) {
+                var confirm_check = confirm("${deleteConfirmMessage}");
+                if (confirm_check === true) {
+                    $.ajax({
+                        type: "POST",
+                        url: "device/deactive/device_employee",
+                        dataType: 'text',
+                        data: {
+                            "id": objId
+                        },
+                        timeout: 100000,
+                        success: function (data) {
+                            var type = $.trim(data.toString()).split('|')[1];
+                            if (type === undefined) {
+                                type = 'error';
+                            }
+                            alert($.trim(data.toString()).split('|')[0]);
+                            getEmployeeTimeList(deviceId)
+
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
+                            new PNotify({
+                                title: "Thông báo",
+                                text: "Có lỗi xảy ra",
+                                type: "error",
+                                delay: 3000,
+                                styling: "jqueryui",
+                                addclass: 'custom-notif',
+                                mouse_reset: false,
+                                buttons: {
+                                    sticker: false,
+                                    closer_hover: false
+                                }
+                            });
+                        },
+                        done: function (e) {
+                            console.log("DONE");
+                        }
+                    });
+
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
+
 
     </script>
 

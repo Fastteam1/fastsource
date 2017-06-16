@@ -7,6 +7,7 @@ package vnpt.media.efinder.dao;
 
 import java.util.List;
 import vnpt.media.efinder.model.DepartmentInfo;
+import vnpt.media.efinder.model.DeviceInfo;
 
 /**
  *
@@ -15,4 +16,12 @@ import vnpt.media.efinder.model.DepartmentInfo;
 public interface DepartmentDAO {
 
     public List<DepartmentInfo> queryDepartments(String comId);
+    
+    public boolean insertDepartmentInfo(DepartmentInfo departmentInfo);
+    
+    public boolean updateDepartmentInfo(DepartmentInfo departmentInfo);
+    
+    public boolean deleteDepartmentInfo(String departmentId);
+    
+    public List<DepartmentInfo> findDepartmentInfo(String deviceId);
 }
