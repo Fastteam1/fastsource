@@ -48,6 +48,12 @@
                                 <input type="text" class="form-control" id="viewForm-name" placeholder="name" name="name" required>
                             </div>
                         </div>   
+                        <div class="form-group">
+                            <label for="name-input" class="col-sm-2 control-label">Mô tả</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="viewForm-description" placeholder="Mô tả" name="name" required>
+                            </div>
+                        </div>  
 
 
                     </div>
@@ -133,6 +139,7 @@
 
             edit["id"] = $("#viewForm-id").val().trim();
             edit["name"] = $("#viewForm-name").val().trim();
+            edit["description"] = $("#viewForm-description").val().trim();
             
             $.ajax({
                 type: "POST",
@@ -190,31 +197,11 @@
             });
         }
         function showForm(data) {
-            alert("showForm");
-
-            
-//            demo.on('change', function () {
-//                var size = demo.find(":selected").size();
-//                if (size > 3) {
-//                    demo.find(":selected").each(function (ind) {
-//                        if (ind > 2) {
-//                            $(this).filter('option:selected:last').prop("selected", false);
-//                           // alert("Mỗi thiết bị chọn tối đa 3 vùng địa lý");
-//                        }
-//                    });
-//                    demo.bootstrapDualListbox('refresh', true);
-//                }
-//            });
-
-
-            //alert("appendChild");
-
-
-
 
 
             $("#viewForm-id").val(data.id);
             $("#viewForm-name").val(data.name);
+            $("#viewForm-description").val(data.description);
             //  $('#tbodyId').load(location.href + ' #tbodyId');
             //console.log("arrGeoFences: " + data.arrGeoFences);
             $('#ojectView').modal('show');

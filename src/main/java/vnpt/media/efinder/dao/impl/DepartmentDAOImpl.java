@@ -41,7 +41,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     public boolean insertDepartmentInfo(DepartmentInfo departmentInfo) {
         try {
             String url = env.getProperty(Constants.API_DEPARTMENT) + "/insert";
-            String urlParameters = "comId=" + departmentInfo.getCompanyId() + "&name=" + departmentInfo.getName();
+            String urlParameters = "comId=" + departmentInfo.getCompanyId() + "&name=" + departmentInfo.getName()+ "&description=" + departmentInfo.getDescription();
 
             String data = Utils.readUrlPOST(url, urlParameters);
 
@@ -60,7 +60,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         
         try {
             String url = env.getProperty(Constants.API_DEPARTMENT) + "/update?department=" + departmentInfo.getId();
-            url += "&name=" + departmentInfo.getName();
+            url += "&name=" + departmentInfo.getName() + "&description=" + departmentInfo.getDescription();
 
             String data = Utils.readUrlPOST(url, "");
             Gson gson = new Gson();

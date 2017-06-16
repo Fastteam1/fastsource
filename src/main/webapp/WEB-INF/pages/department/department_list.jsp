@@ -87,7 +87,7 @@
                                             <tr>
                                                 <th class="text-center">ID</th>
                                                 <th class="text-center">Tên phòng ban</th>
-                                                
+                                                <th class="text-center">Mô tả</th>
                                                 <th class="edit-actions text-center">Cài đặt</th>
                                             </tr>
                                         </thead>
@@ -97,6 +97,7 @@
                                                 <tr>
                                                     <td class="text-center">${department.id}</td>
                                                     <td class="text-center">${department.name}</td>
+                                                    <td class="text-center">${department.description}</td>
                                                     <td class="edit-actions text-center">
                                                         <button type="button" class="btn btn-xs btn-success edit-Template" data-toggle="modal" 
                                                                 data-placement="top" title="View" onclick="getViaAjax(${department.id});">

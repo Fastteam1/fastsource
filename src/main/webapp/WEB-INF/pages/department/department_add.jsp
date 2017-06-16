@@ -44,9 +44,19 @@
 
                         <spring:bind path="name">
                             <div class="form-group">
-                                <label for="name-input" class="col-sm-2 control-label">Tên phòng ban</label>
+                                <label for="name-input" class="col-sm-2 control-label">Tên phòng ban2</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="addForm-name" placeholder="name" name="name" required
+                                           pattern=".*\S+.*" title="Nhập đầy đủ thông tin">
+                                </div>
+                            </div>   
+                        </spring:bind>
+                        
+                        <spring:bind path="description">
+                            <div class="form-group">
+                                <label for="name-input" class="col-sm-2 control-label">Mô tả</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="addForm-description" placeholder="Mô tả" name="name" required
                                            pattern=".*\S+.*" title="Nhập đầy đủ thông tin">
                                 </div>
                             </div>   
@@ -76,6 +86,7 @@
             var add = {};
 
             add["name"] = $("#addForm-name").val().trim();
+            add["description"] = $("#addForm-description").val().trim();
             
             alert($("#addForm-name").val().trim());
 
